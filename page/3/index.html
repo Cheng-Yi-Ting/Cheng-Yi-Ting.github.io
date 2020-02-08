@@ -151,6 +151,108 @@
         
           <section id="main">
   
+    <article id="post-2019-11-13-JavaScript-09"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/13/2019-11-13-JavaScript-09/">script tag 的 async 和 defer 屬性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/13/2019-11-13-JavaScript-09/" class="article-date">
+	  <time datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished">十一月 13, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="script標籤"><a href="#script標籤" class="headerlink" title="script標籤"></a><strong>script標籤</strong></h2><p>針對 <code>&lt;script&gt;</code> 標籤放哪裡，一般會有兩種版本：</p>
+<ul>
+<li>放在 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間</li>
+<li>放在 <code>&lt;/body&gt;</code> 之前</li>
+</ul>
+<p>把<code>&lt;script&gt;</code> 標籤放在 <code>&lt;/body&gt;</code> 之前，網頁可以正常運作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接著，我們試著把 <code>&lt;script&gt;</code> 標籤移到 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間，這時候會發現網頁一片空白：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-1.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p>瀏覽器解析 HTML 是一行一行依序向下讀取，在傳統的寫法中，當瀏覽器讀到 <code>&lt;script&gt;</code> 時，便會 <strong>暫停解析</strong> DOM，立刻開始下載 <code>&lt;script&gt;</code> 的資源，並在下載完成後立刻執行。由於這樣的特性，便可能造成在 DOM 樹建構不完全時就執行 JavaScript，其中需要操作 DOM 的程式可能就因此無法正確運作，許多衍伸的問題也就因此產生；若是透過 <code>src</code> 外聯 <code>.js</code> 檔案，瀏覽器會「同步地」下載 <code>.js</code> 檔案，在下載完成並執行完程式碼之前，後續的其他資源下載、頁面剖析等，都會被阻斷。執行過程中，使用者便會卡在白畫面，並產生覺得網站太慢、使用者體驗不好等感受。</p>
+<p>不過，文件資源的完整載入，是指 <code>HTML</code> 、 <code>CSS</code> 、圖片等都載入完成，而不單指 DOM樹 建立完成；若想在文件剖析完成、 DOM樹 生成時就執行程式碼，建議是將 <code>script</code> 放在文件尾端，通常是 <code>body</code> 標籤之前，因為此時 DOM樹 已經建立，操作 DOM 節點就不是問題了。但在更複雜的網站中，<code>HTML</code>、<code>JavaScript</code>  的檔案都來越大，下載、執行時間也越來越長，需要等到整個 DOM 樹都載入完成才開始下載 <code>&lt;script&gt;</code> 內的資源，從網站讀取完成到可操作之間便會有明顯的延遲感。</p>
+<br/>
+
+<h4 id="這樣的問題該怎麼解決呢？"><a href="#這樣的問題該怎麼解決呢？" class="headerlink" title="這樣的問題該怎麼解決呢？"></a><strong>這樣的問題該怎麼解決呢？</strong></h4><h2 id="async-amp-defer"><a href="#async-amp-defer" class="headerlink" title="async &amp; defer"></a>async &amp; defer</h2><p>從 HTML4 開始，<code>&lt;script&gt;</code> 便多了 <code>defer</code> 屬性，HTML5 則多了 <code>async</code>，兩者皆是用來幫助開發者控制 <code>&lt;script&gt;</code> 內資源的載入及執行順序，以及避免 DOM 的解析被資源下載卡住。這兩個屬性只適用在外部引入的檔案，對內嵌程式碼的<code>script</code>標籤沒有影響。</p>
+<h3 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h3><p><code>defer</code> 意旨為 延遲（Deferred），也就是說，加上 <code>defer</code> 屬性後，瀏覽器會繼續解析、渲染畫面，而不會因為需要載入 <code>&lt;script&gt;</code> 內的資源而卡在那邊等；如果有多個設置 <code>defer</code>  的 <code>js</code>  標籤存在，則會由上到下依照擺放順序觸發。實際上的執行時間，會在 <code>DOM</code>渲染完畢後，<code>DOMContentLoaded</code> 事件執行之前。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"script.js"</span>&gt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-2.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p>defer 屬性告訴瀏覽器在 HTML 還在解析時加載 js，但是等到 HTML 整個解析完才執行 js。</p>
+<h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p><code>async</code> 即為 非同步（Asynchronous），在 <code>&lt;script&gt;</code> 加上 <code>async</code> 屬性後，與 <code>defer</code> 相同的是會在背景執行下載，但不同的是當下載完成會馬上暫停 DOM 解析（若尚未解析完的話），並開始執行 JavaScript。也因為下載完成後會立即執行，如果有多個 <code>async</code>  屬性的 <code>js</code>  ，先下載完的就會先執行，因為下載完成的順序是無法預測的，因此「執行順序也就無法預測」。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src&#x3D;&quot;script.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-3.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p><code>async</code>  屬性告訴瀏覽器可以異步執行(executed asynchronously)，在  <code>HTML</code>  還在解析時加載  <code>js</code>  ，當 <code>js</code>  完全下載後才暫停解析  <code>HTML</code>  ，執行  <code>js</code>  。</p>
+<h3 id="type-”module”"><a href="#type-”module”" class="headerlink" title="type=”module”"></a>type=”module”</h3><p>在主流的現代瀏覽器中，<code>&lt;script&gt;</code> 的屬性可以加上 <code>type=&quot;module&quot;</code>。這時，瀏覽器會將此檔案認為是一個 JavaScript 模組，其中的解析規則、執行環境會略有不同；這時候的 <code>&lt;script&gt;</code> 預設行為會像是 <code>defer</code> 一樣，背景下載，且等待 DOM 解析、渲染完成後才執行，也因此 <code>defer</code> 屬性無法在 <code>type=&quot;module&quot;</code> 產生作用。但同樣可以透過 <code>async</code> 屬性讓它在下載完成後即刻執行。</p>
+<h3 id="使用場景"><a href="#使用場景" class="headerlink" title="使用場景"></a>使用場景</h3><p><strong>前面已經針對這兩個屬性進行說明了，那麼該如何正確地使用呢？</strong></p>
+<p><code>defer</code> 由於背景載入、不打斷渲染及確保執行順序的特色，基本上沒特別需求的話，建議設定在 <code>&lt;script&gt;</code> ；當然，<code>&lt;script&gt;</code> 本身的擺放順序還是要稍微留心注意。<br><code>async</code> 比較特別，因為下載後會立刻執行，且不保證順序，一般常見的應用是設定在完全獨立的小模組，例如 背景 Log、頁面廣告等等，在避免造成使用者體驗變差的同時，盡量提早開始產生效果。</p>
+<p><code>async</code> 及 <code>defer</code> 是專屬於 <code>&lt;script&gt;</code> 的屬性，而網頁中的其他資源，我們可以透過 <code>&lt;link&gt;</code> 的 <code>preload</code>、<code>prefetch</code> 屬性，來幫我們 <strong>延遲載入</strong> 未來才需要用到的資源，詳細的請參考  <a href="https://cythilya.github.io/2018/07/31/preload-vs-prefetch/" target="_blank" rel="noopener">Preload vs Prefetch</a>。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">https://bitsofco.de/async-vs-defer/</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10216858?source=post_page-----8205fddbbafc----------------------" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10216858?source=post_page—–8205fddbbafc———————-</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10208563" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10208563</a></p>
+</li>
+<li><p><a href="https://ithome.com.tw/voice/132470" target="_blank" rel="noopener">https://ithome.com.tw/voice/132470</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/jiasm/p/7683930.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiasm/p/7683930.html</a></p>
+</li>
+<li><p><a href="https://kknews.cc/code/4eoxg4v.html" target="_blank" rel="noopener">https://kknews.cc/code/4eoxg4v.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-12-JavaScript-08"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -259,108 +361,6 @@ window|
       
   <span class="ico-tags"></span>
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-2019-11-13-JavaScript-09"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="../../2019/11/13/2019-11-13-JavaScript-09/">script tag 的 async 和 defer 屬性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="../../2019/11/13/2019-11-13-JavaScript-09/" class="article-date">
-	  <time datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished">十一月 13, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="logo.svg" style="width:15%;">
-
-<br/>
-
-<h2 id="script標籤"><a href="#script標籤" class="headerlink" title="script標籤"></a><strong>script標籤</strong></h2><p>針對 <code>&lt;script&gt;</code> 標籤放哪裡，一般會有兩種版本：</p>
-<ul>
-<li>放在 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間</li>
-<li>放在 <code>&lt;/body&gt;</code> 之前</li>
-</ul>
-<p>把<code>&lt;script&gt;</code> 標籤放在 <code>&lt;/body&gt;</code> 之前，網頁可以正常運作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>接著，我們試著把 <code>&lt;script&gt;</code> 標籤移到 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間，這時候會發現網頁一片空白：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<img src="2019-11-13-JavaScript-09-1.png" style="width:100%;">
-
-<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
-<p>瀏覽器解析 HTML 是一行一行依序向下讀取，在傳統的寫法中，當瀏覽器讀到 <code>&lt;script&gt;</code> 時，便會 <strong>暫停解析</strong> DOM，立刻開始下載 <code>&lt;script&gt;</code> 的資源，並在下載完成後立刻執行。由於這樣的特性，便可能造成在 DOM 樹建構不完全時就執行 JavaScript，其中需要操作 DOM 的程式可能就因此無法正確運作，許多衍伸的問題也就因此產生；若是透過 <code>src</code> 外聯 <code>.js</code> 檔案，瀏覽器會「同步地」下載 <code>.js</code> 檔案，在下載完成並執行完程式碼之前，後續的其他資源下載、頁面剖析等，都會被阻斷。執行過程中，使用者便會卡在白畫面，並產生覺得網站太慢、使用者體驗不好等感受。</p>
-<p>不過，文件資源的完整載入，是指 <code>HTML</code> 、 <code>CSS</code> 、圖片等都載入完成，而不單指 DOM樹 建立完成；若想在文件剖析完成、 DOM樹 生成時就執行程式碼，建議是將 <code>script</code> 放在文件尾端，通常是 <code>body</code> 標籤之前，因為此時 DOM樹 已經建立，操作 DOM 節點就不是問題了。但在更複雜的網站中，<code>HTML</code>、<code>JavaScript</code>  的檔案都來越大，下載、執行時間也越來越長，需要等到整個 DOM 樹都載入完成才開始下載 <code>&lt;script&gt;</code> 內的資源，從網站讀取完成到可操作之間便會有明顯的延遲感。</p>
-<br/>
-
-<h4 id="這樣的問題該怎麼解決呢？"><a href="#這樣的問題該怎麼解決呢？" class="headerlink" title="這樣的問題該怎麼解決呢？"></a><strong>這樣的問題該怎麼解決呢？</strong></h4><h2 id="async-amp-defer"><a href="#async-amp-defer" class="headerlink" title="async &amp; defer"></a>async &amp; defer</h2><p>從 HTML4 開始，<code>&lt;script&gt;</code> 便多了 <code>defer</code> 屬性，HTML5 則多了 <code>async</code>，兩者皆是用來幫助開發者控制 <code>&lt;script&gt;</code> 內資源的載入及執行順序，以及避免 DOM 的解析被資源下載卡住。這兩個屬性只適用在外部引入的檔案，對內嵌程式碼的<code>script</code>標籤沒有影響。</p>
-<h3 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h3><p><code>defer</code> 意旨為 延遲（Deferred），也就是說，加上 <code>defer</code> 屬性後，瀏覽器會繼續解析、渲染畫面，而不會因為需要載入 <code>&lt;script&gt;</code> 內的資源而卡在那邊等；如果有多個設置 <code>defer</code>  的 <code>js</code>  標籤存在，則會由上到下依照擺放順序觸發。實際上的執行時間，會在 <code>DOM</code>渲染完畢後，<code>DOMContentLoaded</code> 事件執行之前。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"script.js"</span>&gt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="2019-11-13-JavaScript-09-2.png" style="width:100%;">
-
-<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
-<p>defer 屬性告訴瀏覽器在 HTML 還在解析時加載 js，但是等到 HTML 整個解析完才執行 js。</p>
-<h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p><code>async</code> 即為 非同步（Asynchronous），在 <code>&lt;script&gt;</code> 加上 <code>async</code> 屬性後，與 <code>defer</code> 相同的是會在背景執行下載，但不同的是當下載完成會馬上暫停 DOM 解析（若尚未解析完的話），並開始執行 JavaScript。也因為下載完成後會立即執行，如果有多個 <code>async</code>  屬性的 <code>js</code>  ，先下載完的就會先執行，因為下載完成的順序是無法預測的，因此「執行順序也就無法預測」。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src&#x3D;&quot;script.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<img src="2019-11-13-JavaScript-09-3.png" style="width:100%;">
-
-<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
-<p><code>async</code>  屬性告訴瀏覽器可以異步執行(executed asynchronously)，在  <code>HTML</code>  還在解析時加載  <code>js</code>  ，當 <code>js</code>  完全下載後才暫停解析  <code>HTML</code>  ，執行  <code>js</code>  。</p>
-<h3 id="type-”module”"><a href="#type-”module”" class="headerlink" title="type=”module”"></a>type=”module”</h3><p>在主流的現代瀏覽器中，<code>&lt;script&gt;</code> 的屬性可以加上 <code>type=&quot;module&quot;</code>。這時，瀏覽器會將此檔案認為是一個 JavaScript 模組，其中的解析規則、執行環境會略有不同；這時候的 <code>&lt;script&gt;</code> 預設行為會像是 <code>defer</code> 一樣，背景下載，且等待 DOM 解析、渲染完成後才執行，也因此 <code>defer</code> 屬性無法在 <code>type=&quot;module&quot;</code> 產生作用。但同樣可以透過 <code>async</code> 屬性讓它在下載完成後即刻執行。</p>
-<h3 id="使用場景"><a href="#使用場景" class="headerlink" title="使用場景"></a>使用場景</h3><p><strong>前面已經針對這兩個屬性進行說明了，那麼該如何正確地使用呢？</strong></p>
-<p><code>defer</code> 由於背景載入、不打斷渲染及確保執行順序的特色，基本上沒特別需求的話，建議設定在 <code>&lt;script&gt;</code> ；當然，<code>&lt;script&gt;</code> 本身的擺放順序還是要稍微留心注意。<br><code>async</code> 比較特別，因為下載後會立刻執行，且不保證順序，一般常見的應用是設定在完全獨立的小模組，例如 背景 Log、頁面廣告等等，在避免造成使用者體驗變差的同時，盡量提早開始產生效果。</p>
-<p><code>async</code> 及 <code>defer</code> 是專屬於 <code>&lt;script&gt;</code> 的屬性，而網頁中的其他資源，我們可以透過 <code>&lt;link&gt;</code> 的 <code>preload</code>、<code>prefetch</code> 屬性，來幫我們 <strong>延遲載入</strong> 未來才需要用到的資源，詳細的請參考  <a href="https://cythilya.github.io/2018/07/31/preload-vs-prefetch/" target="_blank" rel="noopener">Preload vs Prefetch</a>。</p>
-<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
-<li><p><a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">https://bitsofco.de/async-vs-defer/</a></p>
-</li>
-<li><p><a href="https://ithelp.ithome.com.tw/articles/10216858?source=post_page-----8205fddbbafc----------------------" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10216858?source=post_page—–8205fddbbafc———————-</a></p>
-</li>
-<li><p><a href="https://ithelp.ithome.com.tw/articles/10208563" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10208563</a></p>
-</li>
-<li><p><a href="https://ithome.com.tw/voice/132470" target="_blank" rel="noopener">https://ithome.com.tw/voice/132470</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/jiasm/p/7683930.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiasm/p/7683930.html</a></p>
-</li>
-<li><p><a href="https://kknews.cc/code/4eoxg4v.html" target="_blank" rel="noopener">https://kknews.cc/code/4eoxg4v.html</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
 
       
     </footer>
@@ -496,6 +496,91 @@ window|
 <!-- Table of Contents -->
 
   
+    <article id="post-2019-11-12-JavaScript-07"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/12/2019-11-12-JavaScript-07/">JavaScript 提升（Hoisting）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/12/2019-11-12-JavaScript-07/" class="article-date">
+	  <time datetime="2019-11-11T16:00:00.000Z" itemprop="datePublished">十一月 12, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p>在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。</p>
+<h2 id="變數的有效範圍-Scope"><a href="#變數的有效範圍-Scope" class="headerlink" title="變數的有效範圍 (Scope)"></a>變數的有效範圍 (Scope)</h2><p>在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 <code>function</code> 做分界的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));  <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);       <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>由於函式 <code>fn()</code> 裡面再次定義了變數 <code>x</code>，所以當我們執行 <code>fn(50)</code> 時，會將 <code>50</code> 作為參數傳入 <code>fn()</code> 的 <code>y</code>，那麼 <code>return x + y</code> 的結果自然就是 <code>100 + 50</code> 的 <code>150</code> 了。</p>
+<p>因為「切分變數有效範圍的最小單位是 “function” 」，所以在函式區塊內透過 <code>var</code> 定義的 <code>x</code> 實際上只屬於這個函式。 換句話說，外面的 <code>x</code> 跟 function 內的 <code>x</code> 其實是兩個不同的變數，所以最後一行印出的 x 是 1 而不是 100 。</p>
+<h3 id="如果-function-內部沒有-var-x-呢？"><a href="#如果-function-內部沒有-var-x-呢？" class="headerlink" title="如果 function 內部沒有 var x 呢？"></a><strong>如果 function 內部沒有 <code>var x</code> 呢？</strong></h3><p>如果自己的 function 內如果找不到，就會一層層往外找，直到全域變數為止：</p>
+<p>範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 內部找不到 x 就會到外面找，直到全域變數為止。</span></span><br><span class="line">  <span class="comment">// 都沒有就會報錯：ReferenceError: x is not defined</span></span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 51</span></span><br></pre></td></tr></table></figure>
+
+<p>要注意的是， <code>function</code> 可以讀取外層已經宣告的變數， 但外層拿不到裡面宣告的變數。</p>
+<h3 id="沒有-var-宣告的變數會變成全域變數"><a href="#沒有-var-宣告的變數會變成全域變數" class="headerlink" title="沒有 var 宣告的變數會變成全域變數"></a><strong>沒有 <code>var</code> 宣告的變數會變成全域變數</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+<p>由於在 <code>function</code> 內沒有重新宣告 <code>x</code> 變數，使得 <code>x = 100</code> 跑去變更了外層的同名變數 <code>x</code>。</p>
+<h2 id="提升-Hoisting"><a href="#提升-Hoisting" class="headerlink" title="提升 (Hoisting)"></a>提升 (Hoisting)</h2><p>一般在寫程式的時候，我們都會定義好變數，然後才去使用它，如果在尚未定義的情況下，直接去使用這個變項，通常都會出現錯誤訊息！</p>
+<p>然而，在 javascript 中有一個蠻特別的概念是 hoisting ，指的是在 JavaScript 中，它會把定義的變數移到最前面先執行。</p>
+<p>JavaScript 僅提升宣告的部分，而不是初始化。如果在使用該變數後才宣告和初始化，那麼該值將是 undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的例子，實際上在瀏覽器 (或者編譯器) 的眼中，是長這樣的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x;</span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="除了變數以外，函式也有提升。"><a href="#除了變數以外，函式也有提升。" class="headerlink" title="除了變數以外，函式也有提升。"></a>除了變數以外，函式也有提升。</h3><p>透過「函式宣告」方式定義的函式可以在宣告前使用 (函式提升) ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而透過「函式運算式」定義的函式則是會出現錯誤：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// TypeError: square is not a function</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>與變數提升的差別在於變數提升只有宣告被提升，而函式的提升則是包括內容完全被提升。 </p>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191549" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191549</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting</a></p>
+</li>
+<li><p><a href="https://pjchender.blogspot.com/2015/12/javascript-hoisting.html" target="_blank" rel="noopener">https://pjchender.blogspot.com/2015/12/javascript-hoisting.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-12-JavaScript-06"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -563,91 +648,6 @@ window|
 <li><p>[<a href="https://ithelp.ithome.com.tw/articles/10191549" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191549</a></p>
 </li>
 <li><p><a href="https://blog.gtwang.org/programming/defining-javascript-functions/" target="_blank" rel="noopener">https://blog.gtwang.org/programming/defining-javascript-functions/</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-2019-11-12-JavaScript-07"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="../../2019/11/12/2019-11-12-JavaScript-07/">JavaScript 提升（Hoisting）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="../../2019/11/12/2019-11-12-JavaScript-07/" class="article-date">
-	  <time datetime="2019-11-11T16:00:00.000Z" itemprop="datePublished">十一月 12, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="logo.svg" style="width:15%;">
-
-<br/>
-
-<p>在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。</p>
-<h2 id="變數的有效範圍-Scope"><a href="#變數的有效範圍-Scope" class="headerlink" title="變數的有效範圍 (Scope)"></a>變數的有效範圍 (Scope)</h2><p>在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 <code>function</code> 做分界的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));  <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);       <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<p>由於函式 <code>fn()</code> 裡面再次定義了變數 <code>x</code>，所以當我們執行 <code>fn(50)</code> 時，會將 <code>50</code> 作為參數傳入 <code>fn()</code> 的 <code>y</code>，那麼 <code>return x + y</code> 的結果自然就是 <code>100 + 50</code> 的 <code>150</code> 了。</p>
-<p>因為「切分變數有效範圍的最小單位是 “function” 」，所以在函式區塊內透過 <code>var</code> 定義的 <code>x</code> 實際上只屬於這個函式。 換句話說，外面的 <code>x</code> 跟 function 內的 <code>x</code> 其實是兩個不同的變數，所以最後一行印出的 x 是 1 而不是 100 。</p>
-<h3 id="如果-function-內部沒有-var-x-呢？"><a href="#如果-function-內部沒有-var-x-呢？" class="headerlink" title="如果 function 內部沒有 var x 呢？"></a><strong>如果 function 內部沒有 <code>var x</code> 呢？</strong></h3><p>如果自己的 function 內如果找不到，就會一層層往外找，直到全域變數為止：</p>
-<p>範例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 內部找不到 x 就會到外面找，直到全域變數為止。</span></span><br><span class="line">  <span class="comment">// 都沒有就會報錯：ReferenceError: x is not defined</span></span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 51</span></span><br></pre></td></tr></table></figure>
-
-<p>要注意的是， <code>function</code> 可以讀取外層已經宣告的變數， 但外層拿不到裡面宣告的變數。</p>
-<h3 id="沒有-var-宣告的變數會變成全域變數"><a href="#沒有-var-宣告的變數會變成全域變數" class="headerlink" title="沒有 var 宣告的變數會變成全域變數"></a><strong>沒有 <code>var</code> 宣告的變數會變成全域變數</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
-
-<p>由於在 <code>function</code> 內沒有重新宣告 <code>x</code> 變數，使得 <code>x = 100</code> 跑去變更了外層的同名變數 <code>x</code>。</p>
-<h2 id="提升-Hoisting"><a href="#提升-Hoisting" class="headerlink" title="提升 (Hoisting)"></a>提升 (Hoisting)</h2><p>一般在寫程式的時候，我們都會定義好變數，然後才去使用它，如果在尚未定義的情況下，直接去使用這個變項，通常都會出現錯誤訊息！</p>
-<p>然而，在 javascript 中有一個蠻特別的概念是 hoisting ，指的是在 JavaScript 中，它會把定義的變數移到最前面先執行。</p>
-<p>JavaScript 僅提升宣告的部分，而不是初始化。如果在使用該變數後才宣告和初始化，那麼該值將是 undefined。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<p>上面的例子，實際上在瀏覽器 (或者編譯器) 的眼中，是長這樣的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x;</span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="除了變數以外，函式也有提升。"><a href="#除了變數以外，函式也有提升。" class="headerlink" title="除了變數以外，函式也有提升。"></a>除了變數以外，函式也有提升。</h3><p>透過「函式宣告」方式定義的函式可以在宣告前使用 (函式提升) ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而透過「函式運算式」定義的函式則是會出現錯誤：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// TypeError: square is not a function</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>與變數提升的差別在於變數提升只有宣告被提升，而函式的提升則是包括內容完全被提升。 </p>
-<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
-<li><p><a href="https://ithelp.ithome.com.tw/articles/10191549" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191549</a></p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting</a></p>
-</li>
-<li><p><a href="https://pjchender.blogspot.com/2015/12/javascript-hoisting.html" target="_blank" rel="noopener">https://pjchender.blogspot.com/2015/12/javascript-hoisting.html</a></p>
 </li>
 </ol>
 

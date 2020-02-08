@@ -1364,7 +1364,7 @@
 
 <br/>
 
-<p>除了在<a href="https://cheng-yi-ting.github.io/2019/11/14/2019-11-14-JavaScript-10/" target="_blank" rel="noopener">之前</a>提過的 DOM Node 的類型、以及節點之間的查找與關係。我們在這一篇文章會介紹其他新增、修改和刪除 DOM 節點的方法。</p>
+<p>除了在<a href="https://cheng-yi-ting.github.io/2019/11/14/2019-11-14-JavaScript-10/">之前</a>提過的 DOM Node 的類型、以及節點之間的查找與關係。我們在這一篇文章會介紹其他新增、修改和刪除 DOM 節點的方法。</p>
 <h3 id="document-createElement-tagName"><a href="#document-createElement-tagName" class="headerlink" title="document.createElement(tagName)"></a>document.createElement(tagName)</h3><p>用來建立一個新的元素。</p>
 <p>在建立新的 <code>p</code> 元素 <code>newP</code> 後，這時候我們在瀏覽器上還看不到它，直到透過 <code>appendChild()</code>、<code>insertBefore()</code> 或 <code>replaceChild()</code> 等方法將新元素加入至指定的位置之後才會顯示。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一個新的 &lt;p&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newP = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>);</span><br></pre></td></tr></table></figure>
