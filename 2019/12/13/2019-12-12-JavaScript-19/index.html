@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript Object-oriented programming |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="Prototype-based Inheritance (基於原型的繼承)JavaScript 的繼承是 prototype-based，意思就是在 JavaScript 中沒有 class，所有的 object 都繼承自其它的 object。 以下為繼承的實作範例，先建立父層類別 Person 和子層類別 Student： 1234567891011121314151617181920">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript Object-oriented programming">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/12/13/2019-12-12-JavaScript-19/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="Prototype-based Inheritance (基於原型的繼承)JavaScript 的繼承是 prototype-based，意思就是在 JavaScript 中沒有 class，所有的 object 都繼承自其它的 object。 以下為繼承的實作範例，先建立父層類別 Person 和子層類別 Student： 1234567891011121314151617181920">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/13/2019-12-12-JavaScript-19/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/13/2019-12-12-JavaScript-19/2019-12-12-JavaScript-19-1.PNG">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/13/2019-12-12-JavaScript-19/2019-12-12-JavaScript-19-2.PNG">
+<meta property="article:published_time" content="2019-12-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-10T15:33:03.842Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/12/13/2019-12-12-JavaScript-19/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-12-12-JavaScript-19" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript Object-oriented programming
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-12-12T16:00:00.000Z" itemprop="datePublished">十二月 13, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<h2 id="Prototype-based-Inheritance-基於原型的繼承"><a href="#Prototype-based-Inheritance-基於原型的繼承" class="headerlink" title="Prototype-based Inheritance (基於原型的繼承)"></a>Prototype-based Inheritance (基於原型的繼承)</h2><p>JavaScript 的繼承是 prototype-based，意思就是在 JavaScript 中沒有 class，<strong>所有的 object 都繼承自其它的 object</strong>。</p>
+<p>以下為繼承的實作範例，先建立父層類別 Person 和子層類別 Student：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line">    <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 的 prototype</span></span><br><span class="line">Person.prototype.hi= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 繼承 Person</span></span><br><span class="line">Student.prototype = <span class="keyword">new</span> Person()</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student的 prototype 方法</span></span><br><span class="line">Student.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Say, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立物件實例</span></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br><span class="line"><span class="keyword">var</span> hera = <span class="keyword">new</span> Student(<span class="string">'hera'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hi, roman ,My age is 0.</span></span><br><span class="line">roman.hi();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Say, roman ,My score is 100.</span></span><br><span class="line">roman.say();</span><br><span class="line"></span><br><span class="line">roman.skill.push(<span class="string">'JavaScript'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(roman.skill)   <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"><span class="built_in">console</span>.log(hera.skill)    <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//物件的繼承關係 (prototype chain) </span></span><br><span class="line"><span class="built_in">console</span>.log(roman.__proto__ === Student.prototype)<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Student.prototype.__proto__ === Person.prototype)<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>由於 skill 這個屬性是定義在父層元素，而父層元素是會被子層元素所影響；因為  roman 物件中並沒有 skill 屬性，因此會透過原型練存取到 Person 的 skill(<code>roman.__proto__.skill</code>)，造成修改 roman.skill 卻連帶的影響到 hera.skill 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roman.skill.push(<span class="string">'JavaScript'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(roman.skill) <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"><span class="built_in">console</span>.log(hera.skill)  <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="物件實例不會影響到父層屬性"><a href="#物件實例不會影響到父層屬性" class="headerlink" title="物件實例不會影響到父層屬性"></a>物件實例不會影響到父層屬性</h3><p>為了避免子類別實例影響父類別屬性的問題，我們可以使用 Person.call(this) ，把 Person 裡面的 this 指稱對象改成當前透過 Student 建構式所建立的物件實例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line"> Person.call(<span class="keyword">this</span>,name);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>等同於把原本 Person 的內容複製到 Student 中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"> <span class="comment">//父層屬性</span></span><br><span class="line"> <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line"> <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line"> <span class="comment">//子層屬性</span></span><br><span class="line"> <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這時候物件實例就不會共享到父層的屬性了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立物件實例</span></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br><span class="line"><span class="keyword">var</span> hera = <span class="keyword">new</span> Student(<span class="string">'hera'</span>);</span><br><span class="line"></span><br><span class="line">roman.skill.push(<span class="string">'JavaScript'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(roman.skill) <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"><span class="built_in">console</span>.log(hera.skill)  <span class="comment">// ["HTML","CSS"]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-create-and-new-operator-差異"><a href="#Object-create-and-new-operator-差異" class="headerlink" title="Object.create() and new operator 差異"></a>Object.create() and new operator 差異</h3><p>也可以使用此方法來實現繼承：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype = <span class="built_in">Object</span>.create(Person.prototype);</span><br></pre></td></tr></table></figure>
+
+<p>為了避免瀏覽器太舊不支援 Object.create() ，可自行 polyfill 來達成一樣的效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同 Student.prototype = Object.create(Person.prototype)</span></span><br><span class="line">Student.prototype = inherit(Person.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.create()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params">proto</span>) </span>&#123;</span><br><span class="line"> <span class="comment">//先建立一個空的 F constructor function</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;; </span><br><span class="line"> <span class="comment">//將 F.prototype 指向傳進來的 proto</span></span><br><span class="line"> F.prototype = proto;</span><br><span class="line"> <span class="comment">//用函式建構式的方式回傳</span></span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>兩種方法差異在於 new Person()  會執行建構式中的程式碼，而 object.create() 並不會，以下為第一個範例的修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line"> <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 的 prototype</span></span><br><span class="line">Person.prototype.hi= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 繼承 Person</span></span><br><span class="line">Student.prototype = <span class="built_in">Object</span>.create(Person.prototype)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student的 prototype 方法</span></span><br><span class="line">Student.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Say, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is         <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立物件實例</span></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br><span class="line"><span class="keyword">var</span> hera = <span class="keyword">new</span> Student(<span class="string">'hera'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hi, roman ,My age is undefined.</span></span><br><span class="line">roman.hi();</span><br><span class="line"><span class="comment">// Say, roman ,My score is 100.</span></span><br><span class="line">roman.say();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Uncaught TypeError: Cannot read property 'push' of undefined</span></span><br><span class="line">roman.skill.push(<span class="string">'JavaScript'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>因為沒有執行 Person 函式建構式的內容，當呼叫 roman.hi(); 中的  this.age 為 undefined；沒有 skill 屬性所以也無法使用 push 方法。</p>
+<p>以下為使用兩種方式建立 roman 物件：</p>
+<p><strong><code>Student.prototype = new Person()</code></strong></p>
+<img src="2019-12-12-JavaScript-19-1.PNG" style="width:50%;">
+<br/>
+<br/>
+
+<p><strong><code>Student.prototype = Object.create(Person.prototype)</code></strong></p>
+<img src="2019-12-12-JavaScript-19-2.PNG" style="width:50%;">
+
+<h3 id="Polymorphism-多型"><a href="#Polymorphism-多型" class="headerlink" title="Polymorphism (多型)"></a>Polymorphism (多型)</h3><p>透過在子類別中重寫覆蓋 (override) 掉父類別中的方法或屬性來完成多型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype.hi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>因為原型鏈的關係，當執行 roman.hi() 時，就會優先執行 Student 中定義的 hi。</p>
+<h3 id="Encapsulation-封裝"><a href="#Encapsulation-封裝" class="headerlink" title="Encapsulation (封裝)"></a>Encapsulation (封裝)</h3><p>無法直接存取底線開頭 (underscore) 的屬性或方法，藉由公開的 hi() 來呼叫 __hi() 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line"> <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// protected</span></span><br><span class="line">Person.prototype.__hi= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// public</span></span><br><span class="line">Person.prototype.hi= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.__hi();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'roman'</span>,<span class="string">'18'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Hi, roman ,My age is 18.</span></span><br><span class="line">roman.hi();</span><br></pre></td></tr></table></figure>
+
+<p>靜態屬性或方法在 JavaScript 中的實作方式，是直接將方法或屬性加在 constructor function 上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">  Person.count++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 靜態屬性</span></span><br><span class="line">Person.count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 靜態方法</span></span><br><span class="line">Person.getCount = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;Person.count&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Person();</span><br><span class="line"><span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 顯示 2</span></span><br><span class="line">Person.getCount();</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://www.fooish.com/javascript/oop-object-oriented-programming.html" target="_blank" rel="noopener">https://www.fooish.com/javascript/oop-object-oriented-programming.html</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10196763" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10196763</a></p>
+</li>
+<li><p><a href="https://pjchender.github.io/2018/08/01/js-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91-javascript-object-oriented-javascript/" target="_blank" rel="noopener">https://pjchender.github.io/2018/08/01/js-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91-javascript-object-oriented-javascript/</a></p>
+</li>
+<li><p><a href="https://github.com/noahlam/articles/blob/master/JS%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF(%E4%B8%8A).md" target="_blank" rel="noopener">https://github.com/noahlam/articles/blob/master/JS%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF(%E4%B8%8A).md</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../14/2019-12-13-JavaScript-20/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript ES6 Class
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../12/2019-11-19-JavaScript-18/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 原型鏈（Prototype Chain）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototype-based-Inheritance-基於原型的繼承"><span class="nav-number">1.</span> <span class="nav-text">Prototype-based Inheritance (基於原型的繼承)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#物件實例不會影響到父層屬性"><span class="nav-number">1.1.</span> <span class="nav-text">物件實例不會影響到父層屬性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-create-and-new-operator-差異"><span class="nav-number">1.2.</span> <span class="nav-text">Object.create() and new operator 差異</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Polymorphism-多型"><span class="nav-number">1.3.</span> <span class="nav-text">Polymorphism (多型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encapsulation-封裝"><span class="nav-number">1.4.</span> <span class="nav-text">Encapsulation (封裝)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">1.5.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

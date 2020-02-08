@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 中的「傳值」 與 「傳址」 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="基本型別假設我們有兩個變數a和b分別設定為 10，接著把b的值等於a；最後再把a的值改為20。 123456789var a &#x3D; 10;var b &#x3D; 10;&#x2F;&#x2F;在基本型別的時候，會認為這兩個變數的「值」是相等的，因為兩個變數的數值都是 10console.log( a &#x3D;&#x3D;&#x3D; b );      &#x2F;&#x2F; truea&#x3D;20;var c&#x3D;a;console.log(&quot;a is &quot;+a); &#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 中的「傳值」 與 「傳址」">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/11/2019-11-10-JavaScript-04/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="基本型別假設我們有兩個變數a和b分別設定為 10，接著把b的值等於a；最後再把a的值改為20。 123456789var a &#x3D; 10;var b &#x3D; 10;&#x2F;&#x2F;在基本型別的時候，會認為這兩個變數的「值」是相等的，因為兩個變數的數值都是 10console.log( a &#x3D;&#x3D;&#x3D; b );      &#x2F;&#x2F; truea&#x3D;20;var c&#x3D;a;console.log(&quot;a is &quot;+a); &#x2F;&#x2F;">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/11/2019-11-10-JavaScript-04/logo.svg">
+<meta property="article:published_time" content="2019-11-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-13T17:12:32.047Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/11/2019-11-10-JavaScript-04/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-10-JavaScript-04" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 中的「傳值」 與 「傳址」
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-10T16:00:00.000Z" itemprop="datePublished">十一月 11, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="基本型別"><a href="#基本型別" class="headerlink" title="基本型別"></a>基本型別</h2><p>假設我們有兩個變數<code>a</code>和<code>b</code>分別設定為 <code>10</code>，接著把<code>b</code>的值等於<code>a</code>；最後再把<code>a</code>的值改為<code>20</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//在基本型別的時候，會認為這兩個變數的「值」是相等的，因為兩個變數的數值都是 10</span></span><br><span class="line"><span class="built_in">console</span>.log( a === b );      <span class="comment">// true</span></span><br><span class="line">a=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> c=a;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"a is "</span>+a); <span class="comment">// a is 20</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"b is "</span>+b); <span class="comment">// b is 10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"c is "</span>+c); <span class="comment">// c is 10</span></span><br></pre></td></tr></table></figure>
+
+<p> 變數 <code>c</code> 的值是透過複製變數 <code>a</code> 的值而來。</p>
+<p>但變數 <code>a</code> 更新之後，不會去影響變數 <code>c</code> 的數值。</p>
+<p>表面上看起來變數 <code>c</code> 的內容是透過複製變數 <code>a</code> 而來，但此時若變數 <code>a</code> 的內容為基本型別時，實際上變數 <code>c</code> 是去建立了一個新的值，然後將變數 <code>a</code> 的內容複製了一份過來。</p>
+<h2 id="Call-By-Value"><a href="#Call-By-Value" class="headerlink" title="Call By Value"></a>Call By Value</h2><p>當我們在建立「基本型別」 的變數時，根據上面的例子，a 會存在記憶體中的某個位置。這時候，當我指定另一個變數 c，它的值等同於 a 的時候，c 實際上會建立另一個獨立的記憶體位置，接著再把 a 的值存在這個獨立的記憶體位置。也就是說， <strong>a 和 b 其實是存在於兩個不同的記憶體位置，因此彼此並不會乎相干擾影響，這種情況，我們就稱為 Call By Value</strong> 。</p>
+<h2 id="物件型別"><a href="#物件型別" class="headerlink" title="物件型別"></a>物件型別</h2><p><strong>JavaScript 的物件都應該看作是一個「實體」</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a= &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b= &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;;</span><br><span class="line"><span class="comment">//// a 與 b 不是同一個實體。</span></span><br><span class="line"><span class="built_in">console</span>.log( a === b );  <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">b=a;</span><br><span class="line">a.value=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.value); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(b.value); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log( a === b ); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>「物件」在 JavaScript 中是透過「引用」的方式傳遞資料的，當 <code>a.value</code> 的內容被更新了之後，連帶著 <code>b.value</code> 也跟著改變。</p>
+<h2 id="Call-By-Reference"><a href="#Call-By-Reference" class="headerlink" title="Call By Reference"></a>Call By Reference</h2><p>當我將變數 a 設立成一個 Object 時，一樣會存在記憶體中的某個位置；但是當我建立一個變數 b，並且把變數 b 的值等同於 a 時，這時候並不會再給予它一個新的位置，而是將 b 指定到物件 a 的位置，讓變數 a 和 b 使用相同的記憶體位置，因此，<strong>當 a 的值改變的時候 b 的值也會改變，這種情形我們就稱為 Call By Reference</strong>。</p>
+<h2 id="例外情況"><a href="#例外情況" class="headerlink" title="例外情況"></a>例外情況</h2><p>如果使用 object literal 的方式指定物件的值，那麼就會是 Call by value：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a= &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b;</span><br><span class="line"></span><br><span class="line">b=a;</span><br><span class="line">a=&#123;<span class="attr">value</span>: <span class="number">20</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// </span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+
+<p>在這種情況下，因為它並不清楚 a 的內容是已經存在的，所以會建立一個新的記憶體位置來存放 a 物件裡面的內容。</p>
+<h2 id="Call-by-sharing"><a href="#Call-by-sharing" class="headerlink" title="Call by sharing"></a>Call by sharing</h2><p>JavaScript 實際上是另一種稱做「call by sharing」的模式，其特點在於，當 <code>function</code> 的參數，如 <code>function changeValue(obj){ ... }</code> 中的 <code>obj</code> 被重新賦值的時候，外部變數的內容是不會被影響的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a= &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeValue</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj = &#123; <span class="attr">value</span>: <span class="number">20</span> &#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeValue(a);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);   <span class="comment">// 此時 a仍是 &#123; value: 10 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不是重新賦值的情況，則又會回到傳址的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeValue</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 僅更新 obj.value，並未重新賦值</span></span><br><span class="line">  obj.value = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeValue(a);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);   <span class="comment">// 此時 a 則會變成 &#123; value: 20 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191057" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191057</a></p>
+</li>
+<li><p><a href="https://pjchender.blogspot.com/2016/03/javascriptby-referenceby-value.html" target="_blank" rel="noopener">https://pjchender.blogspot.com/2016/03/javascriptby-referenceby-value.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../12/2019-11-12-JavaScript-07/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 提升（Hoisting）
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../10/2019-11-11-JavaScript-03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 陣列</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本型別"><span class="nav-number">1.</span> <span class="nav-text">基本型別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-By-Value"><span class="nav-number">2.</span> <span class="nav-text">Call By Value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物件型別"><span class="nav-number">3.</span> <span class="nav-text">物件型別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-By-Reference"><span class="nav-number">4.</span> <span class="nav-text">Call By Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例外情況"><span class="nav-number">5.</span> <span class="nav-text">例外情況</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-by-sharing"><span class="nav-number">6.</span> <span class="nav-text">Call by sharing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">6.1.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

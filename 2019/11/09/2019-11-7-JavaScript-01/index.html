@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 變數與資料型別 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="變數變數是用來儲存資料和進行運算的基本單位，就像是資料的容器。 例如下面這個例子，x y z 都是所謂的變數： 123var x &#x3D; 1;var y &#x3D; 2;var z &#x3D; x + y;  JavaScript 變數的命名有一定規則和限制：  變數的開頭只能是字母、底線_或錢字號$，後面可以是英文字母、底線_  或是錢字號 $ 以及數字。  大小寫有區別，例如變數 test 不等於變數 T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 變數與資料型別">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/09/2019-11-7-JavaScript-01/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="變數變數是用來儲存資料和進行運算的基本單位，就像是資料的容器。 例如下面這個例子，x y z 都是所謂的變數： 123var x &#x3D; 1;var y &#x3D; 2;var z &#x3D; x + y;  JavaScript 變數的命名有一定規則和限制：  變數的開頭只能是字母、底線_或錢字號$，後面可以是英文字母、底線_  或是錢字號 $ 以及數字。  大小寫有區別，例如變數 test 不等於變數 T">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/09/2019-11-7-JavaScript-01/logo.svg">
+<meta property="article:published_time" content="2019-11-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-13T17:11:13.327Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/09/2019-11-7-JavaScript-01/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-7-JavaScript-01" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 變數與資料型別
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-08T16:00:00.000Z" itemprop="datePublished">十一月 9, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="變數"><a href="#變數" class="headerlink" title="變數"></a>變數</h2><p>變數是用來儲存資料和進行運算的基本單位，就像是資料的容器。</p>
+<p>例如下面這個例子，x y z 都是所謂的變數：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> z = x + y;</span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 變數的命名有一定規則和限制：</p>
+<ol>
+<li>變數的開頭只能是字母、底線<code>_</code>或錢字號<code>$</code>，後面可以是英文字母、底線<code>_</code>  或是錢字號 <code>$</code> 以及數字。 </li>
+<li>大小寫有區別，例如變數 <code>test</code> 不等於變數 <code>Test</code></li>
+<li>變數名稱不可以是<a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Lexical_grammar" target="_blank" rel="noopener" title="Title">保留字</a>，否則會出現 <code style="color:#DC143C;background-color:#DCDCDC">SyntaxError</code>。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">break</span> = <span class="string">'test'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected token 'break'</code></p>
+<p>JavaScript 允許的字母還包含 Unicode，所以中文也可以用作變數名稱，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> 測試 = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(測試);</span><br></pre></td></tr></table></figure>
+
+<h2 id="弱型別"><a href="#弱型別" class="headerlink" title="弱型別"></a>弱型別</h2><p>相較於<code>Java</code>、<code>C++</code>「強型別」語言，宣告出來的變數無法再被指派為其他型別的值，而JavaScript為「弱型別」語言，其變數擁有以下特性：</p>
+<ul>
+<li>變數並沒有綁定任何的型態</li>
+<li>變數本身無需宣告型別</li>
+<li>宣告後的變數可以被自由指派為其他型別的值</li>
+</ul>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line">test = <span class="number">100</span>;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="變數無法被刪除"><a href="#變數無法被刪除" class="headerlink" title="變數無法被刪除"></a>變數無法被刪除</h2><p>在 JavaScript 中，變數無法被刪除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line"><span class="keyword">delete</span> test;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是刪除物件的屬性，則刪除後該屬性為 undefined：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Employee = &#123;</span><br><span class="line">  firstname: <span class="string">"John"</span>,</span><br><span class="line">  lastname: <span class="string">"Doe"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: "John"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> Employee.firstname;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="變數的資料型別"><a href="#變數的資料型別" class="headerlink" title="變數的資料型別"></a>變數的資料型別</h2><p><strong>變數沒有型別，值才有。</strong></p>
+<p>JavaScript 內建的型別主要可以分成基本型別 (Primitives) 與物件型別 (Object) 兩大類：</p>
+<p>基本型別：</p>
+<ul>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>null</li>
+<li>undefined</li>
+</ul>
+<p>除了上述幾種之外，都可以歸類至物件型別 (Object)。</p>
+<p>判斷型別的方式，可以透過 typeof 運算子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">'test'</span>);<span class="comment">//  string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">100</span>);<span class="comment">//  number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);<span class="comment">//  boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">window</span>.alert);  <span class="comment">// 'function'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);          <span class="comment">// 'object'</span></span><br></pre></td></tr></table></figure>
+
+<p>雖然透過 typeof 去檢查一個「函式 (function) 」的時候，會得到 “Function” 的結果，但實際上仍屬於 Object 的一種。</p>
+<p>而 typeof null 的結果為 Object 。</p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>JavaScript 沒有 char (字元) 的概念，只有字串。字串使用 ‘ ‘ (單引號) 或是 “ “ (雙引號) 將文字放入其中，兩者不可混用，意即用單引號開頭的，就要用單引號收合，反過來說也是。 單引號與雙引號的使用在 JavaScript 沒有什麼差異。</p>
+<h3 id="特殊符號的處理"><a href="#特殊符號的處理" class="headerlink" title="特殊符號的處理"></a>特殊符號的處理</h3><p>要在單引號內包覆單引號，或是雙引號內包覆雙引號就會出現問題：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is "</span>Ray<span class="string">""</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected identifier</code></p>
+<p>可以在符號前加上 \ (跳脫字元)來解決。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is \"Ray\""</span>;</span><br><span class="line"><span class="built_in">console</span>.log(name);<span class="comment">//My name is "Ray"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字串內容斷行"><a href="#字串內容斷行" class="headerlink" title="字串內容斷行"></a>字串內容斷行</h3><p>多行字串時，可以透過 \ (反斜線) 來繼續：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'這次\</span></span><br><span class="line"><span class="string">連假\</span></span><br><span class="line"><span class="string">要出去玩'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//這次連假要出去玩</span></span><br></pre></td></tr></table></figure>
+
+<p>請注意 \ 反斜線後面不能有任何字元</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>整數或帶有小數點的數字都是數值型別<br>另外還有幾種特殊的數字：</p>
+<ul>
+<li>Infinity (無限大) </li>
+<li>Infinity (負無限大)</li>
+<li>NaN (不是數值，Not a Number)。</li>
+</ul>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>值只有兩種：true 以及 false，布林值通常用在判斷式，作為控制程式流程的用途。</p>
+<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><p>null 在 JavaScript 中表示一個空值，變數要經過宣告並賦予 null ，才會形成 null 型態。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>變數在初始的時候未給予任何值，宣告 test 時因為沒有賦予任何值所以是 undefined，如果先定義 test 為 100 ; 接著再把 test 設為 undefined，我們會發現 test 又再次變成了undefined了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test; </span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//undefined</span></span><br><span class="line">test=<span class="number">100</span>;</span><br><span class="line">test=<span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">if</span>(test===<span class="literal">undefined</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"test is undefined."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><a href="https://ithelp.ithome.com.tw/articles/10190873" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10190873</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../10/2019-11-9-JavaScript-02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 物件
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../06/2019-11-5-Visual-Studio-Code-Markdown/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何在 Visual Studio Code 撰寫 Markdown</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#變數"><span class="nav-number">1.</span> <span class="nav-text">變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弱型別"><span class="nav-number">2.</span> <span class="nav-text">弱型別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例"><span class="nav-number">3.</span> <span class="nav-text">範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#變數無法被刪除"><span class="nav-number">4.</span> <span class="nav-text">變數無法被刪除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#變數的資料型別"><span class="nav-number">5.</span> <span class="nav-text">變數的資料型別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">6.</span> <span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊符號的處理"><span class="nav-number">6.1.</span> <span class="nav-text">特殊符號的處理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字串內容斷行"><span class="nav-number">6.2.</span> <span class="nav-text">字串內容斷行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#number"><span class="nav-number">7.</span> <span class="nav-text">number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boolean"><span class="nav-number">8.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Null"><span class="nav-number">9.</span> <span class="nav-text">Null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">10.</span> <span class="nav-text">undefined</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文獻"><span class="nav-number">11.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

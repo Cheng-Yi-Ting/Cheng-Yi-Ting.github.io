@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 函式（Function） |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="JavaScript 中函式是一種物件。 「函式」指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。 宣告函式的方法有好幾種，但不管是什麼方式，通常一個函式會包含三個部分：  函式的名稱（也可能沒有名稱，稍後會提到）  在括號 ( ) 中的部分，稱為「參數 (arguments) 」，參數與參數之間會用逗號 , 隔開 在大括號 { } 內的部分，內含需要重複執行的內容，是函式功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 函式（Function）">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-06/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="JavaScript 中函式是一種物件。 「函式」指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。 宣告函式的方法有好幾種，但不管是什麼方式，通常一個函式會包含三個部分：  函式的名稱（也可能沒有名稱，稍後會提到）  在括號 ( ) 中的部分，稱為「參數 (arguments) 」，參數與參數之間會用逗號 , 隔開 在大括號 { } 內的部分，內含需要重複執行的內容，是函式功能">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-06/logo.svg">
+<meta property="article:published_time" content="2019-11-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-13T17:11:45.263Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-06/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-12-JavaScript-06" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 函式（Function）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-11T16:00:00.000Z" itemprop="datePublished">十一月 12, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><strong>JavaScript 中函式是一種物件</strong>。</p>
+<p>「函式」指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。</p>
+<p>宣告函式的方法有好幾種，但不管是什麼方式，通常一個函式會包含三個部分：</p>
+<ul>
+<li>函式的名稱（也可能沒有名稱，稍後會提到） </li>
+<li>在括號 <code>( )</code> 中的部分，稱為「參數 (arguments) 」，參數與參數之間會用逗號 <code>,</code> 隔開</li>
+<li>在大括號 <code>{ }</code> 內的部分，內含需要<strong>重複執行的內容</strong>，是函式功能的主要區塊。</li>
+</ul>
+<h2 id="定義函式的方式"><a href="#定義函式的方式" class="headerlink" title="定義函式的方式"></a>定義函式的方式</h2><p>常見定義函式的方式有這幾種：</p>
+<ul>
+<li>函式宣告（Function Declaration）</li>
+<li>函式運算式（Function Expressions）</li>
+<li>函式關鍵字（Function Keyword）</li>
+</ul>
+<h3 id="函式宣告（Function-Declaration）"><a href="#函式宣告（Function-Declaration）" class="headerlink" title="函式宣告（Function Declaration）"></a><strong>函式宣告（Function Declaration）</strong></h3><p>「函式宣告」應該是屬於最常見的用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 名稱(<span class="params">[參數]</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 函數內容 ...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函式運算式（Function-Expressions）"><a href="#函式運算式（Function-Expressions）" class="headerlink" title="函式運算式（Function Expressions）"></a>函式運算式（Function Expressions）</h3><p>將一個函式透過 <code>=</code> 指定給某個變數，以下範例為匿名函式(不具名字的函式)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>也可以賦予函式名稱：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>請注意，這個名字只在「自己函式的區塊內」有效，脫離函式自身區塊後，變數 <code>func</code> 就不存在了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">typeof</span> func );   <span class="comment">// "function"</span></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( <span class="keyword">typeof</span> func );     <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函式關鍵字（Function-Keyword）"><a href="#函式關鍵字（Function-Keyword）" class="headerlink" title="函式關鍵字（Function Keyword）"></a>函式關鍵字（Function Keyword）</h3><p>使用 <code>Function</code> ( <code>F</code> 大寫) 這個關鍵字來建立函式物件。 使用時將參數與函式的內容依序傳入 <code>Function</code>，就可以建立一個函式物件了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'number'</span>, <span class="string">'return number * number'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>透過 <code>new Function</code> 所建立的函式物件，每次執行時都會進行解析「字串」(如 <code>&#39;return number * number&#39;</code> ) 的動作，運作效能較差，所以通常實務上也較少會這樣做。</p>
+<p>但不管是透過哪一種方式定義函式，呼叫函式的話就直接用「函式名稱(參數)」的方式，像 <code>fn(5);</code> 就可以了。</p>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><p>[<a href="https://ithelp.ithome.com.tw/articles/10191549" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191549</a></p>
+</li>
+<li><p><a href="https://blog.gtwang.org/programming/defining-javascript-functions/" target="_blank" rel="noopener">https://blog.gtwang.org/programming/defining-javascript-functions/</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2019-11-12-JavaScript-05/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 邏輯運算子
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2019-11-12-JavaScript-07/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 提升（Hoisting）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定義函式的方式"><span class="nav-number">1.</span> <span class="nav-text">定義函式的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函式宣告（Function-Declaration）"><span class="nav-number">1.1.</span> <span class="nav-text">函式宣告（Function Declaration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函式運算式（Function-Expressions）"><span class="nav-number">1.2.</span> <span class="nav-text">函式運算式（Function Expressions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函式關鍵字（Function-Keyword）"><span class="nav-number">1.3.</span> <span class="nav-text">函式關鍵字（Function Keyword）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文獻"><span class="nav-number">2.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

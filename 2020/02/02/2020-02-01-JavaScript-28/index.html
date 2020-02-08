@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript - 音樂播放器 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScriptHTML5Event DelegationAudio" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="此範例程式碼同步於 CodePen 及 GitHub 。 本文教學如何使用 JavaScript 實作簡易音樂播放器，首先建立一個 music 資料夾並將要播放的影音檔放至此資料夾，此範例音樂來源為 youtube Audio Library 無版權音樂。 製作歌曲選單列表首先將 music 資料夾內的音樂檔名列出，利用 ul 及 li 來製作條列式選單： 1234567&lt;ul i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - 音樂播放器">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2020/02/02/2020-02-01-JavaScript-28/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="此範例程式碼同步於 CodePen 及 GitHub 。 本文教學如何使用 JavaScript 實作簡易音樂播放器，首先建立一個 music 資料夾並將要播放的影音檔放至此資料夾，此範例音樂來源為 youtube Audio Library 無版權音樂。 製作歌曲選單列表首先將 music 資料夾內的音樂檔名列出，利用 ul 及 li 來製作條列式選單： 1234567&lt;ul i">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/02/2020-02-01-JavaScript-28/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/02/2020-02-01-JavaScript-28/2020-02-01-JavaScript-28-1.gif">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/02/2020-02-01-JavaScript-28/2020-02-01-JavaScript-28-2.gif">
+<meta property="article:published_time" content="2020-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-02T06:10:57.919Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML5">
+<meta property="article:tag" content="Event Delegation">
+<meta property="article:tag" content="Audio">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2020/02/02/2020-02-01-JavaScript-28/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2020-02-01-JavaScript-28" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript - 音樂播放器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2020-02-01T16:00:00.000Z" itemprop="datePublished">二月 2, 2020</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p>此範例程式碼同步於 <a href="https://codepen.io/BobbyLashley/pen/LYEwZeR" target="_blank" rel="noopener">CodePen</a> 及 <a href="https://github.com/Cheng-Yi-Ting/music-player" target="_blank" rel="noopener">GitHub</a> 。</p>
+<p>本文教學如何使用 JavaScript 實作簡易音樂播放器，首先建立一個 music 資料夾並將要播放的影音檔放至此資料夾，此範例音樂來源為 <a href="https://www.youtube.com/audiolibrary" target="_blank" rel="noopener">youtube Audio Library</a> 無版權音樂。</p>
+<h1 id="製作歌曲選單列表"><a href="#製作歌曲選單列表" class="headerlink" title="製作歌曲選單列表"></a>製作歌曲選單列表</h1><p>首先將 music 資料夾內的音樂檔名列出，利用 ul 及 li 來製作條列式選單：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"musicSources"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Slug_Love_87<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Mosquito_Mojito<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Groove_Tube<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Loose_Slip<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Flutes<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>將 ul 設定 margin-left 與 padding-left 為 0 來取消 ul 左邊的外距與內距，防止 ul 內縮； li 加上 list-style-type:none; 來取消符號顯示。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">list-style-type</span>: none;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">71</span>, <span class="number">71</span>, <span class="number">71</span>);</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上語法會產生如下表格：</p>
+<img src="2020-02-01-JavaScript-28-1.gif" style="width:100%;">
+
+<h1 id="事件委派（-Event-Delegation）"><a href="#事件委派（-Event-Delegation）" class="headerlink" title="事件委派（ Event Delegation）"></a>事件委派（ Event Delegation）</h1><p>如果要替每個 li 都綁定 click event hander ，可以使用 for 迴圈來綁定，也就是有幾個 li 就要加幾次 addEventListener ，之後在新增歌曲還要在綁定一次事件，讓程式碼複雜化。</p>
+<p>過去有介紹過瀏覽器事件的運作原理: <a href="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/">DOM - 事件處裡及傳遞機制</a> ，我們可以將 click 事件綁定在 parent 上，藉由 Event Bubbling 來傳遞給 child ，而非直接將事件綁定在 child 上，可以減少監聽器的數量，只要判斷目標(e.target)是哪個項目再去執行即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> musicSources = <span class="built_in">document</span>.querySelector(<span class="string">'#musicSources'</span>);</span><br><span class="line">    musicSources.addEventListener(<span class="string">'click'</span>, musicTarget = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (e.target.tagName.toLowerCase() === <span class="string">'li'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">document</span>.querySelector(<span class="string">".musicSpan"</span>)) &#123;</span><br><span class="line">                <span class="built_in">document</span>.querySelector(<span class="string">".musicSpan"</span>).remove();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">document</span>.querySelector(<span class="string">"audio"</span>)) &#123;</span><br><span class="line">                <span class="built_in">document</span>.querySelector(<span class="string">"audio"</span>).remove();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> target = e.target; <span class="comment">//取得按下的歌曲(li)</span></span><br><span class="line">            <span class="keyword">const</span> pn = target.innerText; <span class="comment">//取得歌曲名稱(文字內容)</span></span><br><span class="line">            <span class="keyword">let</span> span = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>) <span class="comment">//建立span元件</span></span><br><span class="line">            span.className = <span class="string">'musicSpan'</span>; <span class="comment">//指定class名稱</span></span><br><span class="line">            span.innerHTML = <span class="string">'4'</span>; <span class="comment">//指定span裡的文字(4表示三角形符號)</span></span><br><span class="line">            target.appendChild(span); <span class="comment">//放入li元件</span></span><br><span class="line">            playMusic(pn); <span class="comment">//播放音樂</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我們將 click 事件綁定在 id 為 musicSources 的 ul 上，再利用 e.target.tagName 判斷是不是 li 就可以了，讓程式碼簡潔許多，之後如果新增歌曲一樣會綁定 click 事件。</p>
+<h2 id="當按下歌曲時，歌曲前方顯示一個三角形符號"><a href="#當按下歌曲時，歌曲前方顯示一個三角形符號" class="headerlink" title="當按下歌曲時，歌曲前方顯示一個三角形符號"></a>當按下歌曲時，歌曲前方顯示一個三角形符號</h2><p>這裡使用 Webdings 字型來產生三角形符號。首先指定字型 font-family: Webdings; ，輸入 4 就是使用三角形符號，在將文字放在 span 內即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> target = e.target; <span class="comment">//取得按下的歌曲(li)</span></span><br><span class="line"><span class="keyword">const</span> pn = target.innerText; <span class="comment">//取得歌曲名稱(文字內容)</span></span><br><span class="line"><span class="keyword">let</span> span = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>) <span class="comment">//建立span元件</span></span><br><span class="line">span.className = <span class="string">'musicSpan'</span>; <span class="comment">//指定class名稱</span></span><br><span class="line">span.innerHTML = <span class="string">'4'</span>; <span class="comment">//指定span裡的文字(4表示三角形符號)</span></span><br><span class="line">target.appendChild(span); <span class="comment">//放入li元件</span></span><br><span class="line">playMusic(pn);<span class="comment">//播放音樂</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="播放音樂"><a href="#播放音樂" class="headerlink" title="播放音樂"></a>播放音樂</h2><p>建立 audio 元件並指定路徑來源為 music 資料夾：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playMusic</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> myAudio = <span class="built_in">document</span>.createElement(<span class="string">'audio'</span>);<span class="comment">//建立audio元件</span></span><br><span class="line">    myAudio.setAttribute(<span class="string">"src"</span>, <span class="string">"music/"</span> + a + <span class="string">".mp3"</span>);<span class="comment">//src 音檔路徑，a為傳入的歌曲名稱</span></span><br><span class="line">    myAudio.setAttribute(<span class="string">"controls"</span>, <span class="string">"controls"</span>); <span class="comment">//顯示撥放器</span></span><br><span class="line">    bottom.appendChild(myAudio); <span class="comment">//加入在id名稱為bottom的元件裡</span></span><br><span class="line">    myAudio.play(); <span class="comment">//播放音樂</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>當點擊歌曲時就新增一個 audio 元素，點擊其它歌曲時再將原本的 audio 元素移除，暫停和跳轉可以使用 audio 內建的功能。</p>
+<h2 id="隨機播放"><a href="#隨機播放" class="headerlink" title="隨機播放"></a>隨機播放</h2><p>右上角建立隨機播放按鈕，同樣使用 Webdings 字型來產生樣式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"random"</span> <span class="attr">title</span>=<span class="string">"隨機播放"</span> <span class="attr">onclick</span>=<span class="string">"randomPlay()"</span>&gt;</span>~<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>當點擊按鈕呼叫 randomPlay() 函式，使用 random() 來產生 0~4的整數值，將值帶入 li 標籤的 index ，接著再執行 click 事件就會執行播放音樂程式碼：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomPlay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">5</span>); <span class="comment">//隨機數0~4</span></span><br><span class="line">    <span class="keyword">let</span> randomLi = <span class="built_in">document</span>.querySelectorAll(<span class="string">'li'</span>)[num]; <span class="comment">//將值帶入 li 的 index</span></span><br><span class="line">    randomLi.click(); <span class="comment">//觸發click事件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整範例執行結果：</p>
+<img src="2020-02-01-JavaScript-28-2.gif" style="width:50%;">
+
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
+<li><a href="http://www.drmaster.com.tw/bookinfo.asp?BookID=MP21907" target="_blank" rel="noopener">JavaScript 精選16堂課：網頁程式設計實作</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Audio/" rel="tag">Audio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Event-Delegation/" rel="tag">Event Delegation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/HTML5/" rel="tag">HTML5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../01/2020-01-28-JavaScript-27/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web Storage</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#製作歌曲選單列表"><span class="nav-number">1.</span> <span class="nav-text">製作歌曲選單列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件委派（-Event-Delegation）"><span class="nav-number">2.</span> <span class="nav-text">事件委派（ Event Delegation）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#當按下歌曲時，歌曲前方顯示一個三角形符號"><span class="nav-number">2.1.</span> <span class="nav-text">當按下歌曲時，歌曲前方顯示一個三角形符號</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#播放音樂"><span class="nav-number">2.2.</span> <span class="nav-text">播放音樂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隨機播放"><span class="nav-number">2.3.</span> <span class="nav-text">隨機播放</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">3.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

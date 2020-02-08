@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                script tag 的 async 和 defer 屬性 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="script標籤針對 &lt;script&gt; 標籤放哪裡，一般會有兩種版本：  放在 &lt;head&gt; ... &lt;&#x2F;head&gt; 之間 放在 &lt;&#x2F;body&gt; 之前  把&lt;script&gt; 標籤放在 &lt;&#x2F;body&gt; 之前，網頁可以正常運作： 123456789101112131415&lt;!DOCTYPE html&gt;&lt;h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="script tag 的 async 和 defer 屬性">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="script標籤針對 &lt;script&gt; 標籤放哪裡，一般會有兩種版本：  放在 &lt;head&gt; ... &lt;&#x2F;head&gt; 之間 放在 &lt;&#x2F;body&gt; 之前  把&lt;script&gt; 標籤放在 &lt;&#x2F;body&gt; 之前，網頁可以正常運作： 123456789101112131415&lt;!DOCTYPE html&gt;&lt;h">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-1.png">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-2.png">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-3.png">
+<meta property="article:published_time" content="2019-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-10T15:40:54.947Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-13-JavaScript-09" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      script tag 的 async 和 defer 屬性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished">十一月 13, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="script標籤"><a href="#script標籤" class="headerlink" title="script標籤"></a><strong>script標籤</strong></h2><p>針對 <code>&lt;script&gt;</code> 標籤放哪裡，一般會有兩種版本：</p>
+<ul>
+<li>放在 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間</li>
+<li>放在 <code>&lt;/body&gt;</code> 之前</li>
+</ul>
+<p>把<code>&lt;script&gt;</code> 標籤放在 <code>&lt;/body&gt;</code> 之前，網頁可以正常運作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接著，我們試著把 <code>&lt;script&gt;</code> 標籤移到 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間，這時候會發現網頁一片空白：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-1.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p>瀏覽器解析 HTML 是一行一行依序向下讀取，在傳統的寫法中，當瀏覽器讀到 <code>&lt;script&gt;</code> 時，便會 <strong>暫停解析</strong> DOM，立刻開始下載 <code>&lt;script&gt;</code> 的資源，並在下載完成後立刻執行。由於這樣的特性，便可能造成在 DOM 樹建構不完全時就執行 JavaScript，其中需要操作 DOM 的程式可能就因此無法正確運作，許多衍伸的問題也就因此產生；若是透過 <code>src</code> 外聯 <code>.js</code> 檔案，瀏覽器會「同步地」下載 <code>.js</code> 檔案，在下載完成並執行完程式碼之前，後續的其他資源下載、頁面剖析等，都會被阻斷。執行過程中，使用者便會卡在白畫面，並產生覺得網站太慢、使用者體驗不好等感受。</p>
+<p>不過，文件資源的完整載入，是指 <code>HTML</code> 、 <code>CSS</code> 、圖片等都載入完成，而不單指 DOM樹 建立完成；若想在文件剖析完成、 DOM樹 生成時就執行程式碼，建議是將 <code>script</code> 放在文件尾端，通常是 <code>body</code> 標籤之前，因為此時 DOM樹 已經建立，操作 DOM 節點就不是問題了。但在更複雜的網站中，<code>HTML</code>、<code>JavaScript</code>  的檔案都來越大，下載、執行時間也越來越長，需要等到整個 DOM 樹都載入完成才開始下載 <code>&lt;script&gt;</code> 內的資源，從網站讀取完成到可操作之間便會有明顯的延遲感。</p>
+<br/>
+
+<h4 id="這樣的問題該怎麼解決呢？"><a href="#這樣的問題該怎麼解決呢？" class="headerlink" title="這樣的問題該怎麼解決呢？"></a><strong>這樣的問題該怎麼解決呢？</strong></h4><h2 id="async-amp-defer"><a href="#async-amp-defer" class="headerlink" title="async &amp; defer"></a>async &amp; defer</h2><p>從 HTML4 開始，<code>&lt;script&gt;</code> 便多了 <code>defer</code> 屬性，HTML5 則多了 <code>async</code>，兩者皆是用來幫助開發者控制 <code>&lt;script&gt;</code> 內資源的載入及執行順序，以及避免 DOM 的解析被資源下載卡住。這兩個屬性只適用在外部引入的檔案，對內嵌程式碼的<code>script</code>標籤沒有影響。</p>
+<h3 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h3><p><code>defer</code> 意旨為 延遲（Deferred），也就是說，加上 <code>defer</code> 屬性後，瀏覽器會繼續解析、渲染畫面，而不會因為需要載入 <code>&lt;script&gt;</code> 內的資源而卡在那邊等；如果有多個設置 <code>defer</code>  的 <code>js</code>  標籤存在，則會由上到下依照擺放順序觸發。實際上的執行時間，會在 <code>DOM</code>渲染完畢後，<code>DOMContentLoaded</code> 事件執行之前。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"script.js"</span>&gt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-2.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p>defer 屬性告訴瀏覽器在 HTML 還在解析時加載 js，但是等到 HTML 整個解析完才執行 js。</p>
+<h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p><code>async</code> 即為 非同步（Asynchronous），在 <code>&lt;script&gt;</code> 加上 <code>async</code> 屬性後，與 <code>defer</code> 相同的是會在背景執行下載，但不同的是當下載完成會馬上暫停 DOM 解析（若尚未解析完的話），並開始執行 JavaScript。也因為下載完成後會立即執行，如果有多個 <code>async</code>  屬性的 <code>js</code>  ，先下載完的就會先執行，因為下載完成的順序是無法預測的，因此「執行順序也就無法預測」。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src&#x3D;&quot;script.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="2019-11-13-JavaScript-09-3.png" style="width:100%;">
+
+<p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
+<p><br/><br/></p>
+<p><code>async</code>  屬性告訴瀏覽器可以異步執行(executed asynchronously)，在  <code>HTML</code>  還在解析時加載  <code>js</code>  ，當 <code>js</code>  完全下載後才暫停解析  <code>HTML</code>  ，執行  <code>js</code>  。</p>
+<h3 id="type-”module”"><a href="#type-”module”" class="headerlink" title="type=”module”"></a>type=”module”</h3><p>在主流的現代瀏覽器中，<code>&lt;script&gt;</code> 的屬性可以加上 <code>type=&quot;module&quot;</code>。這時，瀏覽器會將此檔案認為是一個 JavaScript 模組，其中的解析規則、執行環境會略有不同；這時候的 <code>&lt;script&gt;</code> 預設行為會像是 <code>defer</code> 一樣，背景下載，且等待 DOM 解析、渲染完成後才執行，也因此 <code>defer</code> 屬性無法在 <code>type=&quot;module&quot;</code> 產生作用。但同樣可以透過 <code>async</code> 屬性讓它在下載完成後即刻執行。</p>
+<h3 id="使用場景"><a href="#使用場景" class="headerlink" title="使用場景"></a>使用場景</h3><p><strong>前面已經針對這兩個屬性進行說明了，那麼該如何正確地使用呢？</strong></p>
+<p><code>defer</code> 由於背景載入、不打斷渲染及確保執行順序的特色，基本上沒特別需求的話，建議設定在 <code>&lt;script&gt;</code> ；當然，<code>&lt;script&gt;</code> 本身的擺放順序還是要稍微留心注意。<br><code>async</code> 比較特別，因為下載後會立刻執行，且不保證順序，一般常見的應用是設定在完全獨立的小模組，例如 背景 Log、頁面廣告等等，在避免造成使用者體驗變差的同時，盡量提早開始產生效果。</p>
+<p><code>async</code> 及 <code>defer</code> 是專屬於 <code>&lt;script&gt;</code> 的屬性，而網頁中的其他資源，我們可以透過 <code>&lt;link&gt;</code> 的 <code>preload</code>、<code>prefetch</code> 屬性，來幫我們 <strong>延遲載入</strong> 未來才需要用到的資源，詳細的請參考  <a href="https://cythilya.github.io/2018/07/31/preload-vs-prefetch/" target="_blank" rel="noopener">Preload vs Prefetch</a>。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">https://bitsofco.de/async-vs-defer/</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10216858?source=post_page-----8205fddbbafc----------------------" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10216858?source=post_page—–8205fddbbafc———————-</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10208563" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10208563</a></p>
+</li>
+<li><p><a href="https://ithome.com.tw/voice/132470" target="_blank" rel="noopener">https://ithome.com.tw/voice/132470</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/jiasm/p/7683930.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiasm/p/7683930.html</a></p>
+</li>
+<li><p><a href="https://kknews.cc/code/4eoxg4v.html" target="_blank" rel="noopener">https://kknews.cc/code/4eoxg4v.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2019-11-12-JavaScript-08/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          BOM 和 DOM !?
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../12/2019-11-12-JavaScript-05/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 邏輯運算子</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#script標籤"><span class="nav-number">1.</span> <span class="nav-text">script標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#這樣的問題該怎麼解決呢？"><span class="nav-number">1.0.1.</span> <span class="nav-text">這樣的問題該怎麼解決呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async-amp-defer"><span class="nav-number">2.</span> <span class="nav-text">async &amp; defer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#defer"><span class="nav-number">2.1.</span> <span class="nav-text">defer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async"><span class="nav-number">2.2.</span> <span class="nav-text">async</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type-”module”"><span class="nav-number">2.3.</span> <span class="nav-text">type&#x3D;”module”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用場景"><span class="nav-number">2.4.</span> <span class="nav-text">使用場景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">2.5.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

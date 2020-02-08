@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript Closure |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="Scope Chain在開始談閉包之前，我們現來談談「範圍鏈」(Scope Chain) 的觀念。 Scope Chain(範圍鏈)的特性，是指使用變數的時候，會遵循著 Scope Chain 一層一層往外找，也就是看看函式自身的 context 物件上是否有該特性，如果沒有就往外頭的 context 物件看看有沒有該特性。 用 var 所宣告的變數，作用範圍是在當時所在環境(函式內)，而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript Closure">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/17/2019-11-16-JavaScript-15/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="Scope Chain在開始談閉包之前，我們現來談談「範圍鏈」(Scope Chain) 的觀念。 Scope Chain(範圍鏈)的特性，是指使用變數的時候，會遵循著 Scope Chain 一層一層往外找，也就是看看函式自身的 context 物件上是否有該特性，如果沒有就往外頭的 context 物件看看有沒有該特性。 用 var 所宣告的變數，作用範圍是在當時所在環境(函式內)，而">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/17/2019-11-16-JavaScript-15/logo.svg">
+<meta property="article:published_time" content="2019-11-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-17T06:54:07.323Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/17/2019-11-16-JavaScript-15/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-16-JavaScript-15" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript Closure
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-16T16:00:00.000Z" itemprop="datePublished">十一月 17, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="Scope-Chain"><a href="#Scope-Chain" class="headerlink" title="Scope Chain"></a>Scope Chain</h2><p>在開始談閉包之前，我們現來談談「範圍鏈」(Scope Chain) 的觀念。</p>
+<p>Scope Chain(範圍鏈)的特性，是指使用變數的時候，會遵循著 Scope Chain 一層一層往外找，也就是看看函式自身的 context 物件上是否有該特性，如果沒有就往外頭的 context 物件看看有沒有該特性。</p>
+<p>用 var 所宣告的變數，作用範圍是在當時所在環境(函式內)，而不使用 var 直接指定值而建立的變數，則是全域物件(window)上的一個屬性，也就全域範圍。</p>
+<p>例如像下面這段程式碼：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myVar); <span class="comment">// outer</span></span><br><span class="line">  myVar = <span class="string">"inner"</span>;</span><br><span class="line">&#125;</span><br><span class="line">func();</span><br><span class="line"><span class="built_in">console</span>.log(myVar); <span class="comment">// inner</span></span><br></pre></td></tr></table></figure>
+
+<p><code>func</code> 的變數<code>myVar</code> 因為沒有使用 <code>var</code> 進行宣告，所以 <code>myVar</code>  會變成「全域變數」。</p>
+<p>修改一下上面範例，若是在<code>func</code> 中的 <code>myVar</code>，有透過 <code>var</code> 宣告時，變數就會作用在當時的環境，也就是 <code>func</code> 。</p>
+<p>由於 JavaScript 提升 (Hoisting)的特性，Hoisting 是 JavaScript 的預設行為，<strong>把所有宣告效果提到當前 Scope 的頂端</strong>，也就是變數可以在宣告之前進行初始化和使用，而不會拋錯：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(myVar); <span class="comment">// undefined</span></span><br><span class="line"> <span class="keyword">var</span> myVar = <span class="string">"inner"</span>;</span><br><span class="line">&#125;</span><br><span class="line">func();</span><br><span class="line"><span class="built_in">console</span>.log(myVar); <span class="comment">// outer</span></span><br></pre></td></tr></table></figure>
+
+<p><code>func</code> 運作上等同於：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">var</span> myVar;</span><br><span class="line"> <span class="built_in">console</span>.log(myVar);<span class="comment">// undefined</span></span><br><span class="line"> myVar = <span class="string">"inner"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>讓我們在看一個例子，每一個 function 執行的時候都會建立一個新的 context，所以 <code>func</code> 和  <code>fund</code>  各自為獨立的一個 Function execution context(執行環境)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="comment">//另外一個執行環境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myVar); <span class="comment">// outer</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//一個執行環境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fund</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVar = <span class="string">"inner"</span>;</span><br><span class="line">  func();</span><br><span class="line">&#125;</span><br><span class="line">fund();</span><br></pre></td></tr></table></figure>
+
+<p>當 <code>fund</code> 呼叫 <code>func</code> 時，由於 <code>fund</code> 和 <code>func</code> 都處於全域的環境，而 <code>myVar</code> 變數是被定義在 <code>fund</code> 的函式裡面；當你試圖在 <code>func</code> 中 使用 <code>myVar</code> 變數時，它會查看 <code>func</code> 的 context 物件上是否有該特性，如果有就使用，沒有就往外面一層找。由於 <code>func</code> 的上一層是 global context ，所以就存取到全域變數的 <code>myVar</code>，最終印出的結果就會是 <code>outer</code> 。</p>
+<br/>
+
+<p>如果函式 <code>func</code>  的位置是被 <code>fund</code>  所包裹，當 <code>func</code> 找不到  <code>myVar</code> ，就會往它的向外一層找；所以就存取到 <code>fund</code>  裡面的 <code>myVar</code>  ，輸出  <code>inner</code>  。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fund</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVar = <span class="string">"inner"</span>;</span><br><span class="line">  func();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="built_in">console</span>.log(myVar); <span class="comment">// inner</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">fund();</span><br></pre></td></tr></table></figure>
+
+<h2 id="閉包-Closure"><a href="#閉包-Closure" class="headerlink" title="閉包 Closure"></a>閉包 Closure</h2><p>閉包是個特殊的物件，他包含了一個函式，以及函式被建立時所在的環境。</p>
+<p>在 JavaScript 中，只要有巢狀的函數定義，就會形成閉包。因為內層的函數需要引用到外層函數中定義的變數（建立範圍鏈 Scope Chain），所以外層函數中變數的狀態就好像被內層函數「關閉」起來了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OuterFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 一個局部變數</span></span><br><span class="line">    <span class="keyword">var</span> outerVariable = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">InnerFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 內部函數可以存取外部函式的變數</span></span><br><span class="line"></span><br><span class="line">        alert(outerVariable);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回一個內部函式，並創建一個 closure  </span></span><br><span class="line">    <span class="keyword">return</span> InnerFunction;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> innerFunc = OuterFunction();</span><br><span class="line"></span><br><span class="line">innerFunc(); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>OuterFunction()</code> 執行時返回一個 function，同時自動創建了一個 closure 環境。closure 像是一個特殊的物件 (指定給了 <code>innerFunc</code>  )，closure 中包含一個函數  <code>InnerFunction</code>  ，以及函數 <code>OuterFunction</code>  執行當時的環境，讓你在函數返回後還是可以持續存取 closure 保存的環境 ，像是能存取  <code>outerVariable</code>  變數， <code>outerVariable</code>  變數不會因為函數返回後而被刪除。</p>
+<br/>
+
+<p>在這個例子中，我們把 <code>counter</code> 封裝在 <code>Counter()</code> 當中，不但可以讓裡面的 <code>counter</code> 不會暴露在 global 環境造成變數衝突，也可以確保內部 <code>counter</code> 被修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">IncreaseCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> counter += <span class="number">1</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> IncreaseCounter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = Counter();</span><br><span class="line">alert(counter()); <span class="comment">// 1</span></span><br><span class="line">alert(counter()); <span class="comment">// 2</span></span><br><span class="line">alert(counter()); <span class="comment">// 3</span></span><br><span class="line">alert(counter()); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我們需要新增另一個計數器的話，透過一個閉包可以很輕鬆地達成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">IncreaseCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> counter += <span class="number">1</span>;</span><br><span class="line">     &#125;;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> IncreaseCounter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"> <span class="keyword">var</span> counter = Counter();</span><br><span class="line"> <span class="keyword">var</span> counter2 = Counter();</span><br><span class="line"></span><br><span class="line"> alert(counter()); <span class="comment">// 1</span></span><br><span class="line"> alert(counter()); <span class="comment">// 2</span></span><br><span class="line"> alert(counter()); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"> alert(counter2()); <span class="comment">// 1</span></span><br><span class="line"> alert(counter2()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p><code>counter</code> 與 <code>counter2</code> 各自是「獨立」的計數器實體，彼此不會互相干擾。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10193009" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10193009</a></p>
+</li>
+<li><p><a href="https://www.fooish.com/javascript/function-closure.html" target="_blank" rel="noopener">https://www.fooish.com/javascript/function-closure.html</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10029457" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10029457</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10199934" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10199934</a></p>
+</li>
+<li><p><a href="https://www.tutorialsteacher.com/javascript/closure-in-javascript" target="_blank" rel="noopener">https://www.tutorialsteacher.com/javascript/closure-in-javascript</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../18/2019-11-18-JavaScript-17/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript THIS
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../16/2019-11-16-JavaScript-13/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript IIFEs</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scope-Chain"><span class="nav-number">1.</span> <span class="nav-text">Scope Chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#閉包-Closure"><span class="nav-number">2.</span> <span class="nav-text">閉包 Closure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">2.1.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

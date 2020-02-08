@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                BOM 和 DOM !? |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScriptHTML" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="BOM 是什麼?BOM (Browser Object Model，瀏覽器物件模型)，是瀏覽器所有功能的核心，與網頁的內容無關。 BOM 也有人非正式地稱它為 「Level 0 DOM」。 因為它在 DOM level 1 標準前就已存在，而不是真的有文件去規範這些，所以「Level 0 DOM」與「BOM」兩者實際上指的是同一個東西。   window|         |navigat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BOM 和 DOM !?">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-12-JavaScript-08/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="BOM 是什麼?BOM (Browser Object Model，瀏覽器物件模型)，是瀏覽器所有功能的核心，與網頁的內容無關。 BOM 也有人非正式地稱它為 「Level 0 DOM」。 因為它在 DOM level 1 標準前就已存在，而不是真的有文件去規範這些，所以「Level 0 DOM」與「BOM」兩者實際上指的是同一個東西。   window|         |navigat">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-12-JavaScript-08/logo.svg">
+<meta property="article:published_time" content="2019-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-15T08:24:38.994Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-12-JavaScript-08/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-12-JavaScript-08" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      BOM 和 DOM !?
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-12T16:00:00.000Z" itemprop="datePublished">十一月 13, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="BOM-是什麼"><a href="#BOM-是什麼" class="headerlink" title="BOM 是什麼?"></a>BOM 是什麼?</h2><p><strong>BOM (Browser Object Model，瀏覽器物件模型)</strong>，是瀏覽器所有功能的核心，與網頁的內容無關。</p>
+<p>BOM 也有人非正式地稱它為 「Level 0 DOM」。 因為它在 DOM level 1 標準前就已存在，而不是真的有文件去規範這些，所以「Level 0 DOM」與「BOM」兩者實際上指的是同一個東西。</p>
+<pre style="color:white">
+
+window|  
+      |navigator  
+      |location  
+      |frames  
+      |screen  
+      |history  
+      |document  
+              |forms  
+              |links  
+              |anchors  
+              |images  
+              |all  
+              |cookie
+
+</pre>
+
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p>window 物件代表瀏覽器視窗本身，擁有一些控制視窗的方法，其中像是 open()、close()、alert()、prompt()、confirm()、setTimeout()等函式，都是以 window 作為名稱空間物件的函式。</p>
+<p>你可以在 <a href="http://www.w3schools.com/jsref/obj_window.asp" target="_blank" rel="noopener">W3schools</a> 查詢關於 window 函式或方法的使用方式，在使用 window 物件時，可省略 window 關鍵字，直接使用該函式或方法即可。</p>
+<p>開啟一個新視窗：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.open(<span class="string">"https://www.w3schools.com"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>開啟一個確認視窗：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">confirm(<span class="string">"Press a button!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>點擊按紐後，等待三秒鐘，開啟一個警告視窗：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the first button to alert <span class="string">"Hello"</span> after waiting <span class="number">3</span> seconds.&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;button onclick="myFunction()"&gt;Try it&lt;/</span>button&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> myVar;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  myVar = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"Hello"</span>); &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="window-navigator"><a href="#window-navigator" class="headerlink" title="window.navigator"></a>window.navigator</h2><p>navigator 物件主要是包含了瀏覽器的資訊，像是取得瀏覽器的版本、語言以及是否啟用 cookie 等資訊，你可以在 <a href="http://www.w3schools.com/jsref/obj_navigator.asp" target="_blank" rel="noopener">W3schools</a>  查詢這個物件上有哪些資訊可以取得。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"> &lt;html&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line"> &lt;div id&#x3D;&quot;demo&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> var txt &#x3D; &quot;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Browser CodeName: &quot; + navigator.appCodeName + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Browser Name: &quot; + navigator.appName + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Browser Version: &quot; + navigator.appVersion + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Cookies Enabled: &quot; + navigator.cookieEnabled + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Browser Language: &quot; + navigator.language + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Browser Online: &quot; + navigator.onLine + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;Platform: &quot; + navigator.platform + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> txt +&#x3D; &quot;&lt;p&gt;User-agent header: &quot; + navigator.userAgent + &quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"> document.getElementById(&quot;demo&quot;).innerHTML &#x3D; txt;</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br><span class="line"> &lt;&#x2F;body&gt;</span><br><span class="line"> &lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>輸出結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Browser CodeName: Mozilla</span><br><span class="line"></span><br><span class="line">Browser Name: Netscape</span><br><span class="line"></span><br><span class="line">Browser Version: 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.70 Safari&#x2F;537.36</span><br><span class="line"></span><br><span class="line">Cookies Enabled: true</span><br><span class="line"></span><br><span class="line">Browser Language: zh-TW</span><br><span class="line"></span><br><span class="line">Browser Online: true</span><br><span class="line"></span><br><span class="line">Platform: Win32</span><br><span class="line"></span><br><span class="line">User-agent header: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.70 Safari&#x2F;537.36</span><br></pre></td></tr></table></figure>
+
+<h2 id="window-location"><a href="#window-location" class="headerlink" title="window.location"></a>window.location</h2><p>location 物件可以取得瀏覽器目前頁面的URL資訊，也有 reload() 與 replace() 方法，可以重新載入頁面或取代頁面。，你可以在<a href="http://www.w3schools.com/jsref/obj_location.asp" target="_blank" rel="noopener">W3schools</a>查詢這個物件上有哪些資訊可以取得。</p>
+<p>取代目前頁面的URL：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick=<span class="string">"myFunction()"</span>&gt;Replace <span class="built_in">document</span>&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">function myFunction() &#123;</span></span><br><span class="line"><span class="regexp">  location.replace("https:/</span><span class="regexp">/cheng-yi-ting.github.io/</span><span class="string">") // 取代目前的頁面為此URL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>取得目前URL所採用的協定：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.protocol; <span class="comment">//  https</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="window-frames"><a href="#window-frames" class="headerlink" title="window.frames"></a>window.frames</h2><p>frames 物件可以取得瀏覽器中擁有的框架資訊，索引位置是框架在視窗中出現的順序，如果框架有設定id或name屬性，也可以使用[]搭配名稱來取得框架。</p>
+<p>點擊按紐後，更改第一個 iframe 的來源：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Click the button to change the location of the first iframe element (index 0).<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"myFunction()"</span>&gt;</span>Try it<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://zh.wikipedia.org/wiki/Wiki"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://www.ettoday.net/"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.frames[<span class="number">0</span>].location = <span class="string">"https://cheng-yi-ting.github.io/"</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>點擊按鈕後，修改視窗內所有 iframe 來源URL：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Click the button to loop through the frames on this page, and change the location of every frame to "w3schools.com".</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"myFunction()"</span>&gt;</span>Try it<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://zh.wikipedia.org/wiki/Wiki"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://www.ettoday.net/"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://tw.appledaily.com/new/realtime"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> frames = <span class="built_in">window</span>.frames;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> i;</span></span><br><span class="line"></span><br><span class="line">            for (i = 0; i &lt; frames.length; i++) &#123;</span><br><span class="line"><span class="actionscript">                frames[i].location = <span class="string">"https://cheng-yi-ting.github.io/"</span>;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="window-screen"><a href="#window-screen" class="headerlink" title="window.screen"></a>window.screen</h2><p>screen 物件可以取得目前視窗的螢幕資訊，像是寬、高、顏色深度等，你可以在<a href="http://www.w3schools.com/jsref/obj_screen.asp" target="_blank" rel="noopener">W3schools</a>查詢這個物件上有哪些資訊可以取得。</p>
+<p>點擊按紐後，顯示視窗寬度：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to display the available width <span class="keyword">of</span> your screen.&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;button onclick="myFunction()"&gt;Try it&lt;/</span>button&gt;</span><br><span class="line"></span><br><span class="line">&lt;p id=<span class="string">"demo"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">"Available Width: "</span> + screen.availWidth + <span class="string">"px"</span>;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"demo"</span>).innerHTML = x;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="window-history"><a href="#window-history" class="headerlink" title="window.history"></a>window.history</h2><p>history 物件可以取得瀏覽器瀏覽歷史，基於安全與隱私，你無法取得瀏覽歷史，但可以有back()、forward()、go()等方法，指定前進、後退至哪個歷史頁面，像是回到上一面、下一頁的功能。你可以在<a href="http://www.w3schools.com/jsref/obj_history.asp" target="_blank" rel="noopener">W3schools</a>查詢這個物件上有哪些資訊可以取得。</p>
+<p>點擊按紐後，回到上一頁的URL：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"goBack()"</span>&gt;</span>Go Back<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Notice that clicking on the Back button here will not result in any action, because there is no previous URL in the history list.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript"><span class="function"><span class="keyword">function</span> <span class="title">goBack</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.history.back();</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="window-document"><a href="#window-document" class="headerlink" title="window.document"></a>window.document</h2><p><strong>DOM (Document Object Model，文件物件模型)</strong>，是一個將 HTML 文件以樹狀的結構來表示的模型，而組合起來的樹狀圖，我們稱之為「DOM Tree」。。</p>
+<p>舉個來說，如果有個網頁如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;網站標題&lt;&#x2F;title&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;h1&gt;這是一個內文標題&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">    &lt;p&gt;這是一個段落&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>DOM API 就是定義了讓 JavaScript 可以存取、改變 HTML 架構、樣式和內容的方法，甚至是對節點綁定的事件。</p>
+<p>JavaScript 就是透過 DOM 提供的 API 來對 HTML 做存取與操作。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://openhome.cc/Gossip/JavaScript/Level0DOM.html" target="_blank" rel="noopener">https://openhome.cc/Gossip/JavaScript/Level0DOM.html</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191666" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191666</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../14/2019-11-14-JavaScript-11/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript DOM Node（新增、修改、刪除）
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2019-11-13-JavaScript-09/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">script tag 的 async 和 defer 屬性</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM-是什麼"><span class="nav-number">1.</span> <span class="nav-text">BOM 是什麼?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">2.</span> <span class="nav-text">window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-navigator"><span class="nav-number">3.</span> <span class="nav-text">window.navigator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-location"><span class="nav-number">4.</span> <span class="nav-text">window.location</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-frames"><span class="nav-number">5.</span> <span class="nav-text">window.frames</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-screen"><span class="nav-number">6.</span> <span class="nav-text">window.screen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-history"><span class="nav-number">7.</span> <span class="nav-text">window.history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-document"><span class="nav-number">8.</span> <span class="nav-text">window.document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">8.1.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

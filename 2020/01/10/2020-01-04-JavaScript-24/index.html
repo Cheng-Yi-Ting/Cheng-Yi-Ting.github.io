@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript - Call Stack , Event Queue &amp; Event Loop |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="JavaScript是同步執行的程式語言。 JavaScript 是一個設計為同步執行的程式語言，並且是單執行緒(single-threaded)。單執行緒可以想像成有一個餐廳的員工同時負責櫃檯和廚房的工作，他的能力強大到可以同時在兩份工作之間快速的切換，仿佛有多個員工在做事的錯覺。 竟然 JavaScript 不是非同步執行程式碼，那為什麼可以監聽瀏覽器的一些事件，像是移動滑鼠、點擊按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - Call Stack , Event Queue &amp; Event Loop">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="JavaScript是同步執行的程式語言。 JavaScript 是一個設計為同步執行的程式語言，並且是單執行緒(single-threaded)。單執行緒可以想像成有一個餐廳的員工同時負責櫃檯和廚房的工作，他的能力強大到可以同時在兩份工作之間快速的切換，仿佛有多個員工在做事的錯覺。 竟然 JavaScript 不是非同步執行程式碼，那為什麼可以監聽瀏覽器的一些事件，像是移動滑鼠、點擊按">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-1.gif">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-3.PNG">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-2.gif">
+<meta property="article:published_time" content="2020-01-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-23T00:08:27.385Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2020-01-04-JavaScript-24" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript - Call Stack , Event Queue &amp; Event Loop
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2020-01-09T16:00:00.000Z" itemprop="datePublished">一月 10, 2020</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p><strong>JavaScript是同步執行的程式語言</strong>。</p>
+<p><strong>JavaScript 是一個設計為同步執行的程式語言，並且是單執行緒(single-threaded)</strong>。單執行緒可以想像成有一個餐廳的員工同時負責櫃檯和廚房的工作，他的能力強大到可以同時在兩份工作之間快速的切換，仿佛有多個員工在做事的錯覺。</p>
+<p>竟然 JavaScript 不是非同步執行程式碼，那為什麼可以監聽瀏覽器的一些事件，像是移動滑鼠、點擊按鈕、捲動頁面、資料請求和檔案寫入這類型的非同步呼叫。</p>
+<p><strong>其實瀏覽器不是只有 JavaScript Engine 的存在</strong></p>
+<p>整個瀏覽器的運行環境並非只由  JS 引擎組成，瀏覽器還包含許多其他的部分，像是渲染引擎(Rendering Engine)和 HTTP 請求(Http Request)，而瀏覽器也提供 Web API 讓 JS 做應用，像是操作 DOM 節點 、 AJAX 請求、 setTimeout 計時、 Geolocation 地理位置。雖然 JS 引擎身是同步執行，但透過和瀏覽器的其他引擎互動來達到非同步的效果。</p>
+<h1 id="Call-Stack"><a href="#Call-Stack" class="headerlink" title="Call Stack"></a>Call Stack</h1><p>JS 的執行堆疊(call stack)記錄了 function 在 JS engine內的執行順序，意思就是程式目前執行到哪邊， call stack 是以同步的方式由上而下執行，採取後進先出 Last In, First Out (LIFO) ，最先執行的函式會被放在 stack 的最下面，如果在函式中執行了  <code>return</code>  ，則會將該函式 pop out 出 stack 。</p>
+<p> 請參考以下範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"-&gt; start [foo]"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"&lt;- end   [foo]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"-&gt; start [bar]"</span>);</span><br><span class="line">  foo()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"&lt;- end   [bar]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+
+<p>以下為範例各執行階段：</p>
+<ol>
+<li><p>bar() 會先被執行</p>
+</li>
+<li><p>bar() 印出 “start”</p>
+</li>
+<li><p>foo() 執行，此時 bar() 仍然在執行中</p>
+</li>
+<li><p>foo() 印出 “start”</p>
+</li>
+<li><p>foo() 印出 “end”</p>
+</li>
+<li><p>foo() 結束執行</p>
+</li>
+<li><p>bar() 印出 “end”</p>
+</li>
+<li><p>bar() 結束執行</p>
+</li>
+</ol>
+<img src="2020-01-04-JavaScript-24-1.gif" style="width:50%;">
+
+<h1 id="Stack-Overflow"><a href="#Stack-Overflow" class="headerlink" title="Stack Overflow"></a>Stack Overflow</h1><p>如果遞迴函式不斷呼叫自己而沒有一個中斷點，則會造成瀏覽器產生 stack error ：</p>
+<img src="2020-01-04-JavaScript-24-3.PNG" style="width:100%;">
+
+<h1 id="Event-Queue"><a href="#Event-Queue" class="headerlink" title="Event Queue"></a>Event Queue</h1><p>前面有說過瀏覽器除了有 JS Engine 外還有許多 Web API 可做應用，這些第三方 API 可以與 JS 一起執行，當遇到需要執行 call back 時，則會使用非同步模式，先將這些函式放到 Web APIs 中，在繼續執行主程式，等到時間到或是事件被觸發的時候，再把 call back 推送到  Event Queue(事件佇列) 中，等到整個 JS 執行環境結束後(Call Stack 清空)，才依序呼叫 Event Queue 裡面的函式，採取先進先出 first in, first out (FIFO)。</p>
+<p> 請參考以下範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"-&gt; start [foo]"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"&lt;- end   [foo]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"-&gt; start [bar]"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"&lt;- end   [bar]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"-&gt; start [baz]"</span>);</span><br><span class="line"></span><br><span class="line">  setTimeout(foo, <span class="number">1000</span>);</span><br><span class="line">  setTimeout(bar, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"&lt;- end   [baz]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">baz();</span><br></pre></td></tr></table></figure>
+
+<p>以下為範例各執行階段：</p>
+<ol>
+<li><p>baz() 會先被執行</p>
+</li>
+<li><p>baz() 印出 “start”</p>
+</li>
+<li><p>foo() 先放到 Web APIs ，等待1秒後移至 Event Queue 中。</p>
+</li>
+<li><p>bar() 先放到 Web APIs ，等待1秒後移至 Event Queue 中。</p>
+</li>
+<li><p>baz() 印出 “end”</p>
+</li>
+<li><p>baz() 執行完成，call stack 清空</p>
+</li>
+<li><p>透過 Event Loop 機制選取 queue 中的 foo()。</p>
+</li>
+<li><p>foo() 印出 “start”</p>
+</li>
+<li><p>foo() 印出 “end”</p>
+</li>
+<li><p>foo() 執行完成，call stack 清空</p>
+</li>
+<li><p>透過 Event Loop 機制選取 queue 中的 bar()。</p>
+</li>
+<li><p>bar() 印出 “start”</p>
+</li>
+<li><p>bar() 印出 “end”</p>
+</li>
+<li><p>bar() 執行完成，call stack 清空</p>
+</li>
+</ol>
+<img src="2020-01-04-JavaScript-24-2.gif" style="width:150%;">
+
+<h1 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h1><p>JS 當事件發生時，並不是馬上執行指定的函式，而是將事件排入 Event queue ，接著會重複檢查 call stack 是不是空的？如果是空的，再去看 Event queue 中有沒有待執行的函式，有的話就將函式 pop out ，放入 call stack 中執行。</p>
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
+<li><p><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank" rel="noopener">所以說event loop到底是什麼玩意兒？| Philip Roberts | JSConf EU</a></p>
+</li>
+<li><p><a href="https://pjchender.github.io/2017/10/13/js-%E7%90%86%E8%A7%A3-javascript-%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%92%B0%E3%80%81%E5%A0%86%E7%96%8A%E3%80%81%E4%BD%87%E5%88%97%E5%92%8C%E4%BD%B5%E7%99%BC%E6%A8%A1%E5%BC%8F%EF%BC%88learn-event-loop-stack-queue-and-concurrency-mode-of-javascript-in-depth%EF%BC%89/" target="_blank" rel="noopener">[JS] 理解 JavaScript 中的事件循環、堆疊、佇列和併發模式（Learn event loop, stack, queue, and concurrency mode of JavaScript in depth）</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191094" target="_blank" rel="noopener">Day06　JS是同步還是非同步? </a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10221944" target="_blank" rel="noopener">JS 原力覺醒 Day13 - Event Queue &amp; Event Loop 、Event Table </a></p>
+</li>
+<li><p><a href="http://epaper.gotop.com.tw/pdf/AEL022800.pdf" target="_blank" rel="noopener">非同步設計</a></p>
+</li>
+<li><p><a href="https://www.freecodecamp.org/news/understanding-the-javascript-call-stack-861e41ae61d4/" target="_blank" rel="noopener">Understanding the JavaScript call stack</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../18/2020-01-11-JavaScript-25/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript - Promise
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../04/2020-01-04-JavaScript-23/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 非同步執行 （Ascynchronous）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Call-Stack"><span class="nav-number">1.</span> <span class="nav-text">Call Stack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stack-Overflow"><span class="nav-number">2.</span> <span class="nav-text">Stack Overflow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Event-Queue"><span class="nav-number">3.</span> <span class="nav-text">Event Queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Event-Loop"><span class="nav-number">4.</span> <span class="nav-text">Event Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">5.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

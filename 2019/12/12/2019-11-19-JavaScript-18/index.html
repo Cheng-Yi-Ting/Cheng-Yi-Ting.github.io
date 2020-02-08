@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 原型鏈（Prototype Chain） |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="前言物件導向程式設計（OOP）的基本概念是使用物件的方式來表示，透過類別（class）的函式建構式（function constructor）可以產生物件實例（object instance）。 JavaScript 並非真正的物件導向 (OO) 語言，它是一個以原型為基礎 (Prototype-based) 的語言。因為沒有 Class，而是透過 「原型」(prototype) 來實現">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 原型鏈（Prototype Chain）">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="前言物件導向程式設計（OOP）的基本概念是使用物件的方式來表示，透過類別（class）的函式建構式（function constructor）可以產生物件實例（object instance）。 JavaScript 並非真正的物件導向 (OO) 語言，它是一個以原型為基礎 (Prototype-based) 的語言。因為沒有 Class，而是透過 「原型」(prototype) 來實現">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-1.PNG">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-2.PNG">
+<meta property="article:published_time" content="2019-12-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-28T04:20:22.344Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-19-JavaScript-18" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 原型鏈（Prototype Chain）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-12-11T16:00:00.000Z" itemprop="datePublished">十二月 12, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>物件導向程式設計（OOP）的基本概念是使用物件的方式來表示，透過類別（class）的函式建構式（function constructor）可以產生物件實例（object instance）。</p>
+<p>JavaScript 並非真正的物件導向 (OO) 語言，它是一個以原型為基礎 (Prototype-based) 的語言。因為沒有 Class，而是透過 「原型」(prototype) 來實現繼承實作。</p>
+<h2 id="建構式"><a href="#建構式" class="headerlink" title="建構式"></a>建構式</h2><p>在 JavaScript 中，一個 Function 是不是建構式並不是取決於它的宣告方式，而是取決於它是不是用 new 來執行的。如果是用 new 執行一個 Function 時，我們就稱做這種呼叫為 <strong>建構式呼叫</strong>。當我們用<strong>建構式呼叫</strong>去執行一個 Function，這個 Function 就會被當作建構式。</p>
+<p>使用 <code>new</code> 建構式呼叫的時候，實際上會有幾件事會被執行：</p>
+<ul>
+<li>首先會新建出一個物件。</li>
+<li>將物件的  <code>.__proto__</code>  指向建構子的 prototype ，形成原型串鏈。</li>
+<li>將建構子的 this 指向 new 出來的新物件。</li>
+<li>回傳新建物件 ( 如果建構式本身沒有回傳東西的話 )。</li>
+</ul>
+<p>先來看一下 function constructor 的實際應用，透過 function 的方式來建立一個新的物件，如果我們想要建立出同屬性名稱但不同屬性值的物件內容，我們可以把物件的屬性值變成參數，如此就能透過此 function constructor 建立出許多不同的物件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">firstName, lastName, age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">  <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">  <span class="keyword">this</span>.age = age;</span><br><span class="line">  <span class="keyword">this</span>.log = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstName+<span class="string">' '</span>+<span class="keyword">this</span>.lastName+ <span class="string">', age:'</span> + <span class="keyword">this</span>.age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'Roman'</span>,<span class="string">'Gonzalez'</span>, <span class="number">18</span>);</span><br><span class="line">roman.log(); <span class="comment">// Roman Gonzalez, age:18</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bobby = <span class="keyword">new</span> Person(<span class="string">'Bobby'</span>,<span class="string">'Lashley'</span>, <span class="number">20</span>);</span><br><span class="line">bobby.log(); <span class="comment">// Bobby Lashley, age:20</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(roman.log === bobby.log) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p> name 跟 age 這兩個屬性在每一個 instance 都不一定會相同，而 log 這個 method 其實都在做同一件事情，而且還佔用了兩份空間。意思就是他們其實是兩個不同的 function 。</p>
+<p>因為每一個 instance 彼此之間是可以共享方法的，所以我們可以透過把 log 這個 function 抽出來，指定在 Person.prototype 上面，這樣所有用 Person 建構出來的 instance 都可以共享這個方法，將可以有效減少記憶體占用的問題。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">firstName, lastName, age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line"> <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line"> <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.prototype.log = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstName+<span class="string">' '</span>+<span class="keyword">this</span>.lastName+ <span class="string">', age:'</span> + <span class="keyword">this</span>.age);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'Roman'</span>,<span class="string">'Gonzalez'</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">var</span> bobby = <span class="keyword">new</span> Person(<span class="string">'Bobby'</span>,<span class="string">'Lashley'</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(roman.log === bobby.log) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>共用的屬性或方法，不用每次都幫實體建立一份，提出來放到 prototype 即可。</p>
+<p>以下是嘗試存取屬性時會發生的事：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用含有 a 與 b 屬性的 f 函式，建立一個 o 物件：</span></span><br><span class="line"><span class="keyword">let</span> f = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.a = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">this</span>.b = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> f(); <span class="comment">// &#123;a: 1, b: 2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 接著針對 f 函式的原型添加屬性</span></span><br><span class="line">f.prototype.b = <span class="number">3</span>;</span><br><span class="line">f.prototype.c = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.a); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// o 有屬性「a」嗎？有，該數值為 1。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></span><br><span class="line"><span class="comment">// o 有屬性「b」嗎？有，該數值為 2。</span></span><br><span class="line"><span class="comment">// o 還有個原型屬性「b」，但這裡沒有被訪問到。</span></span><br><span class="line"><span class="comment">// 這稱作「property shadowing」。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.c); <span class="comment">// 4</span></span><br><span class="line"><span class="comment">// o 有屬性「c」嗎？沒有，那就找 o 的原型看看。</span></span><br><span class="line"><span class="comment">// o 在「o.[[Prototype]]」有屬性「c」嗎？有，該數值為 4。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.d); <span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// o 有屬性「d」嗎？沒有，那就找 o 的原型看看。</span></span><br><span class="line"><span class="comment">// o 在「o.[[Prototype]]」有屬性「d」嗎？沒有，那就找 o.[[Prototype]] 的原型看看。</span></span><br><span class="line"><span class="comment">// o 在「o.[[Prototype]].[[Prototype]]」是 null，停止搜尋。</span></span><br><span class="line"><span class="comment">// 找不到任何屬性，回傳 undefined。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="增加原生原型的屬性和方法"><a href="#增加原生原型的屬性和方法" class="headerlink" title="增加原生原型的屬性和方法"></a>增加原生原型的屬性和方法</h3><p>上面都是設定自己建立的物件原型，也能修改預設的原生原型，但不要不小心把原本內建的屬性或方法給無意間覆蓋掉。</p>
+<p>例如在 Array.prototype 上面加上函式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.push(<span class="string">"Cyting"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myname = [];</span><br><span class="line">myname[<span class="number">0</span>];    <span class="comment">//"Cyting"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ting = [];</span><br><span class="line">ting[<span class="number">0</span>];     <span class="comment">//"Cyting"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.top = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>[<span class="number">0</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">myname.top(); <span class="comment">//"Cyting"</span></span><br><span class="line">ting.top(); <span class="comment">//"Cyting"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>.prototype.isLengthGreaterThan = <span class="function"><span class="keyword">function</span>(<span class="params">limit</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.length &gt; limit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Cyting"</span>.isLengthGreaterThan(<span class="number">4</span>));    <span class="comment">//  True</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Array.prototype 中 push 一段字串進去，接著新增 top 函式回傳字串內容；只要宣告出陣列型別的資料型態，都會有該字串內容，也都能呼叫 top 函式。</p>
+<h3 id="修改-Prototype-方法"><a href="#修改-Prototype-方法" class="headerlink" title="修改 Prototype 方法"></a>修改 Prototype 方法</h3><p>我們可以修改某個 function constructor 的 prototype 內容，當改變了該函式建構式中 prototype 內的方法，那麼所有根據這個建構式所建立的實例（不管是修改 prototype 之前或之後所建立的實例），都會套用更新後的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">firstName, lastName, age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line"> <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line"> <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.prototype.log = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi <span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'Roman'</span>,<span class="string">'Gonzalez'</span>, <span class="number">18</span>);</span><br><span class="line">roman.log(); <span class="comment">// Hi Roman  Gonzalez</span></span><br><span class="line"><span class="keyword">var</span> bobby = <span class="keyword">new</span> Person(<span class="string">'Bobby'</span>,<span class="string">'Lashley'</span>, <span class="number">20</span>);</span><br><span class="line">bobby.log(); <span class="comment">// Hi Bobby  Lashley</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改原本的 log 方法</span></span><br><span class="line">Person.prototype.log= <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">roman.log();  <span class="comment">// Hello, Roman  Gonzalez</span></span><br><span class="line">bobby.log();  <span class="comment">// Hello, Bobby  Lashley</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="原型鏈-Prototype-Chain"><a href="#原型鏈-Prototype-Chain" class="headerlink" title="原型鏈 Prototype Chain"></a>原型鏈 Prototype Chain</h3><p>當物件試圖存取一個物件的屬性時，其不僅會尋找該物件，也會尋找該物件的原型、原型的原型……直到找到相符合的屬性，或是到達原型鏈的尾端。</p>
+<p>所有的物件裡面都會包含原型（prototype）這個物件，在 JavaScript 中這個物件的名稱為  <code>__proto__</code>  。如果在原本的物件中找不到指定的屬性名稱或方法時，就會進一步到 <code>__proto__</code>  裡面來找。</p>
+<p>以上面 var roman = new Person(‘Roman’,’Gonzalez’, 18); 為例，當呼叫  roman.log() 方法，因為 roman 這個 instance 本身並沒有 log 這個 function，而 roman 是 Person 的 instance，所以如果在 roman 本身找不到，就會嘗試從  Person.prototype 去找。</p>
+<p>我們想要取得某個物件的原型物件時，就可以透過以下兩個方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以使用 .__proto__ 來取得 [[Prototype]] </span></span><br><span class="line">roman.__proto__ === Person.prototype <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以用 Object.getPrototypeOf(..)來取得 [[Prototype]]</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(roman) === Person.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p> roman 的 <code>__proto__</code>  會指向 <code>Person.prototype</code>  ，當發現 roman 沒有 log 這個 method 的時候，JavaScript 就會試著透過 <code>__proto__</code>  找到  <code>Person.prototype</code>  ，去看 <code>Person.prototype</code>  裡面有沒有 log 這個 method。</p>
+<p>假如  <code>Person.prototype</code>  還是沒有呢？那就繼續依照這個規則，去看  <code>Person.prototype.__proto__</code>  裡面有沒有 log 這個 method，就這樣一直不斷找下去。直到該物件的 <code>__proto__</code>  為 null 為止，意思就是找到最上層了。</p>
+<p>而上面這一條透過 <code>__proto__</code>  不斷串起來的鍊，就稱為<strong>原型鍊</strong>。透過這一條原型鍊來呼叫自己 parent 的 method，讓 JavaScript 達到類似其他物件導向語言般的類別、繼承功能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// roman.__proto__ 會指向 Person.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(roman.__proto__ === Person.prototype) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person.prototype.__proto__ 會指向 Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.__proto__ === <span class="built_in">Object</span>.prototype) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.prototype.__proto__ 會指向 null，這就是原型鍊的頂端了</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__) <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty"></a>hasOwnProperty</h3><p>如果想知道一個屬性是存在 instance 身上，還是存在於它屬於的原型鍊當中，可以用 hasOwnProperty 這個方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'Roman'</span>,<span class="string">'Gonzalez'</span>, <span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(roman.hasOwnProperty(<span class="string">'log'</span>)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(roman.__proto__.hasOwnProperty(<span class="string">'log'</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p> hasOwnProperty 只會檢查該物件，而不會檢查整條原型串鏈；可以透過迴圈來列出整個原型鏈且為可列舉的屬性；prop 是自訂的變數，會把該物件的屬性存在這個變數中，接著讀取下一個屬性，重覆直到沒有屬性為止，透過 for…in 把該物件中的所有屬性名稱和屬性值都列出來，列出的項目也包含被添加過的屬性或方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> roman) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(prop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//firstName</span></span><br><span class="line"><span class="comment">//lastName</span></span><br><span class="line"><span class="comment">//age</span></span><br><span class="line"><span class="comment">//log</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p>檢查物件是否為指定的建構子所建立的實體，位於 instanceof 左邊的運算元是物件，右邊的是函式，若左邊的物件是由右邊函式所產生的，則會回傳 true，否則為 false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roman <span class="keyword">instanceof</span> Person    <span class="comment">// true</span></span><br><span class="line">roman <span class="keyword">instanceof</span> <span class="built_in">Object</span>    <span class="comment">// true</span></span><br><span class="line">roman <span class="keyword">instanceof</span> <span class="built_in">Array</span>     <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>  <code>A instanceof B</code>  就是拿來判斷 A 是不是 B 的 instance 只要能在 A 的原型鍊裡面找到 B 的 prototype，就會回傳 true。</p>
+<h3 id="isPrototypeOf-NaN"><a href="#isPrototypeOf-NaN" class="headerlink" title="isPrototypeOf"></a>isPrototypeOf</h3><p>與 instanceof 不同之處只在於運算元的資料型別不同而已，但功能是相同的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.isPrototypeOf(roman)  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.isPrototypeOf(roman)  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.isPrototypeOf(roman)   <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>如果  <code>A.isPrototypeOf(B)</code> 返回 true 則  <code>B instanceof A</code>  一定返回 true 。</p>
+<h3 id="Object-prototype"><a href="#Object-prototype" class="headerlink" title="Object.prototype"></a>Object.prototype</h3><p>當我們嘗試在某個物件存取一個不存在該物件的屬性時，它會繼續往它的「原型物件」<code>[[prototype]]</code> 去尋找，直到找到  <code>Object.prototype</code>  才停止。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 這兩個互為彼此的 instance</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Function 的 __proto__ 會指向 Function.prototype</span></span><br><span class="line"><span class="comment">// Function.prototype 的 __proto__ 會指向 Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.__proto__.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Object 的 __proto__ 會指向 Function.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__); <span class="comment">//null</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>每一個 prototype 都會有一個有 constructor 屬性，而這個屬性會指向構造函數，例如 Person.prototype 的構造函數就是Person。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">firstName, lastName, age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line"> <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line"> <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.prototype.log = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi <span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span>  <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span>);</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Person(<span class="string">'Roman'</span>,<span class="string">'Gonzalez'</span>, <span class="number">18</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 往原型鍊去找</span></span><br><span class="line"><span class="built_in">console</span>.log(roman.constructor === Person); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(roman.hasOwnProperty(<span class="string">'constructor'</span>)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 的 constructor 就是 Person</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor === Person); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.hasOwnProperty(<span class="string">'constructor'</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p> <code>X.prototype.constructor === X</code>  ，將 X 用 Function, Person, Object 帶進去都會是 true。</p>
+<h3 id="Object-create-and-new-operator-差異"><a href="#Object-create-and-new-operator-差異" class="headerlink" title="Object.create() and new operator 差異"></a>Object.create() and new operator 差異</h3><p>以下為使用 Object.create 方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dog = &#123;</span><br><span class="line">    eat: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.eatFood)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maddie = <span class="built_in">Object</span>.create(dog);</span><br><span class="line"><span class="built_in">console</span>.log(dog.isPrototypeOf(maddie)); <span class="comment">//true</span></span><br><span class="line">maddie.eatFood = <span class="string">'NomNomNom'</span>; </span><br><span class="line">maddie.eat(); <span class="comment">//NomNomNom</span></span><br></pre></td></tr></table></figure>
+
+<p>執行流程如下：</p>
+<ol>
+<li>建立一個 dog 物件。</li>
+<li>使用 Object.create(dog)  將 將 maddie 的 [[Prototype]] 指向 dog 。</li>
+<li>檢查 maddie 的 prototype 是不是 dog，回傳 true 。</li>
+<li>設定 maddie 的 eatFood 屬性值。</li>
+<li>呼叫 eat function。</li>
+<li>Javascript 透過 prototype chain 找到 eat method 。</li>
+</ol>
+<p>以下為使用 new operator 方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Dog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.eatFood = <span class="string">'NomNomNom'</span>;</span><br><span class="line">    <span class="keyword">this</span>.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.eatFood)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maddie = <span class="keyword">new</span>(Dog);</span><br><span class="line"><span class="built_in">console</span>.log(maddie <span class="keyword">instanceof</span> Dog); <span class="comment">// True</span></span><br><span class="line">maddie.eat(); <span class="comment">//NomNomNom</span></span><br></pre></td></tr></table></figure>
+
+<p>執行流程如下：</p>
+<p>建立一個 maddie 物件。</p>
+<ol>
+<li>透過 function constructor 將 maddie 的 [[Prototype]] 指向 Dog 的  Prototype。</li>
+<li>設定建構式中的 this 到物件。</li>
+<li>回傳所建立的物件。</li>
+<li>檢查 maddie 是不是 Dog 的 instance ，回傳 true 。</li>
+<li>呼叫 eat function。</li>
+<li>Javascript 透過 prototype chain 找到 eat method 。</li>
+</ol>
+<p>再看一個例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.pupper = <span class="string">'Pupper'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Dog.prototype.pupperino = <span class="string">'Pups.'</span>;</span><br><span class="line"><span class="keyword">var</span> maddie = <span class="keyword">new</span> Dog();</span><br><span class="line"><span class="keyword">var</span> buddy = <span class="built_in">Object</span>.create(Dog.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Using Object.create()</span></span><br><span class="line"><span class="built_in">console</span>.log(buddy.pupper); <span class="comment">//Output is undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(buddy.pupperino); <span class="comment">//Output is Pups.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Using New Keyword</span></span><br><span class="line"><span class="built_in">console</span>.log(maddie.pupper); <span class="comment">//Output is Pupper</span></span><br><span class="line"><span class="built_in">console</span>.log(maddie.pupperino); <span class="comment">//Output is Pups.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(buddy.pupper); <span class="comment">//Output is undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>大家有注意到 <strong>buddy.pupper</strong> 是 <strong>undefined</strong> 嗎？即使 Object.create() 將 prototype 指定為 Dog ，但是 buddy 並沒有存取到建構式中的 <strong>this.pupper</strong> ，兩者之間的主要差別就是 new Dog 會執行建構式中的程式碼，而 object.create 並不會執行建構式裡面的內容。</p>
+<p>以下為另一個範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.prop1 = <span class="string">'prop1'</span>;</span><br><span class="line">    <span class="keyword">this</span>.prop2 = <span class="string">'prop2'</span>;</span><br><span class="line">    <span class="keyword">this</span>.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.prop1 + <span class="keyword">this</span>.prop2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test.prototype.protoProp1 = <span class="string">'protoProp1'</span>;</span><br><span class="line">Test.prototype.protoProp2 = <span class="string">'protoProp2'</span>;</span><br><span class="line"><span class="keyword">var</span> newKeywordTest = <span class="keyword">new</span> Test();</span><br><span class="line"><span class="keyword">var</span> objectCreateTest = <span class="built_in">Object</span>.create(Test.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Object.create   */</span></span><br><span class="line"><span class="built_in">console</span>.log(objectCreateTest.prop1); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(objectCreateTest.protoProp1); <span class="comment">// protoProp1 </span></span><br><span class="line"><span class="built_in">console</span>.log(objectCreateTest.__proto__.protoProp1); <span class="comment">// protoProp1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* new    */</span></span><br><span class="line"><span class="built_in">console</span>.log(newKeywordTest.prop1); <span class="comment">// prop1</span></span><br><span class="line"><span class="built_in">console</span>.log(newKeywordTest.__proto__.protoProp1); <span class="comment">// protoProp1</span></span><br></pre></td></tr></table></figure>
+
+<p>此範例比較三個不同的建立方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.prop1 = <span class="string">'prop1'</span>;</span><br><span class="line"> <span class="keyword">this</span>.prop2 = <span class="string">'prop2'</span>;</span><br><span class="line"> <span class="keyword">this</span>.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">this</span>.prop1 + <span class="keyword">this</span>.prop2;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test.prototype.protoProp1 = <span class="string">'protoProp1'</span>;</span><br><span class="line">Test.prototype.protoProp2 = <span class="string">'protoProp2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Test();</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.create(Test.prototype);</span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">Object</span>.create(Test);</span><br></pre></td></tr></table></figure>
+
+<p>讓我們來看一下 a ,b ,c 三個物件內容在 console 輸出的結果：</p>
+<img src="2019-11-19-JavaScript-18-1.PNG" style="width:50%;">
+
+<img src="2019-11-19-JavaScript-18-2.PNG" style="width:50%;">
+
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>所謂的 Prototype 就是原型，所有函式上面都有預設有一個公開的 Prototype 屬性，而被此建構式新建出來的物件都可以透過 <code>[[Prototype]]</code> 參考連結到這個原型物件上來存取其上的屬性，也就能建立出 <em>類似物件導向概念</em> 的程式。</p>
+<p>整理一下本篇中出現的名詞：</p>
+<ul>
+<li><p><code>Prototype</code>：</p>
+<p>也就是原型物件。</p>
+<p>所有函式上面都有預設有一個公開的 Prototype 屬性(原型物件)。被函式建立出的物件都可以存取其對應的原型物件。</p>
+</li>
+<li><p><code>[[Prototype]]</code>：</p>
+<p>用來讓物件能夠連結到其原型物件上的一個參考。</p>
+<p>這是一個不允許外部存取的屬性。</p>
+</li>
+<li><p><code>__proto__</code>：</p>
+<p>相當於可存取的 <code>[[Prototype]]</code>，為了方便存取 <code>Prototype</code> 而生。</p>
+<p>雖已於 ES6 中列為標準，但為了效能考量還是不建議使用。</p>
+</li>
+</ul>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://blog.techbridge.cc/2017/04/22/javascript-prototype/" target="_blank" rel="noopener">https://blog.techbridge.cc/2017/04/22/javascript-prototype/</a></p>
+</li>
+<li><p><a href="https://cythilya.github.io/2018/10/26/prototype/" target="_blank" rel="noopener">https://cythilya.github.io/2018/10/26/prototype/</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10194356" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10194356</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10196639" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10196639</a></p>
+</li>
+<li><p><a href="https://pjchender.github.io/2018/08/01/js-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91-javascript-object-oriented-javascript/" target="_blank" rel="noopener">https://pjchender.github.io/2018/08/01/js-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91-javascript-object-oriented-javascript/</a></p>
+</li>
+<li><p><a href="https://medium.com/@jonathanvox01/understanding-the-difference-between-object-create-and-the-new-operator-b2a2f4749358" target="_blank" rel="noopener">https://medium.com/@jonathanvox01/understanding-the-difference-between-object-create-and-the-new-operator-b2a2f4749358</a></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/4166616/understanding-the-difference-between-object-create-and-new-somefunction" target="_blank" rel="noopener">https://stackoverflow.com/questions/4166616/understanding-the-difference-between-object-create-and-new-somefunction</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../13/2019-12-12-JavaScript-19/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript Object-oriented programming
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../11/19/2019-11-17-JavaScript-16/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Copy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建構式"><span class="nav-number">2.</span> <span class="nav-text">建構式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加原生原型的屬性和方法"><span class="nav-number">2.1.</span> <span class="nav-text">增加原生原型的屬性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-Prototype-方法"><span class="nav-number">2.2.</span> <span class="nav-text">修改 Prototype 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型鏈-Prototype-Chain"><span class="nav-number">2.3.</span> <span class="nav-text">原型鏈 Prototype Chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hasOwnProperty-NaN"><span class="nav-number">2.4.</span> <span class="nav-text">hasOwnProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">2.5.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isPrototypeOf-NaN"><span class="nav-number">2.6.</span> <span class="nav-text">isPrototypeOf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-prototype"><span class="nav-number">2.7.</span> <span class="nav-text">Object.prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">2.8.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-create-and-new-operator-差異"><span class="nav-number">2.9.</span> <span class="nav-text">Object.create() and new operator 差異</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#結論"><span class="nav-number">3.</span> <span class="nav-text">結論</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">3.1.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

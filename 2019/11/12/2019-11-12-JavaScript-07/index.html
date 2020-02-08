@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 提升（Hoisting） |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。 變數的有效範圍 (Scope)在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 function 做分界的。 1234567891011var x &#x3D; 1;var fn &#x3D; function(y) &amp;#123;  var x &#x3D; 100;  return x + y;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 提升（Hoisting）">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-07/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。 變數的有效範圍 (Scope)在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 function 做分界的。 1234567891011var x &#x3D; 1;var fn &#x3D; function(y) &amp;#123;  var x &#x3D; 100;  return x + y;">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-07/logo.svg">
+<meta property="article:published_time" content="2019-11-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-13T17:11:33.511Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/12/2019-11-12-JavaScript-07/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-12-JavaScript-07" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 提升（Hoisting）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-11T16:00:00.000Z" itemprop="datePublished">十一月 12, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p>在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。</p>
+<h2 id="變數的有效範圍-Scope"><a href="#變數的有效範圍-Scope" class="headerlink" title="變數的有效範圍 (Scope)"></a>變數的有效範圍 (Scope)</h2><p>在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 <code>function</code> 做分界的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));  <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);       <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>由於函式 <code>fn()</code> 裡面再次定義了變數 <code>x</code>，所以當我們執行 <code>fn(50)</code> 時，會將 <code>50</code> 作為參數傳入 <code>fn()</code> 的 <code>y</code>，那麼 <code>return x + y</code> 的結果自然就是 <code>100 + 50</code> 的 <code>150</code> 了。</p>
+<p>因為「切分變數有效範圍的最小單位是 “function” 」，所以在函式區塊內透過 <code>var</code> 定義的 <code>x</code> 實際上只屬於這個函式。 換句話說，外面的 <code>x</code> 跟 function 內的 <code>x</code> 其實是兩個不同的變數，所以最後一行印出的 x 是 1 而不是 100 。</p>
+<h3 id="如果-function-內部沒有-var-x-呢？"><a href="#如果-function-內部沒有-var-x-呢？" class="headerlink" title="如果 function 內部沒有 var x 呢？"></a><strong>如果 function 內部沒有 <code>var x</code> 呢？</strong></h3><p>如果自己的 function 內如果找不到，就會一層層往外找，直到全域變數為止：</p>
+<p>範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 內部找不到 x 就會到外面找，直到全域變數為止。</span></span><br><span class="line">  <span class="comment">// 都沒有就會報錯：ReferenceError: x is not defined</span></span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 51</span></span><br></pre></td></tr></table></figure>
+
+<p>要注意的是， <code>function</code> 可以讀取外層已經宣告的變數， 但外層拿不到裡面宣告的變數。</p>
+<h3 id="沒有-var-宣告的變數會變成全域變數"><a href="#沒有-var-宣告的變數會變成全域變數" class="headerlink" title="沒有 var 宣告的變數會變成全域變數"></a><strong>沒有 <code>var</code> 宣告的變數會變成全域變數</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+<p>由於在 <code>function</code> 內沒有重新宣告 <code>x</code> 變數，使得 <code>x = 100</code> 跑去變更了外層的同名變數 <code>x</code>。</p>
+<h2 id="提升-Hoisting"><a href="#提升-Hoisting" class="headerlink" title="提升 (Hoisting)"></a>提升 (Hoisting)</h2><p>一般在寫程式的時候，我們都會定義好變數，然後才去使用它，如果在尚未定義的情況下，直接去使用這個變項，通常都會出現錯誤訊息！</p>
+<p>然而，在 javascript 中有一個蠻特別的概念是 hoisting ，指的是在 JavaScript 中，它會把定義的變數移到最前面先執行。</p>
+<p>JavaScript 僅提升宣告的部分，而不是初始化。如果在使用該變數後才宣告和初始化，那麼該值將是 undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的例子，實際上在瀏覽器 (或者編譯器) 的眼中，是長這樣的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x;</span><br><span class="line">  <span class="built_in">console</span>.log(x);   <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">50</span>));   <span class="comment">// 150</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(x);        <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="除了變數以外，函式也有提升。"><a href="#除了變數以外，函式也有提升。" class="headerlink" title="除了變數以外，函式也有提升。"></a>除了變數以外，函式也有提升。</h3><p>透過「函式宣告」方式定義的函式可以在宣告前使用 (函式提升) ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而透過「函式運算式」定義的函式則是會出現錯誤：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn(<span class="number">2</span>);    <span class="comment">// TypeError: square is not a function</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">number</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>與變數提升的差別在於變數提升只有宣告被提升，而函式的提升則是包括內容完全被提升。 </p>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191549" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191549</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Glossary/Hoisting</a></p>
+</li>
+<li><p><a href="https://pjchender.blogspot.com/2015/12/javascript-hoisting.html" target="_blank" rel="noopener">https://pjchender.blogspot.com/2015/12/javascript-hoisting.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../2019-11-12-JavaScript-06/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 函式（Function）
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../11/2019-11-10-JavaScript-04/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 中的「傳值」 與 「傳址」</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#變數的有效範圍-Scope"><span class="nav-number">1.</span> <span class="nav-text">變數的有效範圍 (Scope)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果-function-內部沒有-var-x-呢？"><span class="nav-number">1.1.</span> <span class="nav-text">如果 function 內部沒有 var x 呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沒有-var-宣告的變數會變成全域變數"><span class="nav-number">1.2.</span> <span class="nav-text">沒有 var 宣告的變數會變成全域變數</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提升-Hoisting"><span class="nav-number">2.</span> <span class="nav-text">提升 (Hoisting)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#除了變數以外，函式也有提升。"><span class="nav-number">2.1.</span> <span class="nav-text">除了變數以外，函式也有提升。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文獻"><span class="nav-number">3.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

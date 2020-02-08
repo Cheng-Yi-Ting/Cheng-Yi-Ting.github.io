@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript ES6 Class |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="JavaScript是一個以原型為基礎(prototype-based)的物件導向程式語言，而 ES6 Class 只是個語法糖(syntactical sugar)，目的是提供更簡潔的語法來作物件建立與繼承。 我們過去使用 function constructor 來產生類別物件： 12345678910111213141516171819202122function Employee">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript ES6 Class">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/12/14/2019-12-13-JavaScript-20/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="JavaScript是一個以原型為基礎(prototype-based)的物件導向程式語言，而 ES6 Class 只是個語法糖(syntactical sugar)，目的是提供更簡潔的語法來作物件建立與繼承。 我們過去使用 function constructor 來產生類別物件： 12345678910111213141516171819202122function Employee">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/14/2019-12-13-JavaScript-20/logo.svg">
+<meta property="article:published_time" content="2019-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-12-21T13:14:24.494Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/12/14/2019-12-13-JavaScript-20/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-12-13-JavaScript-20" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript ES6 Class
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-12-13T16:00:00.000Z" itemprop="datePublished">十二月 14, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p>JavaScript是一個以原型為基礎(prototype-based)的物件導向程式語言，而 ES6 Class 只是個語法糖(syntactical sugar)，目的是提供更簡潔的語法來作物件建立與繼承。</p>
+<p>我們過去使用 function constructor 來產生類別物件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, age,salary</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 定義基本屬性</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.salary = salary;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原型方法</span></span><br><span class="line">Employee.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee.prototype.employeeDetails = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">'Name: '</span>+<span class="keyword">this</span>.name+<span class="string">', Age:'</span>+<span class="keyword">this</span>.age+<span class="string">', salary:'</span>+<span class="keyword">this</span>.salary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> felix = <span class="keyword">new</span> Employee(<span class="string">'Felix'</span>, <span class="number">18</span>, <span class="number">22000</span>);</span><br><span class="line"><span class="comment">//Name: Felix, Age:18, salary:22000</span></span><br><span class="line"><span class="built_in">console</span>.log(felix.employeeDetails());</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br><span class="line"><span class="comment">//Name: Hector, Age:25, salary:36000</span></span><br><span class="line"><span class="built_in">console</span>.log(hector.employeeDetails());</span><br></pre></td></tr></table></figure>
+
+<h1 id="ES6-Constructor"><a href="#ES6-Constructor" class="headerlink" title="ES6 Constructor"></a>ES6 Constructor</h1><h3 id="類別宣告（Class-Declaration）"><a href="#類別宣告（Class-Declaration）" class="headerlink" title="類別宣告（Class Declaration）"></a>類別宣告（Class Declaration）</h3><p>一個定義類別的方法是使用類別宣告(class declaration)，使用關鍵字 class 搭配類別名稱(此例為 “Employee”)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name, age, salary) &#123;</span><br><span class="line">     <span class="keyword">this</span>.name= name;</span><br><span class="line">     <span class="keyword">this</span>.age = age;</span><br><span class="line">     <span class="keyword">this</span>.salary= salary;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="類別敘述（Class-Expression）"><a href="#類別敘述（Class-Expression）" class="headerlink" title="類別敘述（Class Expression）"></a>類別敘述（Class Expression）</h3><p>類別敘述是定義類別的另一種方法，可區分為有名稱或無名稱的類別敘述。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// named class expression</span></span><br><span class="line"><span class="keyword">var</span> Employee = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name, age, salary) &#123;</span><br><span class="line">     <span class="keyword">this</span>.name= name;</span><br><span class="line">     <span class="keyword">this</span>.age = age;</span><br><span class="line">     <span class="keyword">this</span>.salary= salary;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// unnamed class expression</span></span><br><span class="line"><span class="keyword">var</span> Employee = <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name, age, salary) &#123;</span><br><span class="line">     <span class="keyword">this</span>.name= name;</span><br><span class="line">     <span class="keyword">this</span>.age = age;</span><br><span class="line">     <span class="keyword">this</span>.salary= salary;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hoisting"><a href="#Hoisting" class="headerlink" title="Hoisting"></a>Hoisting</h3><p>函式宣告和類別宣告的一個重要差別在於函式宣告是會 hoisted，而類別宣告則不會。使用類別宣告方法，需要先宣告類別才能進行存取，否則會出現 ReferenceError 的錯誤。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Uncaught ReferenceError: Cannot access 'Employee' before initialization</span></span><br><span class="line"><span class="keyword">var</span> Vincent = <span class="keyword">new</span> Employee(); </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下為將第一個例子修改為 Class 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name, age, salary) &#123;</span><br><span class="line">        <span class="comment">// 定義基本屬性</span></span><br><span class="line">        <span class="keyword">this</span>.name= name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.salary= salary;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 原型方法</span></span><br><span class="line">  getName() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">   &#125;</span><br><span class="line">     </span><br><span class="line">  employeeDetails() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Name: '</span>+<span class="keyword">this</span>.name+<span class="string">', Age:'</span>+<span class="keyword">this</span>.age+<span class="string">',                 salary:'</span>+<span class="keyword">this</span>.salary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Name: Felix, Age:18, salary:22000</span></span><br><span class="line"><span class="keyword">var</span> felix = <span class="keyword">new</span> Employee(<span class="string">'Felix'</span>, <span class="number">18</span>, <span class="number">22000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(felix.employeeDetails());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Name: Hector, Age:25, salary:36000</span></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(hector.employeeDetails());</span><br></pre></td></tr></table></figure>
+
+<p>改由 constructor 定義物件內的屬性，並將以前的 prototype 直接寫在 class 內，讓程式碼更為直觀。</p>
+<h3 id="靜態方法"><a href="#靜態方法" class="headerlink" title="靜態方法"></a>靜態方法</h3><p>我們可以在 class 內定義靜態方法，靜態方法只能被原型使用，無法在創立的物件上使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name, age, salary) &#123;</span><br><span class="line">     <span class="keyword">this</span>.name= name;</span><br><span class="line">     <span class="keyword">this</span>.age = age;</span><br><span class="line">     <span class="keyword">this</span>.salary= salary;</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">static</span> testMethod()&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">'static method has been called.'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//hector.testMethod is not a function</span></span><br><span class="line">hector.testMethod();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 'static method has been called.'</span></span><br><span class="line">Employee.testMethod()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Get-and-Set"><a href="#Get-and-Set" class="headerlink" title="Get and Set"></a>Get and Set</h3><p>get 與 set 關鍵字分別代表取得方法和設定方法，一般的公開的的屬性不需要用到這兩種方法，本來就能直接取值或設定；只有私有屬性才需要用到 get 和 set 方法來作取得或設定。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6 get and set</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">     <span class="keyword">this</span>.name= name;</span><br><span class="line">     <span class="keyword">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> salary() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"The code executed on getting obj.salary"</span>);</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">this</span>._salary!== <span class="literal">undefined</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._salary;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'no salary prop'</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> salary(value) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"The code executed on setting obj.salary = value;"</span>)</span><br><span class="line">     <span class="keyword">this</span>._salary=value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector = <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>,<span class="number">18</span>);</span><br><span class="line"><span class="comment">//The code executed on setting obj.salary = value;</span></span><br><span class="line">hector.salary=<span class="string">'35000'</span>;</span><br><span class="line"><span class="comment">//The code executed on getting obj.salary</span></span><br><span class="line"><span class="comment">//"35000"</span></span><br><span class="line">hector.salary;</span><br></pre></td></tr></table></figure>
+
+<p>getter不會有傳入參數，setter 則只能傳入一個參數。</p>
+<h3 id="繼承"><a href="#繼承" class="headerlink" title="繼承"></a>繼承</h3><p>我們之前透過函式建構式來達成類別繼承，為了讓子類別繼承父類別建構函式的內容，所以我們必須在子類別建構函式中呼叫父類別建構函式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line"> <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Student 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line"> Person.call(<span class="keyword">this</span>,name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><p>ES6 簡化類別宣告的過程，我們不需要再去修改原型物件，也能直接完成繼承的效果。</p>
+<p>這裡會使用到兩個關鍵字：</p>
+<ul>
+<li><code>extends</code>: 繼承於另一個原型之下。</li>
+<li><code>super</code> : 使用上層的值(屬性)。</li>
+</ul>
+<p>創造子類別 Student，並使用 extends 指向 Person，讓 Student 繼承 Person：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line">    <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> hi() &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="keyword">super</span>(name);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> say() &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">`Say, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>繼承的子類別中的建構式， super() 需要放在建構式第一行，這是標準的呼叫方式。如果有需要傳入參數可以傳入。</p>
+<p>繼承的子類別中的屬性與方法，都會覆蓋掉原有的在父母類別中的同名稱屬性或方法，要區分不同的屬性或方法要用 super 關鍵字來存取父母類別中的屬性或方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line">    <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line"> &#125;</span><br><span class="line"> hi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"> <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="keyword">super</span>(name);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> hi() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">super</span>.hi());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hi, roman ,My age is 0.</span></span><br><span class="line">roman.hi();</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10185583" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10185583</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10195056" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10195056</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10226111" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10226111</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10196867" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10196867</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../25/2019-12-21-JavaScript-21/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript var , let , const
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../13/2019-12-12-JavaScript-19/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Object-oriented programming</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6-Constructor"><span class="nav-number">1.</span> <span class="nav-text">ES6 Constructor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#類別宣告（Class-Declaration）"><span class="nav-number">1.0.1.</span> <span class="nav-text">類別宣告（Class Declaration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#類別敘述（Class-Expression）"><span class="nav-number">1.0.2.</span> <span class="nav-text">類別敘述（Class Expression）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hoisting"><span class="nav-number">1.0.3.</span> <span class="nav-text">Hoisting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#靜態方法"><span class="nav-number">1.0.4.</span> <span class="nav-text">靜態方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-and-Set"><span class="nav-number">1.0.5.</span> <span class="nav-text">Get and Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#繼承"><span class="nav-number">1.0.6.</span> <span class="nav-text">繼承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extends"><span class="nav-number">1.0.7.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">1.0.8.</span> <span class="nav-text">參考文獻</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

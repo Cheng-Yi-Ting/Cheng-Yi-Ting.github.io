@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript 陣列 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="陣列JavaScript 的陣列可以看作是一種特別的「物件」， 陣列內可以是原始的資料類型、其他陣列、函式等等。 建立陣列陣列可以使用字面表達語法來建立︰ 1var fruits &#x3D; [&#39;Apple&#39;, &#39;Banana&#39;];  或是使用 Array 的建構子來建立︰ 123var fruits &#x3D; new Array();fruits[0] &#x3D; &quot;Apple&quot;;fruits[1] &#x3D; &quot;B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 陣列">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/10/2019-11-11-JavaScript-03/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="陣列JavaScript 的陣列可以看作是一種特別的「物件」， 陣列內可以是原始的資料類型、其他陣列、函式等等。 建立陣列陣列可以使用字面表達語法來建立︰ 1var fruits &#x3D; [&#39;Apple&#39;, &#39;Banana&#39;];  或是使用 Array 的建構子來建立︰ 123var fruits &#x3D; new Array();fruits[0] &#x3D; &quot;Apple&quot;;fruits[1] &#x3D; &quot;B">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/10/2019-11-11-JavaScript-03/logo.svg">
+<meta property="article:published_time" content="2019-11-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-11-13T17:12:46.791Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/10/2019-11-11-JavaScript-03/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-11-JavaScript-03" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript 陣列
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-09T16:00:00.000Z" itemprop="datePublished">十一月 10, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="陣列"><a href="#陣列" class="headerlink" title="陣列"></a>陣列</h2><p>JavaScript 的陣列可以看作是一種特別的「物件」， 陣列內可以是原始的資料類型、其他陣列、函式等等。<br></br></p>
+<h4 id="建立陣列"><a href="#建立陣列" class="headerlink" title="建立陣列"></a><strong>建立陣列</strong></h4><p>陣列可以使用字面表達語法來建立︰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fruits = [<span class="string">'Apple'</span>, <span class="string">'Banana'</span>];</span><br></pre></td></tr></table></figure>
+
+<p>或是使用 Array 的建構子來建立︰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fruits = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">fruits[<span class="number">0</span>] = <span class="string">"Apple"</span>;</span><br><span class="line">fruits[<span class="number">1</span>] = <span class="string">"Banana"</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（透過索引）取得陣列項目"><a href="#（透過索引）取得陣列項目" class="headerlink" title="（透過索引）取得陣列項目"></a><strong>（透過索引）取得陣列項目</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> first = fruits[<span class="number">0</span>]; <span class="comment">//Apple</span></span><br><span class="line"><span class="keyword">var</span> last = fruits[fruits.length - <span class="number">1</span>]; <span class="comment">// Banana</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="迭代陣列"><a href="#迭代陣列" class="headerlink" title="迭代陣列"></a><strong>迭代陣列</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fruits.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item, index);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Apple 0</span></span><br><span class="line"><span class="comment">// Banana 1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="加入項目至陣列末端"><a href="#加入項目至陣列末端" class="headerlink" title="加入項目至陣列末端"></a><strong>加入項目至陣列末端</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newLength = fruits.push(<span class="string">'Orange'</span>);</span><br><span class="line"><span class="comment">// ["Apple", "Banana", "Orange"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="移除陣列末端項目"><a href="#移除陣列末端項目" class="headerlink" title="移除陣列末端項目"></a><strong>移除陣列末端項目</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> last = fruits.pop(); <span class="comment">// 移除 (最末端的) Orange</span></span><br><span class="line"><span class="comment">// ["Apple", "Banana"];</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="移除陣列前端項目"><a href="#移除陣列前端項目" class="headerlink" title="移除陣列前端項目"></a><strong>移除陣列前端項目</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> first = fruits.shift(); <span class="comment">// 移除 (最前端的) Apple</span></span><br><span class="line"><span class="comment">// ["Banana"];</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="加入項目至陣列前端"><a href="#加入項目至陣列前端" class="headerlink" title="加入項目至陣列前端"></a><strong>加入項目至陣列前端</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newLength = fruits.unshift(<span class="string">'Strawberry'</span>) <span class="comment">// 加到陣列前端</span></span><br><span class="line"><span class="comment">// ["Strawberry", "Banana"];</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="在陣列中尋找項目的索引"><a href="#在陣列中尋找項目的索引" class="headerlink" title="在陣列中尋找項目的索引"></a><strong>在陣列中尋找項目的索引</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fruits.push(<span class="string">'Mango'</span>);</span><br><span class="line"><span class="comment">// ["Strawberry", "Banana", "Mango"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pos = fruits.indexOf(<span class="string">'Banana'</span>);</span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="移除指定索引位置的項目"><a href="#移除指定索引位置的項目" class="headerlink" title="移除指定索引位置的項目"></a><strong>移除指定索引位置的項目</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removedItem = fruits.splice(pos, <span class="number">1</span>); <span class="comment">// 移除 pos 起的 1 個項目</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ["Strawberry", "Mango"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="移除指定索引位置起的多個項目"><a href="#移除指定索引位置起的多個項目" class="headerlink" title="移除指定索引位置起的多個項目"></a><strong>移除指定索引位置起的多個項目</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vegetables = [<span class="string">'Cabbage'</span>, <span class="string">'Turnip'</span>, <span class="string">'Radish'</span>, <span class="string">'Carrot'</span>];</span><br><span class="line"><span class="built_in">console</span>.log(vegetables); </span><br><span class="line"><span class="comment">// ["Cabbage", "Turnip", "Radish", "Carrot"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pos = <span class="number">1</span>, n = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> removedItems = vegetables.splice(pos, n); </span><br><span class="line"><span class="comment">// 這就是移除項目的方式，</span></span><br><span class="line"><span class="comment">// n 表示從該位置 (pos) 開始，一直到陣列的尾端有多少項目需要移除</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(vegetables); </span><br><span class="line"><span class="comment">// ["Cabbage", "Carrot"] (原始的陣列被改變)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(removedItems); </span><br><span class="line"><span class="comment">// ["Turnip", "Radish"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="複製陣列"><a href="#複製陣列" class="headerlink" title="複製陣列"></a><strong>複製陣列</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> shallowCopy = fruits.slice(); <span class="comment">// 這就是複製陣列的方式</span></span><br><span class="line"><span class="comment">// ["Strawberry", "Mango"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="將陣列元素合併成字串"><a href="#將陣列元素合併成字串" class="headerlink" title="將陣列元素合併成字串"></a><strong>將陣列元素合併成字串</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = [<span class="string">'Fire'</span>, <span class="string">'Air'</span>, <span class="string">'Water'</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join());</span><br><span class="line"><span class="comment">// expected output: "Fire,Air,Water"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">''</span>));</span><br><span class="line"><span class="comment">// expected output: "FireAirWater"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(elements.join(<span class="string">'-'</span>));</span><br><span class="line"><span class="comment">// expected output: "Fire-Air-Water"</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="刪除陣列元素"><a href="#刪除陣列元素" class="headerlink" title="刪除陣列元素"></a><strong>刪除陣列元素</strong></h4><p>刪除陣列元素後，該元素為undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> arr[<span class="number">1</span>];</span><br><span class="line"><span class="comment">//[1,undefined,3, 4, 5, 6]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="將字串或輸入參數組成陣列"><a href="#將字串或輸入參數組成陣列" class="headerlink" title="將字串或輸入參數組成陣列"></a><strong>將字串或輸入參數組成陣列</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(<span class="string">'foo'</span>));</span><br><span class="line"><span class="comment">// expected output: Array ["f", "o", "o"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], x =&gt; x + x));</span><br><span class="line"><span class="comment">// expected output: Array [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回"><a href="#對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回" class="headerlink" title="對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回"></a><strong>對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回</strong></h4><p>map 會將所有陣列中的元素依序分別傳入一次至 callback 函式當中，並以此回呼函式每一次被呼叫的回傳值來建構一個新的陣列。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// pass a function to map</span></span><br><span class="line"><span class="keyword">const</span> map1 = array1.map(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(map1);</span><br><span class="line"><span class="comment">// expected output: Array [2, 8, 18, 32]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr2 = arr.map(<span class="function"><span class="keyword">function</span> (<span class="params">element,index,array</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> element * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr2);</span><br><span class="line"><span class="comment">//  [2, 4, 6, 8, 10, 12]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="會將兩個陣列合併產生新的陣列，原陣列不改變"><a href="#會將兩個陣列合併產生新的陣列，原陣列不改變" class="headerlink" title="會將兩個陣列合併產生新的陣列，原陣列不改變"></a><strong>會將兩個陣列合併產生新的陣列，原陣列不改變</strong></h4><p>concat() 方法被用來合併兩個或多個陣列。此方法不會改變現有的陣列。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array1 = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">const</span> array2 = [<span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array1.concat(array2));</span><br><span class="line"><span class="comment">// expected output: Array ["a", "b", "c", "d", "e", "f"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="陣列比對（some）"><a href="#陣列比對（some）" class="headerlink" title="陣列比對（some）"></a><strong>陣列比對（some）</strong></h4><p>陣列比對，只要有一個元素是 true，就返回 true。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> even = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// checks whether an element is even</span></span><br><span class="line">  <span class="keyword">return</span> element % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array.some(even));</span><br><span class="line"><span class="comment">// expected output: true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="陣列比對（every）"><a href="#陣列比對（every）" class="headerlink" title="陣列比對（every）"></a><strong>陣列比對（every）</strong></h4><p>陣列比對，所有元素都是 true 才是 true。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isBelowThreshold</span>(<span class="params">currentValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> currentValue &lt; <span class="number">40</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> array1 = [<span class="number">1</span>, <span class="number">30</span>, <span class="number">39</span>, <span class="number">29</span>, <span class="number">10</span>, <span class="number">13</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array1.every(isBelowThreshold));</span><br><span class="line"><span class="comment">// expected output: true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="陣列過濾"><a href="#陣列過濾" class="headerlink" title="陣列過濾"></a><strong>陣列過濾</strong></h4><p>陣列過濾，透過 filter 的過濾條件返回一個新陣列。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> words = [<span class="string">'spray'</span>, <span class="string">'limit'</span>, <span class="string">'elite'</span>, <span class="string">'exuberant'</span>, <span class="string">'destruction'</span>, <span class="string">'present'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = words.filter(<span class="function"><span class="params">word</span> =&gt;</span> word.length &gt; <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br><span class="line"><span class="comment">// expected output: Array ["exuberant", "destruction", "present"]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="檢查傳入的值是否為陣列"><a href="#檢查傳入的值是否為陣列" class="headerlink" title="檢查傳入的值是否為陣列"></a><strong>檢查傳入的值是否為陣列</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下方都回傳 true</span></span><br><span class="line"><span class="built_in">Array</span>.isArray([]);</span><br><span class="line"><span class="built_in">Array</span>.isArray([<span class="number">1</span>]);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="keyword">new</span> <span class="built_in">Array</span>());</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>));</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">3</span>));</span><br><span class="line"><span class="comment">// 小細節：Array.prototype 本身是陣列：</span></span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="built_in">Array</span>.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下方都回傳 false</span></span><br><span class="line"><span class="built_in">Array</span>.isArray();</span><br><span class="line"><span class="built_in">Array</span>.isArray(&#123;&#125;);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="literal">null</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="literal">undefined</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="number">17</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="string">'Array'</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="literal">true</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(<span class="literal">false</span>);</span><br><span class="line"><span class="built_in">Array</span>.isArray(&#123; <span class="attr">__proto__</span>: <span class="built_in">Array</span>.prototype &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map</a></p>
+</li>
+<li><p><a href="https://sweeteason.pixnet.net/blog/post/41263148-javascript-%E5%B8%B8%E7%94%A8%E7%9A%84%E9%99%A3%E5%88%97%28array%29%E6%93%8D%E4%BD%9C%E5%A4%A7%E5%85%A8" target="_blank" rel="noopener">https://sweeteason.pixnet.net/blog/post/41263148-javascript-%E5%B8%B8%E7%94%A8%E7%9A%84%E9%99%A3%E5%88%97%28array%29%E6%93%8D%E4%BD%9C%E5%A4%A7%E5%85%A8</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../11/2019-11-10-JavaScript-04/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 中的「傳值」 與 「傳址」
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2019-11-9-JavaScript-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 物件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#陣列"><span class="nav-number">1.</span> <span class="nav-text">陣列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立陣列"><span class="nav-number">1.0.1.</span> <span class="nav-text">建立陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（透過索引）取得陣列項目"><span class="nav-number">1.0.2.</span> <span class="nav-text">（透過索引）取得陣列項目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代陣列"><span class="nav-number">1.0.3.</span> <span class="nav-text">迭代陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加入項目至陣列末端"><span class="nav-number">1.0.4.</span> <span class="nav-text">加入項目至陣列末端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除陣列末端項目"><span class="nav-number">1.0.5.</span> <span class="nav-text">移除陣列末端項目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除陣列前端項目"><span class="nav-number">1.0.6.</span> <span class="nav-text">移除陣列前端項目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加入項目至陣列前端"><span class="nav-number">1.0.7.</span> <span class="nav-text">加入項目至陣列前端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在陣列中尋找項目的索引"><span class="nav-number">1.0.8.</span> <span class="nav-text">在陣列中尋找項目的索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除指定索引位置的項目"><span class="nav-number">1.0.9.</span> <span class="nav-text">移除指定索引位置的項目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除指定索引位置起的多個項目"><span class="nav-number">1.0.10.</span> <span class="nav-text">移除指定索引位置起的多個項目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#複製陣列"><span class="nav-number">1.0.11.</span> <span class="nav-text">複製陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#將陣列元素合併成字串"><span class="nav-number">1.0.12.</span> <span class="nav-text">將陣列元素合併成字串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刪除陣列元素"><span class="nav-number">1.0.13.</span> <span class="nav-text">刪除陣列元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#將字串或輸入參數組成陣列"><span class="nav-number">1.0.14.</span> <span class="nav-text">將字串或輸入參數組成陣列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回"><span class="nav-number">1.0.15.</span> <span class="nav-text">對陣列中的各元素進行操作，操作後的值會被寫入新的陣列中並返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#會將兩個陣列合併產生新的陣列，原陣列不改變"><span class="nav-number">1.0.16.</span> <span class="nav-text">會將兩個陣列合併產生新的陣列，原陣列不改變</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列比對（some）"><span class="nav-number">1.0.17.</span> <span class="nav-text">陣列比對（some）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列比對（every）"><span class="nav-number">1.0.18.</span> <span class="nav-text">陣列比對（every）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陣列過濾"><span class="nav-number">1.0.19.</span> <span class="nav-text">陣列過濾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#檢查傳入的值是否為陣列"><span class="nav-number">1.0.20.</span> <span class="nav-text">檢查傳入的值是否為陣列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考文獻"><span class="nav-number">2.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript THIS |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScript" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="this 是 JavaScript 的一個關鍵字， this 會在不同的情境下指稱到不同的物件。 this 在物件導向裡面，它所代表的就是那個 instance 本身： 1234567891011121314class Car &amp;#123;  setName(name) &amp;#123;    this.name &#x3D; name  &amp;#125;  getName() &amp;#123;    ret">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript THIS">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/18/2019-11-18-JavaScript-17/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="this 是 JavaScript 的一個關鍵字， this 會在不同的情境下指稱到不同的物件。 this 在物件導向裡面，它所代表的就是那個 instance 本身： 1234567891011121314class Car &amp;#123;  setName(name) &amp;#123;    this.name &#x3D; name  &amp;#125;  getName() &amp;#123;    ret">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/18/2019-11-18-JavaScript-17/logo.svg">
+<meta property="article:published_time" content="2019-11-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-12-08T02:52:31.960Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/18/2019-11-18-JavaScript-17/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-18-JavaScript-17" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript THIS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-17T16:00:00.000Z" itemprop="datePublished">十一月 18, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p>this 是 JavaScript 的一個關鍵字， this 會在不同的情境下指稱到不同的物件。</p>
+<p>this 在物件導向裡面，它所代表的就是那個 instance 本身：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">  setName(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myCar = <span class="keyword">new</span> Car()</span><br><span class="line">myCar.setName(<span class="string">'Ford'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myCar.getName()) <span class="comment">// Ford</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面我們宣告了一個 class <code>Car</code>，寫了 setName 跟 getName 兩個方法，在裡面用<code>this.name</code>來取放這個 instance 的屬性，<code>myCar.setName(&#39;Ford&#39;)</code>，所以 this 就會是<code>myCar</code>。</p>
+<h3 id="this-不等於-function"><a href="#this-不等於-function" class="headerlink" title="this 不等於 function"></a>this 不等於 function</h3><p>如果直接調用函式，此函式的 this 會指向 window 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.say = <span class="string">'Hi'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CallSay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.say); <span class="comment">// Hi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CallSay();</span><br></pre></td></tr></table></figure>
+
+<p><code>this</code>  不會指到 <code>CallSay</code>  這個 function，實際上是指向  <code>window</code>  。</p>
+<p>再看一個範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> call = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">this</span>.name );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'Felix'</span>;  </span><br><span class="line">    <span class="keyword">this</span>.call();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">say();</span><br></pre></td></tr></table></figure>
+
+<p>在這個範例中， <code>say</code> 可以透過 <code>this.call</code> 取得 <code>call</code> ，是因為 <code>this.call</code> 實際上是指向 <code>window.call</code>。<br>而 <code>call</code> 的 <code>this.name</code> 並非是 <code>say</code> 中的 <code>Felix</code> ，而是指向 <code>window.name</code> ，所以會得到 <code>undefined</code> 的結果。</p>
+<br/>
+
+<p>下個例子是將 function 內在包覆著 function，但只要是直接呼叫，this 都是屬於全域。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.say = <span class="string">'Hi'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CallSay</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'call:'</span>, <span class="keyword">this</span>.say); <span class="comment">//call: Hi</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// function 內的 function</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">CallSayNow</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'call me now:'</span>, <span class="keyword">this</span>.say);<span class="comment">//call me now: Hi</span></span><br><span class="line">  &#125;</span><br><span class="line">  CallSayNow();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CallSay();</span><br></pre></td></tr></table></figure>
+
+<p>來看一下巢狀迴圈中的 this ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line"></span><br><span class="line">  func1: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//指到 func1 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> func2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">// 這裡的 this 跟上層不同！</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">// 指到 window</span></span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    func2();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.func1();</span><br></pre></td></tr></table></figure>
+
+<p>在  <code>obj.func1()</code>  裡面的  <code>this</code>  會指向  <code>func1</code> ；是因為  <code>func1</code>  透過  <code>obj</code>  來呼叫的。</p>
+<p>但  <code>obj.func1()</code>  裡面的 <code>func2()</code> 在執行時的  <code>this</code>  卻會指向 <code>window</code>。</p>
+<p>也就是當沒有特定指明 this 的情況下，預設綁定 (Default Binding) this 為 「全域物件」，也就是 window。</p>
+<p>以上這幾種情況， this 的值在瀏覽器底下就會是 <code>window</code>  ，在 node.js 底下會是  <code>global</code>  ，如果是在嚴格模式，this 的值就會是 <code>undefined</code>  。</p>
+<h3 id="強制指定-this-的方式"><a href="#強制指定-this-的方式" class="headerlink" title="強制指定 this 的方式"></a>強制指定 this 的方式</h3><p>在 JavaScript 有三個可以強制指定 <code>this</code> 的方式，分別是 <code>call()</code> 、 <code>apply()</code> 以及 <code>bind()</code>。</p>
+<p><code>call</code>  跟 <code>apply</code>  是很類似的方法，這兩種都是能夠呼叫 fucntion 的函式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funA</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>, a, b)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funA(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// undefined 1 2</span></span><br><span class="line">funA.call(<span class="string">"Hector"</span>, <span class="number">1</span>, <span class="number">2</span>) <span class="comment">// Hector 1 2</span></span><br><span class="line"></span><br><span class="line">funA.apply(<span class="string">"Ray"</span>, [<span class="number">1</span>, <span class="number">2</span>]) <span class="comment">// Ray 1 2</span></span><br></pre></td></tr></table></figure>
+
+<p>因為是嚴格模式所以  <code>funA(1, 2)</code>  的 this 是 <code>undefined</code>。</p>
+<p><code>call</code> 和 <code>apply</code> 就是你第一個參數傳什麼，裡面 this 的值就會是什麼。儘管原本已經有 this，也依然會被覆蓋：</p>
+<p>而兩者的差別只在於 <code>apply</code> 傳進去的參數是一個 array，所以上面這三種呼叫 function 的方式是等價的。除了直接呼叫 function 以外，你也可以用 call 或是 apply 去呼叫，差別在於傳參數的方式不同。</p>
+<h5 id="除了以上兩種以外，還有最後一種可以改變-this-的方法：bind。"><a href="#除了以上兩種以外，還有最後一種可以改變-this-的方法：bind。" class="headerlink" title="除了以上兩種以外，還有最後一種可以改變 this 的方法：bind。"></a><strong>除了以上兩種以外，還有最後一種可以改變 this 的方法：bind。</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myFunA = funA.bind(<span class="string">'Hi'</span>)</span><br><span class="line"></span><br><span class="line">myFunA() <span class="comment">// Hi</span></span><br></pre></td></tr></table></figure>
+
+<p>在這邊我們把  <code>funA</code>  這個 function 用  <code>Hi</code>  來綁定，所以最後呼叫  <code>myFunA</code>  時會輸出  <code>Hi</code>  。</p>
+<p>在看一個例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  LastName: <span class="string">"Lincoln"</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.LastName);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">func();            <span class="comment">// undefined</span></span><br><span class="line">func.bind(obj)();  <span class="comment">// Lincoln</span></span><br></pre></td></tr></table></figure>
+
+<p>加上了  <code>bind</code>  之後的  <code>func.bind(obj)()</code>  ，會替我們將  <code>func</code>  的  <code>this</code>  暫時指向我們所設定的 <code>obj</code>。<br>於是  <code>console.log(this.LastName)</code>  的結果自然就是  <code>obj.LastName</code>  也就是  <code>Lincoln</code>  了。</p>
+<h3 id="重新指向-this"><a href="#重新指向-this" class="headerlink" title="重新指向 this"></a>重新指向 this</h3><p>假設我們今天在某個元素上透過  <code>addEventListener</code>  註冊了  <code>click</code>  事件，而在事件中的  <code>this</code>  指的是「觸發事件的元素」。</p>
+<p>要是我們在事件的 callback function 加入 ajax 的請求，那麼根據前面所說的，預設綁定 (Default Binding) 會把這個 callback function 的  <code>this</code>  指定給  <code>global object</code>  ，也就是  <code>window</code>  。</p>
+<p>如果需調用的則是物件本身的話，可以先用一個變數指向 <code>this</code>，等到調用後再重新使用它。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">el.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 透過 that 參考</span></span><br><span class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span>.textContent );</span><br><span class="line"></span><br><span class="line">  $ajax(<span class="string">'[URL]'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// this.textContent =&gt; undefined</span></span><br><span class="line">    <span class="built_in">console</span>.log(that.textContent, res);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>像這樣，我們將事件內的  <code>this</code>  先用一個叫  <code>that</code>  的變數儲存它的參考，那麼在 ajax 的 callback function 就可以透過  <code>that</code>  來存取到原本事件中的  <code>this</code>   了。</p>
+<br/>
+
+<h5 id="如果我們把-call-跟-bind-同時用會怎樣"><a href="#如果我們把-call-跟-bind-同時用會怎樣" class="headerlink" title="如果我們把 call 跟 bind 同時用會怎樣!?"></a><strong>如果我們把 call 跟 bind 同時用會怎樣!?</strong></h5><br/>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">funA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">const</span> myFunA = funA.bind(<span class="string">'Hi'</span>)</span><br><span class="line"> myFunA.call(<span class="string">'Hello'</span>) <span class="comment">// Hi</span></span><br></pre></td></tr></table></figure>
+
+<p>答案是不會改變，一但 bind 了以後值就不會改變了。</p>
+<p><strong>在非嚴格模式底下，無論是用 call、apply 還是 bind，你傳進去的如果是基本型別都會被轉成 object</strong>  。</p>
+<p>舉例來說：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line"> &#125;</span><br><span class="line"> funA.call(<span class="number">1</span>) <span class="comment">// Number &#123;1&#125;</span></span><br><span class="line"> <span class="keyword">const</span> myFunA = funA.bind(<span class="string">'Hi'</span>)</span><br><span class="line"> myFunA() <span class="comment">// String &#123;"Hi"&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="物件中的-this"><a href="#物件中的-this" class="headerlink" title="物件中的 this"></a>物件中的 this</h3><p>最前面我們示範了在物件導向 class 裡面的 this，但在 JavaScript 裡面還有另外一種方式也是物件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.say() <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">const</span> hello = obj.say</span><br><span class="line">hello() <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>這種跟一開始的物件導向範例不太一樣，這個範例是直接創造了一個物件而沒有透過 class，所以你也不會看到 new 這個關鍵字的存在。</p>
+<p>舉個簡單的例子來幫大家複習一下 Scope Chain：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  value: <span class="string">'value'</span>,</span><br><span class="line"></span><br><span class="line">  say1: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value); <span class="comment">// value</span></span><br><span class="line"></span><br><span class="line">    say() <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  say2: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value); <span class="comment">// value</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> value = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    say() <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">say() <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">obj.say1()</span><br><span class="line"></span><br><span class="line">obj.say2()</span><br></pre></td></tr></table></figure>
+
+<p>無論怎麼呼叫 <code>say</code>  這個 function，印出來的 <code>value</code> 永遠都會是全域變數的   <code>value</code>  ，因為 <code>say</code>  在自己的作用域底下找不到  <code>value</code>  於是往上一層找，就會找到  global scope ，這跟你在哪裡呼叫 <code>say</code>  一點關係都沒有。 <code>say</code>  這個 function 在「定義」的時候就把 scope 給決定好了。</p>
+<p>但 this 卻是完全相反，this 的值會根據你怎麼呼叫它而變得不一樣，像是先前我們剛講過的 call、apply 跟 bind ，你可以用不同的方式去呼叫 function，讓 this 的值變得不同。</p>
+<br/>
+
+<h5 id="this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"><a href="#this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。" class="headerlink" title="this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"></a><strong>this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。</strong></h5><br/>
+
+<p>讓我們看複雜一點的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">  &#125;,</span><br><span class="line">  func2: &#123;</span><br><span class="line"></span><br><span class="line">    value: <span class="number">2</span>,</span><br><span class="line">    say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = obj.func2</span><br><span class="line"><span class="keyword">const</span> say= obj.func2.say</span><br><span class="line"></span><br><span class="line">obj.func2.say()</span><br><span class="line"></span><br><span class="line">obj2.say()</span><br><span class="line"></span><br><span class="line">say()</span><br></pre></td></tr></table></figure>
+
+<p><code>say</code>  因為沒有傳參數進去，所以是預設綁定，在非嚴格模式底下是  <code>window</code>  ，所以會  <code>window.value</code>  也就是 <code>undefined</code>  。</p>
+<p>可以透過把 function 的呼叫轉成用 call 的形式，就會較容易看出 this 的值是什麼。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj.func2.say() <span class="comment">// obj.func2.say.call(obj.func2) =&gt; 2</span></span><br><span class="line">obj2.say() <span class="comment">// obj2.say.call(obj2) =&gt; 2</span></span><br><span class="line">say() <span class="comment">// say.call() =&gt; undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="箭頭函式的-this"><a href="#箭頭函式的-this" class="headerlink" title="箭頭函式的 this"></a>箭頭函式的 this</h3><p>從 ES6 開始新增了一種叫做 「箭頭函式表示式」 (Arrow Function expression) 的函式表達式。</p>
+<p>而箭頭函式有兩個重要的特性：</p>
+<ul>
+<li>更簡短的函式寫法</li>
+<li>this 變數強制綁定</li>
+</ul>
+<p>ES6 新增的箭頭函式中的 <code>this</code> 有不一樣的運作方式，只要記住「在宣告它的地方的 this 是什麼，它的 this 就是什麼」，什麼意思呢？讓我們看個範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  Firstname: <span class="string">"Vincent"</span>,</span><br><span class="line"></span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 這邊印出來的 this 是什麼，func1 的 this 就會是什麼</span></span><br><span class="line">    <span class="comment">// 在宣告它的地方的 this 是什麼，func1 的 this 就是什麼</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)     </span><br><span class="line">    <span class="keyword">const</span> func1 = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.Firstname)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    func1()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.say() </span><br><span class="line"><span class="comment">// &#123;Firstname: "Vincent", say: ƒ&#125;</span></span><br><span class="line"><span class="comment">// Vincent</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> say = obj.say</span><br><span class="line"></span><br><span class="line">say() </span><br><span class="line"><span class="comment">// Window</span></span><br><span class="line"><span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>我們在 <code>say</code>  這個 function 裡面宣告了  <code>func1</code>  這個箭頭函式，所以 <code>say</code>  的 this 是什麼， <code>func1</code>  的 this 就會是什麼。</p>
+<p>箭頭函式的 this 不是取決於在宣告時那個地方的 this。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://blog.techbridge.cc/2019/02/23/javascript-this/" target="_blank" rel="noopener">https://blog.techbridge.cc/2019/02/23/javascript-this/</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10193193" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10193193</a></p>
+</li>
+<li><p><a href="https://wcc723.github.io/javascript/2017/12/12/javascript-this/" target="_blank" rel="noopener">https://wcc723.github.io/javascript/2017/12/12/javascript-this/</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../19/2019-11-17-JavaScript-16/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript Copy
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../17/2019-11-16-JavaScript-15/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Closure</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#this-不等於-function"><span class="nav-number">1.</span> <span class="nav-text">this 不等於 function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#強制指定-this-的方式"><span class="nav-number">2.</span> <span class="nav-text">強制指定 this 的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#除了以上兩種以外，還有最後一種可以改變-this-的方法：bind。"><span class="nav-number">2.0.1.</span> <span class="nav-text">除了以上兩種以外，還有最後一種可以改變 this 的方法：bind。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新指向-this"><span class="nav-number">3.</span> <span class="nav-text">重新指向 this</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如果我們把-call-跟-bind-同時用會怎樣"><span class="nav-number">3.0.1.</span> <span class="nav-text">如果我們把 call 跟 bind 同時用會怎樣!?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件中的-this"><span class="nav-number">4.</span> <span class="nav-text">物件中的 this</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"><span class="nav-number">4.0.1.</span> <span class="nav-text">this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭頭函式的-this"><span class="nav-number">5.</span> <span class="nav-text">箭頭函式的 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number">6.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

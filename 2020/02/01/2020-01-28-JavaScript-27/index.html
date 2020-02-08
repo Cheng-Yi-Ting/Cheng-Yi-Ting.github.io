@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                Web Storage |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScriptHTML5" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="在介紹什麼是 Web Storage 之前，讓我們來瞭解一下 HTTP COOKIES 的作用。 HTTP COOKIESClient 和 Server 透過 HTTP 協定來進行通訊，但是 HTTP 是無狀態協定(Stateless Protocol)，也就是說每次 Client 對 Server 發出的請求都是獨立的，每一次的請求都無法得知上一次請求的內容與資訊。 我們可以透過 co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web Storage">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="在介紹什麼是 Web Storage 之前，讓我們來瞭解一下 HTTP COOKIES 的作用。 HTTP COOKIESClient 和 Server 透過 HTTP 協定來進行通訊，但是 HTTP 是無狀態協定(Stateless Protocol)，也就是說每次 Client 對 Server 發出的請求都是獨立的，每一次的請求都無法得知上一次請求的內容與資訊。 我們可以透過 co">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/2020-01-28-JavaScript-27-1.gif">
+<meta property="article:published_time" content="2020-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-01T13:37:10.683Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2020-01-28-JavaScript-27" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Web Storage
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2020-01-31T16:00:00.000Z" itemprop="datePublished">二月 1, 2020</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p><strong>在介紹什麼是 Web Storage 之前，讓我們來瞭解一下 HTTP COOKIES 的作用。</strong></p>
+<h1 id="HTTP-COOKIES"><a href="#HTTP-COOKIES" class="headerlink" title="HTTP COOKIES"></a>HTTP COOKIES</h1><p>Client 和 Server 透過 HTTP 協定來進行通訊，但是 HTTP 是無狀態協定(Stateless Protocol)，也就是說每次 Client 對 Server 發出的請求都是獨立的，每一次的請求都無法得知上一次請求的內容與資訊。</p>
+<p>我們可以透過 cookie 把 server 所傳送過來的一些資料保存在 Client ，Cookie 常用於會員登入、購物車資訊、使用者設定偏好。</p>
+<p>當使用者第一次登入網站， Server 就能將登入的相關資訊進行加密並儲存在 Client 的硬碟或記憶體中，之後 Cleint 發送 request 到 Server 就會附上 Cookie ， Server 就可以直接讀取來減少使用者重複輸入資料的行為。</p>
+<h1 id="Web-Storage-概念"><a href="#Web-Storage-概念" class="headerlink" title="Web Storage 概念"></a>Web Storage 概念</h1><p>Web Storage 是 HTML5 的新規範，一種將少量資料儲存於 Client 端的技術，只要支援 Web Storage API 規格的瀏覽器，都能透過 JavaScript 操作。</p>
+<p>過去 Cookie 只允許每個網站儲存 4KB 的資料，而 Web Storage 可以儲存 1MB ~  5MB 。 Cookie 在每個 HTTP request 送出時都會被傳送到 Server ，不管有沒有使用到 Cookie 中的資訊，在某種程度上會降低執行的效能與浪費網路頻寬，而且 Cookie 如果沒有加密則不適合放入重要的資訊。</p>
+<p>Web Storage 的存取都是在 Client ，與 Cookie 一樣都是使用 key / value 的儲存格式，不會像 Cookie 一樣，隨著 request 發送給 Server 端，因為 Web Storage 只作用在 Client 端瀏覽器，並不會占用頻寬和影響網站效能。</p>
+<p>Web Storage 分兩種，一個是 sessionStorage，另一個是 localStorage，兩者主要差別在於生命週期和有效範圍的不同。 localStorage 不會隨著瀏覽器關閉而消失，適合用在需要跨分頁或跨視窗的場合，除非手動清除資料不然關閉瀏覽器後資料還是會一直存在； sessionStorage 則是頁面關閉後資料就會消失，資料只對當前頁面有效，適合用在資料暫時保存的場合。</p>
+<h1 id="cookie、localStorage、sessionStorage-異同表"><a href="#cookie、localStorage、sessionStorage-異同表" class="headerlink" title="cookie、localStorage、sessionStorage 異同表"></a>cookie、localStorage、sessionStorage 異同表</h1><table>
+<thead>
+<tr>
+<th align="center">類型</th>
+<th align="center">cookie</th>
+<th align="center">localStorage</th>
+<th align="center">sessionStorage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">大小</td>
+<td align="center">4KB</td>
+<td align="center">一般為 5MB</td>
+<td align="center">一般為 5MB</td>
+</tr>
+<tr>
+<td align="center">生命週期</td>
+<td align="center">過期或是執行刪除指令才會消失</td>
+<td align="center">執行刪除指令才會消失</td>
+<td align="center">頁面關閉後會消失</td>
+</tr>
+<tr>
+<td align="center">有效範圍</td>
+<td align="center">同一網站的網頁都可以存取</td>
+<td align="center">同一網站的網頁都可以存取</td>
+<td align="center">只有在單一分頁能存取</td>
+</tr>
+<tr>
+<td align="center">儲存格式</td>
+<td align="center">key / value</td>
+<td align="center">key / value</td>
+<td align="center">key / value</td>
+</tr>
+<tr>
+<td align="center">連線到 Server 時會自動帶上</td>
+<td align="center">會</td>
+<td align="center">不會</td>
+<td align="center">不會</td>
+</tr>
+<tr>
+<td align="center">安全性</td>
+<td align="center">較低</td>
+<td align="center">較高</td>
+<td align="center">較高</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h1 id="瀏覽器支援-Web-Storage"><a href="#瀏覽器支援-Web-Storage" class="headerlink" title="瀏覽器支援 Web Storage"></a>瀏覽器支援 Web Storage</h1><p>可以透過以下方式來判斷瀏覽器是否支援 Web Storage：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span>(Storage) !== <span class="string">"undefined"</span>) &#123;</span><br><span class="line">  <span class="comment">// Code for localStorage/sessionStorage.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// Sorry! No Web Storage support..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h1><p>由於同源政策(Same-origin policy)限制，只能存取相同網站的 local storage。</p>
+<p>所謂同源是指協定、主機(domain與ip)、埠號 (port) 都必須相同。例如我們有一個網址：<a href="http://www.cyting.com/image/page.html" target="_blank" rel="noopener">http://www.cyting.com/image/page.html</a> ，來判斷下列何者屬於同源：</p>
+<table>
+<thead>
+<tr>
+<th align="left">網址</th>
+<th align="center">結果</th>
+<th align="center">原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="http://www.cyting.com/image/activity.html" target="_blank" rel="noopener">http://www.cyting.com/image/activity.html</a></td>
+<td align="center">同源</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="http://www.cyting.com/image/dir/web.html" target="_blank" rel="noopener">http://www.cyting.com/image/dir/web.html</a></td>
+<td align="center">同源</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.cyting.com/prod.html" target="_blank" rel="noopener">https://www.cyting.com/prod.html</a></td>
+<td align="center">不同源</td>
+<td align="center">協定不同</td>
+</tr>
+<tr>
+<td align="left"><a href="http://www.cyting.com:8001/dir/region.html" target="_blank" rel="noopener">http://www.cyting.com:8001/dir/region.html</a></td>
+<td align="center">不同源</td>
+<td align="center">埠號不同</td>
+</tr>
+<tr>
+<td align="left"><a href="http://cyting.demo.com/dir/store.html" target="_blank" rel="noopener">http://cyting.demo.com/dir/store.html</a></td>
+<td align="center">不同源</td>
+<td align="center">主機不同</td>
+</tr>
+</tbody></table>
+<p>在 HTML5標準，Web Storage 只允許儲存字串資料，存取方式有以下三種：</p>
+<h1 id="setItem-amp-getItem"><a href="#setItem-amp-getItem" class="headerlink" title="setItem &amp; getItem"></a>setItem &amp; getItem</h1><p>儲存一個 localStorage 變數 userName ，並指定它的值為 Cyting 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">"Cyting"</span>;</span><br><span class="line">localStorage.setItem(<span class="string">'userName'</span>,name);</span><br></pre></td></tr></table></figure>
+
+<p>使用 getItem 讀取資料：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = localStorage.getItem(userName); <span class="comment">// Cyting</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="陣列索引"><a href="#陣列索引" class="headerlink" title="陣列索引"></a>陣列索引</h1><p>儲存語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">"Cyting"</span>;</span><br><span class="line">localStorage.[<span class="string">"userName"</span>] = name;</span><br></pre></td></tr></table></figure>
+
+<p>讀取語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = localStorage.[<span class="string">"userName"</span>];</span><br></pre></td></tr></table></figure>
+
+<h1 id="屬性"><a href="#屬性" class="headerlink" title="屬性"></a>屬性</h1><p>儲存語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">"Cyting"</span>;</span><br><span class="line">localStorage.userName = name;</span><br></pre></td></tr></table></figure>
+
+<p>讀取語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = localStorage.userName;</span><br></pre></td></tr></table></figure>
+
+<h1 id="刪除-localStorage"><a href="#刪除-localStorage" class="headerlink" title="刪除 localStorage"></a>刪除 localStorage</h1><p>透過呼叫 removeItem 或是 delete 來刪除 localStorage。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localStorage.removeItem(<span class="string">"userName"</span>)</span><br><span class="line"><span class="keyword">delete</span> localStorage.userName;</span><br><span class="line"><span class="keyword">delete</span> localStorage[<span class="string">"userName"</span>]<span class="string">";</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是想清除 localStorage 的全部資料，可以使用 clear() 方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localStorage.clear();</span><br></pre></td></tr></table></figure>
+
+<h1 id="localStorage-實例"><a href="#localStorage-實例" class="headerlink" title="localStorage 實例"></a>localStorage 實例</h1><p>程式碼同步於<a href="https://codepen.io/BobbyLashley/pen/YzPobWm" target="_blank" rel="noopener">CodePen</a></p>
+<p>使用者輸入姓名後可點擊「儲存至local storage」按鈕將資料儲存起來，當點擊「從local storage讀取資料」時就會讀取剛才輸入的姓名並輸出在頁面上，而「清除local storage資料」按鈕會將儲存的資料進行清空。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span> 請輸入您的姓名：</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"inputname"</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"show_LocalStorage"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn_save"</span>&gt;</span>儲存至local storage<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn_load"</span>&gt;</span>從local storage讀取資料<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn_clear"</span>&gt;</span>清除local storage資料<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(Storage) == <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        alert(<span class="string">"您的瀏覽器不支援Web Storage"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        btn_save.addEventListener(<span class="string">"click"</span>, saveToLocalStorage);</span><br><span class="line">        btn_load.addEventListener(<span class="string">"click"</span>, loadFromLocalStorage);</span><br><span class="line">        btn_clear.addEventListener(<span class="string">"click"</span>, clearLocalStorage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveToLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    localStorage.username = inputname.value;</span><br><span class="line">    show_LocalStorage.innerHTML = <span class="string">"儲存成功!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadFromLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (localStorage.username) &#123;</span><br><span class="line">        show_LocalStorage.innerHTML = <span class="string">"歡迎 "</span> + localStorage.username + <span class="string">" !"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        show_LocalStorage.innerHTML = <span class="string">"暫無資料"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clearLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    localStorage.clear();</span><br><span class="line">    loadFromLocalStorage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="2020-01-28-JavaScript-27-1.gif" style="width:100%;">
+
+<p>當使用者將瀏覽器關閉仍可以成功讀取資料，因為儲存在 local storage 的資料不會因為關閉瀏覽器而消失。</p>
+<h1 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h1><p>sessionStorage 只能保存在單一的瀏覽器視窗或分頁上，瀏覽器一關閉儲存的資料就會消失，主要是用於保存一些臨時的資料，避免使用者重整頁面的時候資料就不見了。使用 sessionStorage 語法與 localStorage 相同。</p>
+<p>儲存：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">"Cyting"</span>;</span><br><span class="line">sessionStorage.setItem(<span class="string">'userName'</span>,name);</span><br><span class="line">sessionStorage.[<span class="string">"userName"</span>] = name;</span><br><span class="line">sessionStorage.userName = name;</span><br></pre></td></tr></table></figure>
+
+<p>讀取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = sessionStorage.getItem(userName);</span><br><span class="line"><span class="keyword">let</span> value = sessionStorage.[<span class="string">"userName"</span>];</span><br><span class="line"><span class="keyword">let</span> value = sessionStorage.userName;</span><br></pre></td></tr></table></figure>
+
+<p>清除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.removeItem(<span class="string">"userName"</span>)</span><br><span class="line"><span class="keyword">delete</span> sessionStorage.userName;</span><br><span class="line"><span class="keyword">delete</span> sessionStorage[<span class="string">"userName"</span>]<span class="string">";</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是想清除 sessionStorage 的全部資料，可以使用 clear() 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.clear();</span><br></pre></td></tr></table></figure>
+
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
+<li><p><a href="http://www.drmaster.com.tw/bookinfo.asp?BookID=MP21907" target="_blank" rel="noopener">JavaScript 精選16堂課：網頁程式設計實作</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10203525" target="_blank" rel="noopener">Day20 localStorage、sessionStorage</a></p>
+</li>
+<li><p><a href="https://medium.com/@bebebobohaha/cookie-localstorage-sessionstorage-%E5%B7%AE%E7%95%B0-9e1d5df3dd7f" target="_blank" rel="noopener">Cookie、LocalStorage、SessionStorage 差異</a></p>
+</li>
+<li><p><a href="https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/%E7%AD%86%E8%A8%98-http-cookie-%E5%92%8C-session-%E4%BD%BF%E7%94%A8-19bc740e49b5" target="_blank" rel="noopener">[筆記] HTTP Cookies 和 Session 使用</a></p>
+</li>
+<li><p><a href="https://progressbar.tw/posts/91" target="_blank" rel="noopener">[不是工程師] Cookie 是文檔還是餅乾？簡述HTTP網頁紀錄會員資訊的一大功臣。</a></p>
+</li>
+<li><p><a href="https://dotblogs.com.tw/jimmyyu/archive/2011/03/27/html5-client-storage.aspx" target="_blank" rel="noopener">[HTML5]簡述HTML5的Client端暫存-localStorage/sessionStorage</a></p>
+</li>
+<li><p><a href="https://dotblogs.com.tw/shadow/2014/07/10/145879" target="_blank" rel="noopener">[Html 5] WebStorage - localStorage和sessionStorage</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/HTML5/" rel="tag">HTML5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../02/2020-02-01-JavaScript-28/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript - 音樂播放器
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../01/23/2020-01-19-JavaScript-26/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript - Async/Await</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-COOKIES"><span class="nav-number">1.</span> <span class="nav-text">HTTP COOKIES</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Storage-概念"><span class="nav-number">2.</span> <span class="nav-text">Web Storage 概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie、localStorage、sessionStorage-異同表"><span class="nav-number">3.</span> <span class="nav-text">cookie、localStorage、sessionStorage 異同表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#瀏覽器支援-Web-Storage"><span class="nav-number">4.</span> <span class="nav-text">瀏覽器支援 Web Storage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#localStorage"><span class="nav-number">5.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setItem-amp-getItem"><span class="nav-number">6.</span> <span class="nav-text">setItem &amp; getItem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#陣列索引"><span class="nav-number">7.</span> <span class="nav-text">陣列索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#屬性"><span class="nav-number">8.</span> <span class="nav-text">屬性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#刪除-localStorage"><span class="nav-number">9.</span> <span class="nav-text">刪除 localStorage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#localStorage-實例"><span class="nav-number">10.</span> <span class="nav-text">localStorage 實例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sessionStorage"><span class="nav-number">11.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">12.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

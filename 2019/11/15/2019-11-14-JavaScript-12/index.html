@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                DOM - 事件處裡及傳遞機制 |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScriptHTML" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。  Event Flow事件流程 (Event Flow) 指的就是「網頁元素接收事件的順序」。 事件流程可以分成兩種機制：  事件冒泡 (Event Bubbling) 事件捕獲 (Event Capturi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM - 事件處裡及傳遞機制">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。  Event Flow事件流程 (Event Flow) 指的就是「網頁元素接收事件的順序」。 事件流程可以分成兩種機制：  事件冒泡 (Event Bubbling) 事件捕獲 (Event Capturi">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/2019-11-14-JavaScript-12-1.png">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/2019-11-14-JavaScript-12-2.png">
+<meta property="article:published_time" content="2019-11-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-10T15:38:17.502Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2019/11/15/2019-11-14-JavaScript-12/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2019-11-14-JavaScript-12" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      DOM - 事件處裡及傳遞機制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-11-14T16:00:00.000Z" itemprop="datePublished">十一月 15, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<h5 id="這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。"><a href="#這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。" class="headerlink" title="這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。"></a>這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。</h5><br/>
+
+<h2 id="Event-Flow"><a href="#Event-Flow" class="headerlink" title="Event Flow"></a>Event Flow</h2><p>事件流程 (Event Flow) 指的就是「<strong>網頁元素接收事件的順序</strong>」。</p>
+<p>事件流程可以分成兩種機制：</p>
+<ul>
+<li>事件冒泡 (Event Bubbling)</li>
+<li>事件捕獲 (Event Capturing)</li>
+</ul>
+<br/>
+
+<h2 id="事件冒泡-Event-Bubbling"><a href="#事件冒泡-Event-Bubbling" class="headerlink" title="事件冒泡 (Event Bubbling)"></a>事件冒泡 (Event Bubbling)</h2><p>Event Bubbling 指的是當某個事件發生在某個 DOM element 上（如：點擊），這個事件會觸發 DOM element 的 event handler ，接下來會再觸發他的 parent 的 event handler ，以及 parent 的 parent 的 event handler …直到最上層。</p>
+<img src="2019-11-14-JavaScript-12-1.png" style="width:50%;">
+
+<br/>
+
+<p>圖片來源： <a href="http://www.java2s.com/Book/JavaScript/DOM/Event_Flow_capture_target_and_bubbling.htm" target="_blank" rel="noopener">Event Flow: capture, target, and bubbling</a></p>
+<br/>
+
+<p>事件冒泡指的是「從啟動事件的元素節點開始，逐層往上傳遞」，直到整個網頁的根節點，也就是 <code>document</code>。</p>
+<h2 id="事件捕獲-Event-Capturing"><a href="#事件捕獲-Event-Capturing" class="headerlink" title="事件捕獲 (Event Capturing)"></a>事件捕獲 (Event Capturing)</h2><p>和 Event Bubbling 相反， event 發生在某個 DOM element 上的時候，會從他的最上層 parent 開始觸發 event handler ，再來是倒數第二上層的 event handler ，以此類推，直到觸發事件的 DOM element 本身的 event handler 。</p>
+<img src="2019-11-14-JavaScript-12-2.png" style="width:50%;">
+
+<br/>
+
+<p>圖片來源： <a href="http://www.java2s.com/Book/JavaScript/DOM/Event_Flow_capture_target_and_bubbling.htm" target="_blank" rel="noopener">Event Flow: capture, target, and bubbling</a></p>
+<br/>
+
+<p>事件捕獲則和事件冒泡機制相反。</p>
+<br/>
+
+<p>例如我們看這一個 HTML DOM 結構：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;event flow example&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;&lt;&#x2F;li&gt;</span><br><span class="line">        &lt;&#x2F;ul&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>當使用者點擊 li 元素時，事件觸發的順序是：</p>
+<ol>
+<li><p>Capturing 捕獲階段：<code>Document -&gt; &lt;html&gt; -&gt; &lt;body&gt; -&gt; &lt;div&gt; -&gt; &lt;ul&gt; -&gt; &lt;li&gt;</code></p>
+<br/>
+</li>
+<li><p>Bubbling 氣泡階段：<code>&lt;li&gt; -&gt; &lt;ul&gt; -&gt; &lt;div&gt; -&gt; &lt;body&gt; -&gt; &lt;html&gt; -&gt; Document</code></p>
+</li>
+</ol>
+<br/>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>要檢驗事件流程，我們可以透過 <code>addEventListener()</code> 方法來綁定 <code>click</code> 事件，透過 addEventListener 指定事件的綁定，第三個參數 true / false 分別代表捕獲/ 冒泡 機制，不加參數的話，預設值是 false：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul id=<span class="string">"list"</span>&gt;</span><br><span class="line">    &lt;li id=<span class="string">"list_item"</span>&gt;</span><br><span class="line">      &lt;a id=<span class="string">"list_item_link"</span> target=<span class="string">"_blank"</span> href=<span class="string">"https://cheng-yi-ting.github.io/"</span>&gt;</span><br><span class="line">        Click link!</span><br><span class="line">      &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>li&gt;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"> &lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var list = document.getElementById('list');</span></span><br><span class="line"><span class="regexp">var list_item = document.getElementById('list_item');</span></span><br><span class="line"><span class="regexp">var list_item_link = document.getElementById('list_item_link');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list 的捕獲</span></span><br><span class="line"><span class="regexp">list.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list 的冒泡</span></span><br><span class="line"><span class="regexp">list.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item 的捕獲</span></span><br><span class="line"><span class="regexp">list_item.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item 的冒泡</span></span><br><span class="line"><span class="regexp">list_item.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item_link 的捕獲</span></span><br><span class="line"><span class="regexp">list_item_link.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item_link capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item_link 的冒泡</span></span><br><span class="line"><span class="regexp">list_item_link.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item_link bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"> &lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>點一下超連結，<code>console</code> 輸出以下結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list capturing 1</span><br><span class="line">list_item capturing 1</span><br><span class="line">list_item_link capturing 2</span><br><span class="line">list_item_link bubbling 2</span><br><span class="line">list_item bubbling 3</span><br><span class="line">list bubbling 3</span><br></pre></td></tr></table></figure>
+
+<p>1 是<code>CAPTURING_PHASE</code>，2 是<code>AT_TARGET</code>，3 是<code>BUBBLING_PHASE</code>。</p>
+<p>從這邊就可以很明顯看出，事件的確是從最上層一直傳遞到 target，再從 target 不斷冒泡傳回去，先傳到上一層的<code>#list_item</code>，再傳到上上層的<code>#list</code>。</p>
+<p>事件傳遞到我們點擊的超連結（<code>a#list_item_link</code>）本身，在這邊無論你使用<code>addEventListener</code>的第三個參數是<code>true</code>還是<code>false</code>，這邊的<code>e.eventPhase</code>都會變成<code>AT_TARGET</code>。</p>
+<h3 id="Capturing-或-Bubbling-的目標執行順序"><a href="#Capturing-或-Bubbling-的目標執行順序" class="headerlink" title="Capturing 或 Bubbling 的目標執行順序"></a>Capturing 或 Bubbling 的目標執行順序</h3><p>既然是先捕獲，再冒泡，意思就是無論那些<code>addEventListener</code>的順序怎麼變，輸出的東西應該還是會一樣才對。我們把捕獲跟冒泡的順序對調，看一下輸出結果是否一樣。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// list 的冒泡</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list bubbling'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list 的捕獲</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list capturing'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list_item 的冒泡</span></span><br><span class="line">list_item.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list_item bubbling'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list_item 的捕獲</span></span><br><span class="line">list_item.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list_item capturing'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list_item_link 的冒泡</span></span><br><span class="line">list_item_link.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list_item_link bubbling'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list_item_link 的捕獲</span></span><br><span class="line">list_item_link.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list_item_link capturing'</span>, e.eventPhase);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>點一下超連結，<code>console</code> 輸出以下結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list capturing 1</span><br><span class="line">list_item capturing 1</span><br><span class="line">list_item_link bubbling 2</span><br><span class="line">list_item_link capturing 2</span><br><span class="line">list_item bubbling 3</span><br><span class="line">list bubbling 3</span><br></pre></td></tr></table></figure>
+
+<p><code>list_item_link</code>先執行了添加在冒泡階段的 listener，才執行捕獲階段的 listener。</p>
+<p>前面有提到，當事件傳遞到點擊的真正對象，也就是 e.target 的時候，無論<code>addEventListener</code>的第三個參數是<code>true</code>還是<code>false</code>，這邊的<code>e.eventPhase</code>都會變成<code>AT_TARGET</code>。</p>
+<p>既然已經是<code>AT_TARGET</code>，就不會區分捕獲跟冒泡，執行順序會根據<code>addEventListener</code>的順序來決定，先添加的先執行，後添加的後執行。</p>
+<br/>
+
+<h3 id="關於這些事件的傳遞順序，只需記住兩個原則："><a href="#關於這些事件的傳遞順序，只需記住兩個原則：" class="headerlink" title="關於這些事件的傳遞順序，只需記住兩個原則："></a>關於這些事件的傳遞順序，只需記住兩個原則：</h3><ul>
+<li><strong>先捕獲，再冒泡</strong></li>
+<li><strong>當事件傳到 target 本身，沒有分捕獲跟冒泡</strong></li>
+</ul>
+<br/>
+
+<h2 id="阻擋事件冒泡傳遞-event-stopPropagation"><a href="#阻擋事件冒泡傳遞-event-stopPropagation" class="headerlink" title="阻擋事件冒泡傳遞 event.stopPropagation()"></a>阻擋事件冒泡傳遞 event.stopPropagation()</h2><p>如果我們想要阻擋事件向上冒泡傳遞，那麼就可以利用 event object 提供的另一個方法：  <code>event.stopPropagation()</code>  ，讓事件的傳遞中斷，不會繼續往下傳遞。</p>
+<p>根據上面的例子，我添加 <code>event.stopPropagation()</code>  至 <code>#list</code> 的捕獲階段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// list 的捕獲</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'list capturing'</span>, e.eventPhase);</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>點一下超連結，<code>console</code> 輸出以下結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list capturing 1</span><br></pre></td></tr></table></figure>
+
+<p>因為事件的傳遞被停止，所以剩下的 listener 都不會再收到任何事件。</p>
+<p><strong>如果在同一個節點上不只一個 listener，其他 listener 還是會被執行。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// list 的捕獲 A</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list capturing-A'</span>);</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list 的捕獲 B</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list capturing-B'</span>);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>點一下超連結，<code>console</code> 輸出以下結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list capturing-A</span><br><span class="line">list capturing-B</span><br></pre></td></tr></table></figure>
+
+<p>如果要讓其他同一層級的 listener 也不要被執行，可以使用  <code>e.stopImmediatePropagation()</code>  ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// list 的捕獲 A</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list capturing-A'</span>);</span><br><span class="line">  e.stopImmediatePropagation();</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// list 的捕獲 B</span></span><br><span class="line">list.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'list capturing-B'</span>);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>點一下超連結，<code>console</code> 輸出以下結果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list capturing-A</span><br></pre></td></tr></table></figure>
+
+<h2 id="阻擋預設行為-event-preventDefault"><a href="#阻擋預設行為-event-preventDefault" class="headerlink" title="阻擋預設行為 event.preventDefault()"></a>阻擋預設行為 event.preventDefault()</h2><p>HTML 部分元素會有預設行為，像是 <code>&lt;a&gt;</code> 的連結，或是表單的 <code>submit</code> 等等…，<br>如果我們需要在這些元素上綁定事件，那麼可以透過 <code>event.preventDefault()</code> 來<strong>取消它們的預設行為</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// list_item_link 的冒泡</span></span><br><span class="line">list_item_link.addEventListener(<span class="string">'click'</span>, (e) =&gt; &#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<p>當點擊超連結的時候，就不會執行原本預設的行為（新開分頁）。<code>event.preventDefault()</code>在之後傳遞下去的事件裡面也會有效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; list 的捕獲 A</span><br><span class="line">list.addEventListener(&#39;click&#39;, (e) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;list capturing-A&#39;);</span><br><span class="line">  e.preventDefault();</span><br><span class="line"> &#125;, true)</span><br></pre></td></tr></table></figure>
+
+<p>就算是把 <code>event.preventDefault()</code>  添加到 <code>#list</code>  的捕獲事件裡面，等之後事件傳遞到<code>#list_item_link</code>的時候，一樣可以取消超連結的預設行為（新開分頁）。</p>
+<h3 id="事件委派（Event-Delegation）"><a href="#事件委派（Event-Delegation）" class="headerlink" title="事件委派（Event Delegation）"></a>事件委派（Event Delegation）</h3><p>假設同時有很多 DOM element 都有相同的 event handler ，與其在每個 DOM element 上個別附加 event handler ，不如利用 event bubbling 的特性，統一在他們的 ancestor 的 event handler 處理，可以有效地減少監聽器數量。</p>
+<p>假設有一個三個 <code>li</code>  節點的 <code>ul</code>  ，接著動態產生剩下的節點資料：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id&#x3D;&quot;list&quot;&gt;</span><br><span class="line"> &lt;li &gt;one&lt;&#x2F;li&gt;</span><br><span class="line"> &lt;li &gt;two&lt;&#x2F;li&gt;</span><br><span class="line"> &lt;li &gt;three&lt;&#x2F;li&gt;</span><br><span class="line">&lt;ul&gt;</span><br></pre></td></tr></table></figure>
+
+<p>雖然可以對個別的<code>li</code>附加 click event hander ，但有幾個<code>li</code>就要加幾次 <code>addEventListener</code>。我們可以透過 event delegation 的方式統一管理，任何點擊 <code>li</code> 的事件都傳到 <code>ul</code> ，因此我們可以在 <code>ul</code> 身上放一個 <code>addEventListener</code>。</p>
+<p>以下例子為將點擊的 <code>li</code> 元素，設置 <code>hidden</code> 屬性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"> list.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//點擊元素後，該元素隱藏</span></span><br><span class="line"> e.target.style.visibility = <span class="string">'hidden'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// e.target refers to the clicked &lt;li&gt; element</span></span><br><span class="line"> <span class="comment">// This is different than e.currentTarget which would refer to the     parent &lt;ul&gt; in this context</span></span><br><span class="line"> <span class="built_in">console</span>.log(e.target.tagName);<span class="comment">//LI</span></span><br><span class="line"> <span class="built_in">console</span>.log(e.currentTarget.tagName);<span class="comment">//UL</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//this 代表的會是「觸發事件的目標」元素，也就是 event.currentTarget 而不是 e.target。</span></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>.tagName);<span class="comment">//UL</span></span><br><span class="line"></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 取得 #list ul</span></span><br><span class="line"><span class="keyword">var</span> List = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line"> <span class="comment">// 建立 li 標籤</span></span><br><span class="line"> <span class="keyword">var</span> node = <span class="built_in">document</span>.createElement(<span class="string">"LI"</span>);</span><br><span class="line"> <span class="comment">// 建立 文字節點</span></span><br><span class="line"> <span class="keyword">var</span> textnode = <span class="built_in">document</span>.createTextNode(i);</span><br><span class="line"> <span class="comment">// 透過 appendChild 將 文字節點 加入至 List</span></span><br><span class="line"> node.appendChild(textnode);</span><br><span class="line"> <span class="built_in">document</span>.getElementById(<span class="string">"list"</span>).appendChild(node);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>輸出結果：</p>
+<li >one</li>
+ <li >two</li>
+ <li >three</li>
+ <li >0</li>
+ <li >1</li>
+ <li >2</li>
+ <li >3</li>
+ <li >4</li>
+ <li >5</li>
+ <li >6</li>
+ <li >7</li>
+ <li >8</li>
+ <li >9</li>
+
+<br/>
+
+<p>當新增或刪除一個 <code>li</code> 的時候，無需去處理和那個元素相關的 listener ，因為 listener 是放在  <code>ul</code>  ，透過父節點來處理子節點的事件，就稱為事件代理。</p>
+<h3 id="E-CURRENTTARGET-VS-E-TARGET"><a href="#E-CURRENTTARGET-VS-E-TARGET" class="headerlink" title="E.CURRENTTARGET VS. E.TARGET"></a>E.CURRENTTARGET VS. E.TARGET</h3><p><code>event.currentTarget</code> 屬性會指向目前於冒泡或捕捉階段正在處理該事件之事件處理器所註冊的 DOM 物件，而 <code>event.target</code> 屬性則是會指向觸發事件的 DOM 物件。</p>
+<p>如果放置一個 event listener 到 <code>p</code> 節點， <code>event.currentTarget</code> 就會指到 <code>p</code> ， <code>event.target</code> 則還是指到 <code>span</code> ，如果把 event listener 放置到 <code>body</code> 上，則 <code>event.currentTarget</code> 就會指到 <code>body</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id&#x3D;&quot;list&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;a href&#x3D;&quot;#&quot;&gt;some </span><br><span class="line"></span><br><span class="line">        &lt;span&gt;text&lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"></span><br><span class="line"> list.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(e.target.tagName);</span><br><span class="line"> <span class="built_in">console</span>.log(e.currentTarget.tagName);</span><br><span class="line"> &#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="EventTarget-addEventListener"><a href="#EventTarget-addEventListener" class="headerlink" title="EventTarget.addEventListener()"></a>EventTarget.addEventListener()</h3><p>addEventListener 方法可以用來綁定元素的事件處理函數，有三個參數，分別是「事件名稱」、「事件的處理器」(事件觸發時執行的 function)，以及一個「Boolean」值，由這個 Boolean 決定事件是以「捕獲」或「冒泡」機制執行，若不指定則預設為「冒泡」。</p>
+<br/>
+事件監聽範例：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;table id&#x3D;&quot;outside&quot;&gt;</span><br><span class="line">    &lt;tr&gt;&lt;td id&#x3D;&quot;t1&quot;&gt;one&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;tr&gt;&lt;td id&#x3D;&quot;t2&quot;&gt;two&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>addEventListener</code> 可以對同一個元素指定多個事件處理函數，當點擊 <code>li</code> 元素時，跳出警告視窗，並執行 <code>modifyText</code> 函數；將 <code>t2</code> 的值 修改為 <code>four</code>  ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Function to change the content of t2</span><br><span class="line">function modifyText() &#123;</span><br><span class="line">  var t2 &#x3D; document.getElementById(&quot;t2&quot;);</span><br><span class="line">  t2.firstChild.nodeValue &#x3D; &quot;four&quot;;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; add event listener to table</span><br><span class="line">var el &#x3D; document.getElementById(&quot;outside&quot;);</span><br><span class="line">el.addEventListener(&quot;click&quot;, modifyText, false);</span><br><span class="line"></span><br><span class="line">el.addEventListener(&#39;click&#39;, function()&#123;</span><br><span class="line">  alert(&#39;HI&#39;);</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+
+<p>可以修改為匿名函數的事件監聽：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">el.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;modifyText(<span class="string">"four"</span>)&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="EventTarget-removeEventListener"><a href="#EventTarget-removeEventListener" class="headerlink" title="EventTarget.removeEventListener()"></a>EventTarget.removeEventListener()</h3><p>取消透過 addEventListener 綁定的事件處理函數，三個參數與 <code>addEventListener()</code> 一樣，分別是「事件名稱」、「事件的處理器」以及「捕獲」或「冒泡」的機制。</p>
+<p>但是需要注意的是，由於 <code>addEventListener()</code> 可以同時針對某個事件綁定多個 handler，所以透過 <code>removeEventListener()</code> 解除事件的時候，第二個參數的 handler 必須要與先前在 <code>addEventListener()</code> 綁定的 handler 是同一個「實體」。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var el &#x3D; document.getElementById(&quot;outside&quot;);</span><br><span class="line"></span><br><span class="line">el.addEventListener(&#39;click&#39;, function()&#123;alert(&#39;Hi&#39;);&#125;, false);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;remove event listener</span><br><span class="line">el.removeEventListener(&#39;click&#39;,function()&#123;alert(&#39;Hi&#39;);&#125;, false);</span><br></pre></td></tr></table></figure>
+
+<p>即使執行了 <code>removeEventListener</code> 來移除事件，但 <code>click</code> 時仍會出現 ‘HI’。因為 <code>addEventListener</code> 與 <code>removeEventListener</code> 所移除的 handler 實際上是兩個不同實體的 function 物件。</p>
+<p>需修改為以下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">"outside"</span>);</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 把 event handler 先存到變數</span></span><br><span class="line"> <span class="keyword">var</span> clickHandler =<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     alert(<span class="string">'Hi'</span>);</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> el.addEventListener(<span class="string">'click'</span>, clickHandler, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">//成功移除 clickHandler</span></span><br><span class="line"> el.removeEventListener(<span class="string">'click'</span>,clickHandler, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/" target="_blank" rel="noopener">https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191970" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191970</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10192015" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10192015</a></p>
+</li>
+<li><p><a href="http://shubo.io/event-bubbling-event-capturing-event-delegation/" target="_blank" rel="noopener">http://shubo.io/event-bubbling-event-capturing-event-delegation/</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/API/EventTarget/addEventListener" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Web/API/EventTarget/addEventListener</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/API/Event/target" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Web/API/Event/target</a></p>
+</li>
+<li><p><a href="http://www.qc4blog.com/?p=650" target="_blank" rel="noopener">http://www.qc4blog.com/?p=650</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../16/2019-11-16-JavaScript-14/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript Callback Function
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../14/2019-11-14-JavaScript-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript DOM 查找元素</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。"><span class="nav-number">1.</span> <span class="nav-text">這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-Flow"><span class="nav-number"></span> <span class="nav-text">Event Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件冒泡-Event-Bubbling"><span class="nav-number"></span> <span class="nav-text">事件冒泡 (Event Bubbling)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件捕獲-Event-Capturing"><span class="nav-number"></span> <span class="nav-text">事件捕獲 (Event Capturing)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number"></span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Capturing-或-Bubbling-的目標執行順序"><span class="nav-number"></span> <span class="nav-text">Capturing 或 Bubbling 的目標執行順序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#關於這些事件的傳遞順序，只需記住兩個原則："><span class="nav-number"></span> <span class="nav-text">關於這些事件的傳遞順序，只需記住兩個原則：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻擋事件冒泡傳遞-event-stopPropagation"><span class="nav-number"></span> <span class="nav-text">阻擋事件冒泡傳遞 event.stopPropagation()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻擋預設行為-event-preventDefault"><span class="nav-number"></span> <span class="nav-text">阻擋預設行為 event.preventDefault()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件委派（Event-Delegation）"><span class="nav-number"></span> <span class="nav-text">事件委派（Event Delegation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-CURRENTTARGET-VS-E-TARGET"><span class="nav-number"></span> <span class="nav-text">E.CURRENTTARGET VS. E.TARGET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventTarget-addEventListener"><span class="nav-number"></span> <span class="nav-text">EventTarget.addEventListener()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventTarget-removeEventListener"><span class="nav-number"></span> <span class="nav-text">EventTarget.removeEventListener()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#參考文獻"><span class="nav-number"></span> <span class="nav-text">參考文獻</span></a>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

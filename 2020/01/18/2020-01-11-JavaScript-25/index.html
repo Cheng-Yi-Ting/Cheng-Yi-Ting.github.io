@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151412407-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151412407-1');
+    </script>
+
+    <meta charset="utf-8">
+    
+        <title>
+            
+                JavaScript - Promise |
+                    
+                        Cyting
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+                    <meta name="keywords" content="JavaScriptES6" />
+                    
+                        
+                                
+                                        
+                                                <meta name="description" content="過去以 Callback 撰寫非同步會容易在呼叫多層之後產生「Callback Hell」難以維護的問題，而 ES6 提供 Promise 來更方便的執行非同步。關於 JavaScript 執行方式、非同步及 Callback 原理解釋請參考前文：   JavaScript 非同步執行 （Ascynchronous）  JavaScript - Call Stack , Event Qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - Promise">
+<meta property="og:url" content="https://cheng-yi-ting.github.io/2020/01/18/2020-01-11-JavaScript-25/index.html">
+<meta property="og:site_name" content="Cyting">
+<meta property="og:description" content="過去以 Callback 撰寫非同步會容易在呼叫多層之後產生「Callback Hell」難以維護的問題，而 ES6 提供 Promise 來更方便的執行非同步。關於 JavaScript 執行方式、非同步及 Callback 原理解釋請參考前文：   JavaScript 非同步執行 （Ascynchronous）  JavaScript - Call Stack , Event Qu">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/18/2020-01-11-JavaScript-25/logo.svg">
+<meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/18/2020-01-11-JavaScript-25/1.png">
+<meta property="article:published_time" content="2020-01-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-01-23T00:08:41.950Z">
+<meta property="article:author" content="Cheng Yi Ting">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cheng-yi-ting.github.io/2020/01/18/2020-01-11-JavaScript-25/logo.svg">
+                                                    
+                                                        <link rel="alternate" href="/atom.xml" title="Cyting" type="application/atom+xml">
+                                                        
+                                                            <link rel="icon" href="/css/images/favicon.ico">
+                                                            
+                                                                <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+                                                                
+                                                                    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+                                                                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+                                                                    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+                                                                    <style type="text/css">
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");
+                                                                            font-weight: 500;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");
+                                                                            font-weight: lighter;
+                                                                            font-style: normal;
+                                                                        }
+                                                                        
+                                                                        @font-face {
+                                                                            font-family: futura-pt;
+                                                                            src: url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");
+                                                                            font-weight: 400;
+                                                                            font-style: italic;
+                                                                        }
+                                                                    </style>
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+                                                                    <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+                                                                    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+                                                                        
+<script src="../../../../js/jquery-3.1.1.min.js"></script>
+
+
+                                                                            <!-- Bootstrap core CSS -->
+                                                                            <link rel="stylesheet" href="/css/bootstrap.css">
+                                                                            <link rel="stylesheet" href="/css/fashion.css">
+                                                                            <link rel="stylesheet" href="/css/glyphs.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Cyting" rel="home"> Cyting </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../index.html">首頁</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../archives">歸檔</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../categories">分類</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="../../../../tags">標籤</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2020-01-11-JavaScript-25" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript - Promise
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2020-01-17T16:00:00.000Z" itemprop="datePublished">一月 18, 2020</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<p>過去以 Callback 撰寫非同步會容易在呼叫多層之後產生「Callback Hell」難以維護的問題，而 ES6 提供 Promise 來更方便的執行非同步。關於 JavaScript 執行方式、非同步及 Callback 原理解釋請參考前文： </p>
+<ul>
+<li><p><a href="https://cheng-yi-ting.github.io/2020/01/04/2020-01-04-JavaScript-23/">JavaScript 非同步執行 （Ascynchronous）</a></p>
+</li>
+<li><p><a href="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/">JavaScript - Call Stack , Event Queue &amp; Event Loop</a></p>
+</li>
+<li><p><a href="https://cheng-yi-ting.github.io/2019/11/16/2019-11-16-JavaScript-14/">JavaScript Callback Function</a></p>
+</li>
+</ul>
+<p>在還沒有  <code>Promise</code>  的時候，我們為了控制多個函式間執行的順序，就會透過 Callback 的形式將 function 當作參數傳進去：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 為了確保先執行 first 再執行 second</span></span><br><span class="line"><span class="comment">// 我們在 first 加上 callback 參數</span></span><br><span class="line"><span class="keyword">var</span> first = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is first."</span>);</span><br><span class="line"></span><br><span class="line">    callback();</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> second=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is second."</span>);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 將 second 作為參數帶入 first()</span></span><br><span class="line">first(second);</span><br><span class="line"><span class="comment">//"This is first."</span></span><br><span class="line"><span class="comment">//"This is second."</span></span><br></pre></td></tr></table></figure>
+
+<p>無論  <code>first()</code>  在執行的時候要等多久，  <code>second()</code>  都會等到  <code>first()</code>  執行完才會執行。也可以寫成下面這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">first</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"This is first."</span>);</span><br><span class="line">        callback()</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">second</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    callback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"This is second."</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">second(first)</span><br><span class="line"></span><br><span class="line"><span class="comment">//"This is first."</span></span><br><span class="line"><span class="comment">//"This is second."</span></span><br></pre></td></tr></table></figure>
+
+<p>如果再增加 Callback 的數量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">first</span>(<span class="params">callback2</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"This is first."</span>);</span><br><span class="line">        callback2()</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">second</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"This is second."</span>);</span><br><span class="line">        callback()</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">third</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is third."</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    first(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        second(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            callback()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">main(third)</span><br><span class="line"></span><br><span class="line"><span class="comment">//"This is first."</span></span><br><span class="line"><span class="comment">//"This is second."</span></span><br><span class="line"><span class="comment">//"This is second."</span></span><br></pre></td></tr></table></figure>
+
+<p>當 Callback 太多層就會變成非常複雜的巢狀結構：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">first(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    second(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        third(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            fourth(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// ......</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p> <code>Promise</code>  提供的新語法讓非同步更加直觀，讓我們看一下它的建構函式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123; ... &#125; )</span><br></pre></td></tr></table></figure>
+
+<p>下面是箭頭函式的寫法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123; ... &#125; )</span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-的狀態與流程"><a href="#Promise-的狀態與流程" class="headerlink" title="Promise 的狀態與流程"></a>Promise 的狀態與流程</h2><p>Promise 有三種 state(狀態)</p>
+<ul>
+<li><p>pending：等待(還在執行中且結束狀態未知)</p>
+</li>
+<li><p>resolved/fullfilled：完成/成功</p>
+</li>
+<li><p>rejected：拒絕/失敗</p>
+</li>
+</ul>
+<p>Promise 運作流程圖：</p>
+<div>
+<img src="1.png" style="width:100%;">
+</div>
+
+<div style="text-align:center;">來源：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">MDN</a></div>
+
+<p> <code>Promise</code>  物件中包含兩個參數： <code>resolve</code>  與  <code>reject</code>  ，   <code>then</code>  會接收  <code>resolve</code>  的 value， <code>catch</code>  則接收  <code>reject</code>  的 value。</p>
+<p>讓我們看一個基本的 Promise 範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           <span class="keyword">let</span> value  = <span class="number">1</span></span><br><span class="line">           <span class="built_in">console</span>.log(value);</span><br><span class="line">           resolve(value);</span><br><span class="line">       &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Promise fullfilled handler</span></span><br><span class="line">p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在 p 被 resolve 時執行</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'success:'</span> + value)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//Promise rejected handler</span></span><br><span class="line">p.catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在 p 被 reject 時執行</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pending"><a href="#Pending" class="headerlink" title="Pending"></a>Pending</h2><p>當  <code>Promise</code>  沒有  <code>resolve</code>  或是  <code>reject</code>  的時候，程式將會一直處在  <code>pending</code>  狀態：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;&#125;);</span><br><span class="line">p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">&#125;)</span><br><span class="line">p.catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>例如：送出一個請求一直沒有收到回應時， Promise 就會一直處於 pending 狀態。</p>
+<h2 id="Promise-Chain"><a href="#Promise-Chain" class="headerlink" title="Promise Chain"></a>Promise Chain</h2><p>我們可以在  <code>Promise</code>  使用  <code>.then</code>  來進行串接，透過在  <code>.then</code>  裡面  <code>return</code>  一個值，讓這個回傳值以  <code>Promise</code>  物件的形式傳到下一個  <code>.then</code>  ，形成 Promise Chain：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           <span class="keyword">let</span> value = <span class="number">1</span>;</span><br><span class="line">           resolve(value);</span><br><span class="line">       &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 得到 resolve 內的值</span></span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">return</span>  value+<span class="number">1</span>;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 得到上一個 .then return 的值</span></span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">return</span> value+<span class="number">1</span>;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 得到上一個 .then return 的值</span></span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 3</span></span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p> <code>catch</code>  如果是串在中間，在  <code>new Promise</code>  的時候是  <code>reject</code> ，會導致前面  <code>.then</code>  都不會被執行:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           <span class="keyword">let</span> value = <span class="number">1</span>;</span><br><span class="line">           reject(value);</span><br><span class="line">       &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Start'</span>); </span><br><span class="line">  <span class="keyword">return</span>  value+<span class="number">1</span>;</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'End'</span>); </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//error: 1</span></span><br><span class="line"><span class="comment">//End</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-使用範例"><a href="#Promise-使用範例" class="headerlink" title="Promise 使用範例"></a>Promise 使用範例</h2><p>我們可以在  <code>.then</code>  中  <code>return</code>  一個  <code>new Promise</code>  。</p>
+<p>範例一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> value = <span class="number">1</span>;</span><br><span class="line">    resolve(value) </span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the first value :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> value + <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the second value :"</span> + value);</span><br><span class="line">  <span class="comment">// return 一個 new Promise</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      resolve(value + <span class="number">2</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等 Promise resolve 後才會執行。</span></span><br><span class="line">.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the third value :"</span> + value);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">This is the first value: 1</span></span><br><span class="line"><span class="comment">This is the second value: 2</span></span><br><span class="line"><span class="comment">This is the third value: 4</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<p>範例二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value++</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p(<span class="number">1</span>)</span><br><span class="line">  .then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is the first value :"</span> + value);</span><br><span class="line">    <span class="keyword">return</span> p(value+<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is the second value :"</span> + value);</span><br><span class="line">    <span class="keyword">return</span> p(value+<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">   .then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is the third value :"</span> + value);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">This is the first value: 2</span></span><br><span class="line"><span class="comment">This is the second value: 4</span></span><br><span class="line"><span class="comment">This is the third value: 6</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<p>範例三：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">"This value is :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value++</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p(<span class="number">1</span>)</span><br><span class="line">  .then(p)</span><br><span class="line">  .then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">    <span class="keyword">return</span> value+<span class="number">2</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(p)</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">This value is :1</span></span><br><span class="line"><span class="comment">This value is :2</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment">This value is :5</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<p>範例四：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           <span class="keyword">let</span> value = <span class="number">1</span>;</span><br><span class="line">           resolve(value);</span><br><span class="line">       &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funA</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"The value of function A is :"</span> + value);</span><br><span class="line">  <span class="keyword">const</span> data = funC(value)</span><br><span class="line">  <span class="keyword">return</span> data + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funB</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"The value of function B is :"</span> + value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funC</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value + <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p.then(funA)</span><br><span class="line"> .then(funB)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">The value of function A is :1</span></span><br><span class="line"><span class="comment">The value of function B is :4</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-錯誤處理"><a href="#Promise-錯誤處理" class="headerlink" title="Promise 錯誤處理"></a>Promise 錯誤處理</h2><p>通常我們會將  .<code>catch</code>  放在最後面做錯誤處裡，當其中一個  <code>.then</code>  發生錯誤時，就會跳到  <code>.catch</code>  ，而  <code>.catch</code>  之後的  .<code>then</code>  皆不會執行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value &gt; <span class="number">2</span>)&#123;</span><br><span class="line">      reject(<span class="string">'Unexpected condition'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value++</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p(<span class="number">1</span>)</span><br><span class="line">.then((<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the first value :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> p(value)</span><br><span class="line">&#125;))</span><br><span class="line">.then((<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the second value :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> p(value)</span><br><span class="line">&#125;))</span><br><span class="line">.then((<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is the third value :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> p(value)</span><br><span class="line">&#125;))</span><br><span class="line">.catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(error)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">This is the first value :2</span></span><br><span class="line"><span class="comment">This is the second value :3</span></span><br><span class="line"><span class="comment">Unexpected condition</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><p> <code>Promise.all</code>  可以傳入一個以上的  <code>Promise</code>  並同時執行，等到所有的  <code>Promise</code>  都回應狀態後，才會進入  <code>.then</code>  。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (value &lt; <span class="number">1000</span> )&#123;</span><br><span class="line">         reject(<span class="string">'Unexpected condition'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, value)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([p(<span class="number">1000</span>), p(<span class="number">2000</span>), p(<span class="number">3000</span>)]).then(<span class="function">(<span class="params">value</span>)=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'This value is :'</span>, value);</span><br><span class="line">&#125;).catch( <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[This value is : 1000 , This value is : 2000 , This value is : 3000]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>如果其中一個  <code>Promise</code>  中有出現  <code>reject</code>  ，則直接進入  <code>.catch</code>  階段，而不會收到其他  <code>Promise resolve</code>  的回傳值。</p>
+<h2 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h2><p><code>Promise.race</code> 一樣可以傳入多個  <code>Promise</code>  並同時執行，但只回傳  <code>Promise</code>  中最快完成的，並接著執行  <code>.then</code>  ，而其他的  <code>Promise</code>  皆不會執行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, value)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.race([p(<span class="number">1000</span>), p(<span class="number">2000</span>), p(<span class="number">3000</span>)]).then(<span class="function">(<span class="params">value</span>)=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'This value is :'</span>, value);</span><br><span class="line">&#125;).catch( <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">This value is : 1000</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
+<li><a href="https://yu-jack.github.io/2018/07/22/promise/" target="_blank" rel="noopener">callback, promise, async/await 使用方式教學以及介紹 Part I - Jack Yu | 傑克</a></li>
+<li><a href="https://pjchender.github.io/2017/09/26/js-promise-%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">[JS] Promise 的使用 | PJCHENder 私房菜</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10204365" target="_blank" rel="noopener">Day23 Promise 詳解(1/2)</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10204718" target="_blank" rel="noopener">Day24 Promise 詳解(2/2)</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10197529" target="_blank" rel="noopener">JavaScript - Promise (2)</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10222481" target="_blank" rel="noopener">JS 原力覺醒 Day14 - 一生懸命的約定：Promise</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/ES6/" rel="tag">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'cyting';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../23/2020-01-19-JavaScript-26/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript - Async/Await
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../10/2020-01-04-JavaScript-24/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript - Call Stack , Event Queue &amp; Event Loop</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目錄</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">1.</span> <span class="nav-text">Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-的狀態與流程"><span class="nav-number">1.1.</span> <span class="nav-text">Promise 的狀態與流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pending"><span class="nav-number">1.2.</span> <span class="nav-text">Pending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-Chain"><span class="nav-number">1.3.</span> <span class="nav-text">Promise Chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-使用範例"><span class="nav-number">1.4.</span> <span class="nav-text">Promise 使用範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-錯誤處理"><span class="nav-number">1.5.</span> <span class="nav-text">Promise 錯誤處理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-all"><span class="nav-number">1.6.</span> <span class="nav-text">Promise.all</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-race"><span class="nav-number">1.7.</span> <span class="nav-text">Promise.race</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">2.</span> <span class="nav-text">參考文獻</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+    
+
+                <div class="clearfix container">
+                    <div class="site-info">
+                        &copy;
+                        2020
+                            Cyting All Rights Reserved.
+                                
+
+                                    
+                    </div>
+                    <div class="site-credit">
+                        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+                    </div>
+                </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+<script src="../../../../js/bootstrap.js"></script>
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
