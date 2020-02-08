@@ -3,14 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Cyting
+title: Cyting 部落格
 subtitle:
-description:
-keywords:
-author: Cheng Yi Ting
+description: 此部落格主要為紀載程式技術、科技或生活相關類型文章
+keywords: Coding ,程式,前端
+author: Cheng-Yi-Ting
 language: zh-TW
 # language: en
-timezone:
+timezone: Asia/Taipei
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
