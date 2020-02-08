@@ -14,6 +14,8 @@ tags:
 
 每次透過  `hexo g -d`  後  `master`  會儲存 Blog 的靜態檔案。
 
+
+
 # 分支建立
 
 因為需要要儲存其它的檔案，所以要先在自己的 GitHub Pages 的 Repository 上建立一個新的分支， Repository 名稱為 `username.github.io` ，當然你也可以存在別的 Repository  。一開始只會有  `master`  分支，而這邊示範為在原本的 Repository 上新增 `backup` 分支。
