@@ -1,0 +1,46 @@
+# Logo (Font Awesome Class)
+fa_logo: fa-cube
+
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /about.html
+  Tags: /tags
+  Categories: /categories
+  Contact: /contact.html
+
+# Default post title
+default_post_title: Untitled
+
+# Archive Date Format
+archive_date_format: MMM YYYY
+
+# Comments.
+comments:
+  # Disqus comments
+  disqus_shortname: cyting
+
+# Google Analytics Tracking ID
+google_analytics:
+  tracking_id: UA-151412407-1
+  localhost_ignored: false
+
+# Social Accounts
+# twitter_url: https://twitter.com/?lang=en
+facebook_url: https://www.facebook.com/peterchengapple?ref=bookmarks
+instagram_url: https://www.instagram.com/peterchengapple/
+# dribble_url: https://dribbble.com/
+github_url: https://github.com/Cheng-Yi-Ting
+# googleplus_url: https://plus.google.com/
+# behance_url: https://www.behance.net/
+# fivehundredpx_url: https://500px.com/
+email_url: d02405035@gmail.com
+# rss_url: \#
+
+# Footer About Text
+footer_about: "This article was written by <a href=\"https://github.com/Cheng-Yi-Ting\">Cheng Yi Ting."
+
+# Footer Copyright Line
+footer_copyright: "Believe in yourself </br></br>My name is  <a href=\"https://github.com/Cheng-Yi-Ting\">Cheng Yi Ting</a> and this is my blog. "
+

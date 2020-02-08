@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Music Player</title>
+    <style>
+        #musicBoard {
+            width: 400px;
+            /* border: 10px solid 827081; */
+            text-align: center;
+            margin: auto;
+            border-radius: 20px;
+            background-color: rgb(27, 23, 23);
+        }
+        
+        ul {
+            background-color: rgb(0, 0, 0);
+            margin-left: 0;
+            padding-left: 0;
+            color: #ffffff;
+        }
+        
+        li {
+            list-style-type: none;
+            line-height: 30px;
+            border-bottom: 1px solid rgb(0, 0, 0);
+        }
+        
+        li:hover {
+            background-color: rgb(71, 71, 71);
+            cursor: pointer;
+        }
+        
+        li>span {
+            float: left;
+            font-family: Webdings;
+            font-size: 25px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        /* 隨機按鈕 */
+        
+        #random {
+            float: right;
+            font-family: Webdings;
+            font-size: 35px;
+            line-height: 35px;
+            color: rgb(32, 253, 102);
+            cursor: pointer;
+            border: 2px outset #bbff00;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        
+        #random:hover {
+            border: 2px inset #bbff00;
+        }
+        /* 音樂選單 */
+        
+        #top {
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+            line-height: 50px;
+            color: rgb(32, 253, 102);
+            font-weight: bold;
+            padding-left: 60px;
+        }
+        
+        #bottom {
+            height: 50px;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+        
+        audio {
+            outline: none;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', () => {
+            let musicSources = document.querySelector('#musicSources');
+            musicSources.addEventListener('click', musicTarget = (e) => {
+                if (e.target.tagName.toLowerCase() === 'li') {
+                    if (document.querySelector(".musicSpan")) {
+                        document.querySelector(".musicSpan").remove();
+                    }
+                    if (document.querySelector("audio")) {
+                        document.querySelector("audio").remove();
+                    }
+
+                    let target = e.target; //取得按下的歌曲(li)
+                    const pn = target.innerText; //取得歌曲名稱(文字內容)
+                    let span = document.createElement('span') //建立span元件
+                    span.className = 'musicSpan'; //指定class名稱
+                    span.innerHTML = '4'; //指定span裡的文字(4表示三角形符號)
+                    target.appendChild(span); //放入li元件
+                    playMusic(pn); //播放音樂
+                }
+            });
+        })
+
+        function playMusic(a) {
+            let myAudio = document.createElement('audio'); //建立audio元件
+            myAudio.setAttribute("src", "music/" + a + ".mp3"); //src 音檔路徑，a為傳入的歌曲名稱
+            myAudio.setAttribute("controls", "controls"); //顯示撥放器
+            bottom.appendChild(myAudio); //加入在id名稱為bottom的元件裡
+            myAudio.play(); //播放音樂
+        }
+
+        function randomPlay() {
+            let num = Math.floor(Math.random() * 5); //隨機數0~4
+            let randomLi = document.querySelectorAll('li')[num]; //將值帶入 li 的 index
+            randomLi.click(); //觸發click事件
+        }
+    </script>
+</head>
+
+<body>
+    <div id="musicBoard">
+        <div id="top">
+            音樂選單 <span id="random" title="隨機播放" onclick="randomPlay()">~</span>
+        </div>
+        <ul id="musicSources">
+            <li>Slug_Love_87</li>
+            <li>Mosquito_Mojito</li>
+            <li>Groove_Tube</li>
+            <li>Loose_Slip</li>
+            <li>Flutes</li>
+        </ul>
+        <div id="bottom"></div>
+    </div>
+</body>
+
+</html>
