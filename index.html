@@ -152,7 +152,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="2020/02/08/2020-02-08-HexoBackup/">JavaScript - 音樂播放器</a>
+      <a class="article-title" href="2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a>
     </h1>
   
 
@@ -169,13 +169,35 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <p>我們在使用 Hexo 網誌框架時，會事先在 GitHub 上新增 GitHub Pages 來完成 Blog 搭建，透過輸入  <code>hexo g -d</code>  進行部署，所產生的是靜態網頁並發布在網站上，不過卻沒有備份到 .md 檔案，這樣我們辛辛苦苦寫的文章卻沒有備份到。所以本篇將會說明如何將我們所撰寫的文章，及相關的配置設定一同備份至 GitHub ，這樣當原始檔案遺失時才有機會進行還原，而不是只有 Hexo 所產生出的靜態檔案。</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><img src="2020-02-08-HexoBackup-1.PNG" style="width:100%;">
 
-<br/>
+<p>每次透過  <code>hexo g -d</code>  後  <code>master</code>  會儲存 Blog 的靜態檔案。</p>
+<h1 id="分支建立"><a href="#分支建立" class="headerlink" title="分支建立"></a>分支建立</h1><p>因為需要要儲存其它的檔案，所以要先在自己的 GitHub Pages 的 Repository 上建立一個新的分支， Repository 名稱為 <code>username.github.io</code> ，當然你也可以存在別的 Repository  。一開始只會有  <code>master</code>  分支，而這邊示範為在原本的 Repository 上新增 <code>backup</code> 分支。</p>
+<h1 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h1><p>初始化這個目錄，進行版本控制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
-<p><br/><br/></p>
+<p>建立新分支  <code>backup</code>  ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b backup</span><br></pre></td></tr></table></figure>
+
+<p>將檔案加到暫存區及儲存庫：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;Commit update&quot;</span><br></pre></td></tr></table></figure>
+
+<p>設定要推上遠端 GitHub Server 的節點：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:username&#x2F;username.io.git</span><br></pre></td></tr></table></figure>
+
+<p>可以使用  <code>npm scripts</code>  來執行上面重複的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">    &quot;scripts&quot;: &#123;</span><br><span class="line">        &quot;b&quot;: &quot;git add . &amp;&amp; git commit -m \&quot;Commit update\&quot; &amp;&amp; git push origin master:backup&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每行命令用  <code>&amp;&amp;</code>  符號來分開執行。</p>
+<p>之後就可以透過輸入  <code>npm run b</code>  來佈署  <code>.md</code>  檔、主題及相關配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run b</span><br></pre></td></tr></table></figure>
+
+<img src="2020-02-08-HexoBackup-2.PNG" style="width:100%;">
+
+<p>當切換至分支  <code>backup</code>  後就會看到原本在本地的檔案。</p>
 <h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
-<li><a href="http://www.drmaster.com.tw/bookinfo.asp?BookID=MP21907" target="_blank" rel="noopener">JavaScript 精選16堂課：網頁程式設計實作</a></li>
+<li><a href="https://dwatow.github.io/2019/01-03-hexo/hexo-backup-to-branch/" target="_blank" rel="noopener">Hexo 備份 md 檔 - 《Chris 技術筆記》</a></li>
 </ol>
 
       
@@ -1403,7 +1425,7 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
-              <h6 style="margin: 0;"><a href="2020/02/08/2020-02-08-HexoBackup/">JavaScript - 音樂播放器</a></h6>
+              <h6 style="margin: 0;"><a href="2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
               <span>二月 8, 2020</span>
             </div>
 
