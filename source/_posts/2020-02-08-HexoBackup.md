@@ -8,8 +8,6 @@ tags:
 - Git
 ---
 
-
-
 我們在使用 Hexo 網誌框架時，會事先在 GitHub 上新增 GitHub Pages 來完成 Blog 搭建，透過輸入  `hexo g -d`  進行部署，所產生的是靜態網頁並發布在網站上，不過卻沒有備份到 .md 檔案，這樣我們辛辛苦苦寫的文章卻沒有備份到。所以本篇將會說明如何將我們所撰寫的文章，及相關的配置設定一同備份至 GitHub ，這樣當原始檔案遺失時才有機會進行還原，而不是只有 Hexo 所產生出的靜態檔案。
 
 # 
@@ -36,7 +34,19 @@ git init
 git checkout -b backup
 ```
 
-將檔案加到暫存區及儲存庫：
+Hexo 本身在   `.gitignore`  中排除了不需要上傳的檔案，所以直接  `git add.`  即可：
+
+```
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+```
+
+將檔案加至暫存區及儲存庫：
 
 ```
 git add .
@@ -71,8 +81,61 @@ npm run b
 
 當切換至分支  `backup`  後就會看到原本在本地的檔案。
 
+# git-backup
 
+除了上述方法以外，也可以使用  [hexo-git-backup](https://github.com/coneycode/hexo-git-backup)  套件來備份檔案：
+
+安裝套件：
+
+```
+ npm install hexo-git-backup --save
+```
+
+`_config.yml`  檔案設定：
+
+```
+backup:
+    type: git
+    repository:
+       github: git@github.com:username/username.git,branchName
+       gitcafe: git@github.com:username/username.git,branchName
+```
+
+執行備份：
+
+```
+hexo backup
+```
+
+或
+
+```
+hexo b
+```
+
+如果想連主題一起被備份的話，可新增  `theme`  欄位：
+
+```
+backup:
+    type: git
+    theme: coney,landscape,xxx
+    repository:
+       github: git@github.com:username/username.git,branchName
+       gitcafe: git@github.com:username/username.git,branchName
+```
+
+如果想要更改  `commit`  訊息的話，可新增  `message`  欄位：
+
+```
+backup:
+    type: git
+    message: Commit update
+    repository:
+       github: git@github.com:xxx/xxx.git,branchName
+       gitcafe: git@github.com:xxx/xxx.git,branchName
+```
 
 # 參考文獻
 
 1. [Hexo 備份 md 檔 - 《Chris 技術筆記》](https://dwatow.github.io/2019/01-03-hexo/hexo-backup-to-branch/)
+2. [Hexo備份至GitHub | 大专栏](https://www.dazhuanlan.com/2019/09/24/5d89fc809d6bf/)
