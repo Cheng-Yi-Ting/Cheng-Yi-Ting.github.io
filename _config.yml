@@ -107,3 +107,4 @@ backup:
     type: git
     repository:
        github: git@github.com:Cheng-Yi-Ting/Cheng-Yi-Ting.git,backup
+       gitcafe: git@github.com:Cheng-Yi-Ting/Cheng-Yi-Ting.git,backup
