@@ -88,7 +88,7 @@ npm run b
 安裝套件：
 
 ```
- npm install hexo-git-backup --save
+npm install hexo-git-backup --save
 ```
 
 `_config.yml`  檔案設定：
@@ -113,7 +113,7 @@ hexo backup
 hexo b
 ```
 
-如果想連主題一起被備份的話，可新增  `theme`  欄位：
+如果想連主題一起備份的話，可新增  `theme`  欄位：
 
 ```
 backup:
