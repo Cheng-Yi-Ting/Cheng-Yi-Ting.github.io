@@ -129,8 +129,8 @@ backup:
     type: git
     message: Commit update
     repository:
-       github: git@github.com:xxx/xxx.git,branchName
-       gitcafe: git@github.com:xxx/xxx.git,branchName
+       github: git@github.com:username/username.git,branchName
+       gitcafe: git@github.com:username/username.git,branchName
 ```
 
 # 參考文獻
