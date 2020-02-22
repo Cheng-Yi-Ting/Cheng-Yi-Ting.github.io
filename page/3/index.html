@@ -151,6 +151,169 @@
         
           <section id="main">
   
+    <article id="post-2019-11-14-JavaScript-10"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/14/2019-11-14-JavaScript-10/">JavaScript DOM 查找元素</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/14/2019-11-14-JavaScript-10/" class="article-date">
+	  <time datetime="2019-11-13T16:00:00.000Z" itemprop="datePublished">十一月 14, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p>DOM (Document Object Model) 定義了一組標準 API (Application Programming Interface) 讓我們可以用 JavaScript 對 HTML 文件做操作。</p>
+<p>DOM 將一份 HTML 文件看作是一個樹狀結構的物件，讓我們可以方便直觀的存取樹中的節點 (node) 來改變其結構、樣式 (CSS) 或內容等。</p>
+<p>document 物件是 DOM tree 的根節點，表示整份 HTML 文件，通常你要存取 HTML 都是從 document 物件開始：</p>
+<br/>
+
+<img src="2019-11-14-JavaScript-10-1.png" style="width:50%;">
+
+<br/>
+
+<p>圖片來源： <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank" rel="noopener">Wikipedia DOM</a></p>
+<br/>
+
+<p>HTML DOM 規範中定義了這些類型的 API：</p>
+<ul>
+<li>讓我們可以對 HTML 的元素 (element) 當作是 JavaScript 物件 (object) 來操作</li>
+<li>定義了 HTML 元素有哪些屬性 (properties) 可以來做存取</li>
+<li>定義了 HTML 元素有哪些方法 (methods) 可以來被操作</li>
+<li>定義了 HTML 元素事件 (events)，讓我們可以針對特定元素來綁定事件處理函式 (例如使用者按下滑鼠、在鍵盤打字都是所謂的事件)</li>
+</ul>
+<h3 id="document-getElementById-id"><a href="#document-getElementById-id" class="headerlink" title="document.getElementById(id)"></a>document.getElementById(id)</h3><p>透過 id 取得一個 HTML 元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;Click the button to change the text in this paragraph.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  document.getElementById(&quot;demo&quot;).innerHTML &#x3D; &quot;Hello World&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-getElementsByTagName-name"><a href="#document-getElementsByTagName-name" class="headerlink" title="document.getElementsByTagName(name)"></a>document.getElementsByTagName(name)</h3><p>用來根據 HTML 標籤 (tag) 名稱取得所有這個標籤的元素集合 (HTMLCollection)，返回的結果是一個像陣列 (array) 的物件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;An unordered list:&lt;&#x2F;p&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li&gt;Coffee&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;li&gt;Tea&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;li&gt;Milk&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to display the innerHTML of the second li element (index 1).&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  var x &#x3D; document.getElementsByTagName(&quot;LI&quot;);</span><br><span class="line">  document.getElementById(&quot;demo&quot;).innerHTML &#x3D; x[1].innerHTML;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-getElementsByName-name"><a href="#document-getElementsByName-name" class="headerlink" title="document.getElementsByName(name)"></a>document.getElementsByName(name)</h3><p>用來取得特定名稱 (name) 的 HTML 元素集合 (HTMLCollection)，返回的結果是一個像陣列 (array) 的物件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">First Name: &lt;input name&#x3D;&quot;fname&quot; type&#x3D;&quot;text&quot; value&#x3D;&quot;Michael&quot;&gt;&lt;br&gt;</span><br><span class="line">First Name: &lt;input name&#x3D;&quot;fname&quot; type&#x3D;&quot;text&quot; value&#x3D;&quot;Doug&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to get the tag name of the first element in the document that has a name attribute with the value &quot;fname&quot;.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  var x &#x3D; document.getElementsByName(&quot;fname&quot;)[0].tagName;</span><br><span class="line">  document.getElementById(&quot;demo&quot;).innerHTML &#x3D; x;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-getElementsByClassName-names"><a href="#document-getElementsByClassName-names" class="headerlink" title="document.getElementsByClassName(names)"></a>document.getElementsByClassName(names)</h3><p>用來取得特定類別名稱 (class name) 的 HTML 元素集合 (HTMLCollection)，返回的結果是一個像陣列 (array) 的物件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;example&quot;&gt;First div element with class&#x3D;&quot;example&quot;.&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;example&quot;&gt;Second div element with class&#x3D;&quot;example&quot;.&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to change the text of the first div element with class&#x3D;&quot;example&quot; (index 0).&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; The getElementsByClassName() method is not supported in Internet Explorer 8 and earlier versions.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  var x &#x3D; document.getElementsByClassName(&quot;example&quot;);</span><br><span class="line">  x[0].innerHTML &#x3D; &quot;Hello World!&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用空白隔開多個 class name，元素必須有所有指定的 class name 才符合。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得同時有 demo 和 test 兩個 class name 的所有元素</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementsByClassName(<span class="string">'demo test'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-querySelector-selectors"><a href="#document-querySelector-selectors" class="headerlink" title="document.querySelector(selectors)"></a>document.querySelector(selectors)</h3><p>使用 CSS 選擇器 (CSS selectors) 來尋找符合條件且第一個找到的 HTML 元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h2 class&#x3D;&quot;example&quot;&gt;A heading with class&#x3D;&quot;example&quot;&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;example&quot;&gt;A paragraph with class&#x3D;&quot;example&quot;.&lt;&#x2F;p&gt; </span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to add a background color to the first element in the document with class&#x3D;&quot;example&quot;.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  document.querySelector(&quot;.example&quot;).style.backgroundColor &#x3D; &quot;red&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="document-querySelectorAll-selectors"><a href="#document-querySelectorAll-selectors" class="headerlink" title="document.querySelectorAll(selectors)"></a>document.querySelectorAll(selectors)</h3><p>使用 CSS 選擇器 (CSS selectors) 來尋找所有符合條件的 HTML 元素集合 (NodeList)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h2 class&#x3D;&quot;example&quot;&gt;A heading with class&#x3D;&quot;example&quot;&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;example&quot;&gt;A paragraph with class&#x3D;&quot;example&quot;.&lt;&#x2F;p&gt; </span><br><span class="line"></span><br><span class="line">&lt;p&gt;Click the button to add a background color all elements with class&#x3D;&quot;example&quot;.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick&#x3D;&quot;myFunction()&quot;&gt;Try it&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt; The querySelectorAll() method is not supported in Internet Explorer 8 and earlier versions.&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  var x, i;</span><br><span class="line">  x &#x3D; document.querySelectorAll(&quot;.example&quot;);</span><br><span class="line">  for (i &#x3D; 0; i &lt; x.length; i++) &#123;</span><br><span class="line">    x[i].style.backgroundColor &#x3D; &quot;red&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DOM-tree-節點間位置的相互關係"><a href="#DOM-tree-節點間位置的相互關係" class="headerlink" title="DOM tree 節點間位置的相互關係"></a>DOM tree 節點間位置的相互關係</h2><p>由於 DOM 節點有分層的概念，於是節點與節點之間的關係，我們大致上可以分成兩種：</p>
+<ul>
+<li><p><strong>父子關係</strong>：<br>除了 <code>document</code> 之外，每一個節點都會有個上層的節點，我們通常稱之為「父節點」 (Parent node)，而相對地，從屬於自己下層的節點，就會稱為「子節點」(Child node)。</p>
+</li>
+<li><p><strong>兄弟關係</strong>：有同一個「父節點」的節點，那麼他們彼此之間就是「兄弟節點」(Siblings node)。</p>
+</li>
+</ul>
+<br/>
+
+<img src="2019-11-14-JavaScript-10-2.png" style="width:70%;">
+
+<br/>
+
+<p>圖片來源：<a href="https://ithelp.ithome.com.tw/articles/10191765" target="_blank" rel="noopener">重新認識 JavaScript: Day 12 透過 DOM API 查找節點 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></p>
+<h3 id="Node-childNodes"><a href="#Node-childNodes" class="headerlink" title="Node.childNodes"></a>Node.childNodes</h3><p>所有的 DOM 節點物件都有 childNodes 屬性 (read-only property)，可以用來取得該元素下的所有子元素集合 (NodeList)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var demo &#x3D; document.querySelector(&#39;#demo&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 如果 node 內有子元素</span><br><span class="line">if( demo.hasChildNodes() ) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 可以透過 demo.childNodes[n] (n 為數字索引) 取得對應的節點</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 注意，NodeList 物件內容為即時更新的集合</span><br><span class="line">    for (var i &#x3D; 0; i &lt; demo.childNodes[i].length; i++) &#123;</span><br><span class="line">      &#x2F;&#x2F; ...</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Node.childNodes</code> 回傳的可能會有這幾種：</p>
+<ul>
+<li>HTML 元素節點 (element nodes)</li>
+<li>文字節點 (text nodes)，包含空白</li>
+<li>註解節點 (comment nodes)</li>
+</ul>
+<h2 id="Node-children"><a href="#Node-children" class="headerlink" title="Node.children"></a>Node.children</h2><p>DOM 節點物件的 children 屬性和 childNodes 屬性類似，差異在於 childNodes 返回的子元素會包含文字節點 (text nodes) 和註解節點 (comment nodes)，children 屬性則只會返回 HTML 元素節點 (HTMLCollection)。</p>
+<h3 id="Node-firstChild"><a href="#Node-firstChild" class="headerlink" title="Node.firstChild"></a>Node.firstChild</h3><p><code>Node.firstChild</code> 可以取得 <code>Node</code> 節點的<strong>第一個</strong>子節點，如果沒有子節點則回傳 <code>null</code>。</p>
+<p>要注意的是，子節點包括「空白」節點，所以像下面範例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">  &lt;span&gt;span 1&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;span&gt;span 2&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;span&gt;span 3&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  var p &#x3D; document.querySelector(&#39;p&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; tagName 屬性可以取得 node 的標籤名稱</span><br><span class="line">  console.log(p.firstChild.tagName);      &#x2F;&#x2F; undefined</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>因為拿到的是 <code>&lt;p&gt;</code> 與第一個 <code>&lt;span&gt;</code> 中間的「換行字元」，所以 <code>p.firstChild.tagName</code> 會得到 <code>undefined</code>。</p>
+<p>另一個例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;span&gt;First span&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var p &#x3D; document.getElementById(&#39;demo&#39;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;#text&quot;，因為第一個子元素是換行字元</span><br><span class="line"></span><br><span class="line">    alert(p.firstChild.nodeName);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以把第一個例子修改成以下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;span&gt;span 1&lt;&#x2F;span&gt;&lt;span&gt;span 2&lt;&#x2F;span&gt;&lt;span&gt;span 3&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  var p &#x3D; document.querySelector(&#39;p&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; tagName 屬性可以取得 node 的標籤名稱</span><br><span class="line">  console.log(p.firstChild.tagName);      &#x2F;&#x2F; &quot;SPAN&quot;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>把中間的換行與空白移除，就會得到預期中的 <code>&quot;SPAN&quot;</code> 了。</p>
+<p>第二個例子修改方式也一樣：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;&lt;span&gt;First span&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var p &#x3D; document.getElementById(&#39;demo&#39;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;SPAN&quot;</span><br><span class="line">    alert(p.firstChild.nodeName);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-lastChild"><a href="#Node-lastChild" class="headerlink" title="Node.lastChild"></a>Node.lastChild</h3><p><code>Node.lastChild</code> 可以取得 <code>Node</code> 節點的<strong>最後一個</strong>子節點，如果沒有子節點則回傳 <code>null</code>。</p>
+<p>與 <code>Node.firstChild</code> 一樣的是，子節點包括「空白」節點：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id&#x3D;&quot;demo&quot;&gt;&lt;span&gt;First span&lt;&#x2F;span&gt;&lt;span&gt;Second span&lt;&#x2F;span&gt;&lt;span&gt;Last span&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var p &#x3D; document.getElementById(&#39;demo&#39;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;Last span&quot;</span><br><span class="line">    alert(p.lastChild.innerHTML);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-parentNode"><a href="#Node-parentNode" class="headerlink" title="Node.parentNode"></a>Node.parentNode</h3><p>透過 <code>Node.parentNode</code> 可以用來取得父元素，回傳值可能會是一個元素節點 (Element node)、根節點 (Document node) 或 DocumentFragment 節點。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;demo&quot;&gt;my span&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var elem &#x3D; document.getElementById(&#39;demo&#39;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;P&quot;</span><br><span class="line">    alert(elem.parentNode.nodeName);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-previousSibling"><a href="#Node-previousSibling" class="headerlink" title="Node.previousSibling"></a>Node.previousSibling</h3><p>透過 <code>Node.previousSibling</code> 可以取得同層之間的「前一個」節點，如果 node 已經是第一個節點，則回傳 <code>null</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;span id&#x3D;&quot;s1&quot;&gt;s1&lt;&#x2F;span&gt;&lt;span id&#x3D;&quot;s2&quot;&gt;s2&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    &#x2F;&#x2F; 會顯示 null</span><br><span class="line">    alert(document.getElementById(&#39;s1&#39;).previousSibling);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;s1&quot;</span><br><span class="line">    alert(document.getElementById(&#39;s2&#39;).previousSibling.id);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二個例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;span&gt;span 1&lt;&#x2F;span&gt;&lt;span&gt;span 2&lt;&#x2F;span&gt;&lt;span&gt;span 3&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  var el &#x3D; document.querySelector(&#39;span&#39;);</span><br><span class="line">  console.log( el.previousSibling );    &#x2F;&#x2F; null</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; document.querySelectorAll 會取得所有符合條件的集合，</span><br><span class="line">  &#x2F;&#x2F; 而 document.querySelectorAll(&#39;span&#39;)[2] 指的是「第三個」符合條件的元素。</span><br><span class="line">  var el2 &#x3D; document.querySelectorAll(&#39;span&#39;)[2];</span><br><span class="line">  console.log( el2.previousSibling.textContent );    &#x2F;&#x2F; &quot;span 2&quot;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-nextSibling"><a href="#Node-nextSibling" class="headerlink" title="Node.nextSibling"></a>Node.nextSibling</h3><p>透過 <code>Node.previousSibling</code> 可以取得同層之間的「下一個」節點，如果 node 已經是最後一個節點，則回傳 <code>null</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;span id&#x3D;&quot;s1&quot;&gt;s1&lt;&#x2F;span&gt;&lt;span id&#x3D;&quot;s2&quot;&gt;s2&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    &#x2F;&#x2F; 會顯示 &quot;s2&quot;</span><br><span class="line">    alert(document.getElementById(&#39;s1&#39;).nextSibling.id);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 會顯示 null</span><br><span class="line">    alert(document.getElementById(&#39;s2&#39;).nextSibling);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二個例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;span&gt;span 1&lt;&#x2F;span&gt;&lt;span&gt;span 2&lt;&#x2F;span&gt;&lt;span&gt;span 3&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    &#x2F;&#x2F; document.querySelector 會取得第一個符合條件的元素</span><br><span class="line">    var el &#x3D; document.querySelector(&#39;span&#39;);</span><br><span class="line"></span><br><span class="line">    console.log( el.nextSibling.textContent );    &#x2F;&#x2F; &quot;span 2&quot;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面介紹的很多 DOM 查找方式會返回一個元素集合，是一個像陣列的物件 - 有 length 屬性、可以用 for 迴圈遍歷結果，雖然不能使用陣列型別的 method，但這兩種都可以用「陣列索引」的方式來存取內容。</p>
+<p>而 NodeList 和 HTMLCollection 的差別在於，<strong>NodeList 包含任何的節點類型，除了 HTML element 節點，也包含文字節點、屬性節點等。HTMLCollection 則只包含 HTML 元素節點 (Element nodes)</strong>。</p>
+<p>像是 <code>document.getElementsBy**</code> (注意，有個 s) 以及 <code>document.querySelectorAll</code> 分別回傳 「HTMLCollection」 與 「NodeList」。</p>
+<p>另一個需要注意的地方是，<code>HTMLCollection</code> / <code>NodeList</code> 在大部分情況下是<strong>即時更新</strong>的，但透過  <code>document.querySelectorAll</code> 會回傳一個靜態的 <code>NodeList</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;outer&quot;&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;inner&quot;&gt;inner&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; &lt;div id&#x3D;&quot;outer&quot;&gt;</span><br><span class="line">  var outerDiv &#x3D; document.getElementById(&#39;outer&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 所有的 &lt;div&gt; 標籤</span><br><span class="line">  var allDivs &#x3D; document.getElementsByTagName(&#39;div&#39;);</span><br><span class="line"></span><br><span class="line">  console.log(allDivs.length);    &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 清空 &lt;div id&#x3D;&quot;outer&quot;&gt; 下的節點</span><br><span class="line">  outerDiv.innerHTML &#x3D; &#39;&#39;;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 因為清空了&lt;div id&#x3D;&quot;outer&quot;&gt; 下的節點，所以只剩下 outer</span><br><span class="line">  console.log(allDivs.length);    &#x2F;&#x2F; 1</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果改成 <code>document.querySelector</code> 的寫法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;outer&quot;&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;inner&quot;&gt;inner&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; &lt;div id&#x3D;&quot;outer&quot;&gt;</span><br><span class="line">  var outerDiv &#x3D; document.getElementById(&#39;outer&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 所有的 &lt;div&gt; 標籤</span><br><span class="line">  var allDivs &#x3D; document.querySelectorAll(&#39;div&#39;);</span><br><span class="line"></span><br><span class="line">  console.log(allDivs.length);    &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 清空 &lt;div id&#x3D;&quot;outer&quot;&gt; 下的節點</span><br><span class="line">  outerDiv.innerHTML &#x3D; &#39;&#39;;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; document.querySelector 回傳的是靜態的 NodeList，不受 outerDiv 更新影響</span><br><span class="line">  console.log(allDivs.length);    &#x2F;&#x2F; 2</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10191765" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10191765</a></p>
+</li>
+<li><p><a href="https://www.fooish.com/javascript/dom/" target="_blank" rel="noopener">https://www.fooish.com/javascript/dom/</a></p>
+</li>
+<li><p><a href="https://www.fooish.com/javascript/dom/traversing.html" target="_blank" rel="noopener">https://www.fooish.com/javascript/dom/traversing.html</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-14-JavaScript-11"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -1018,128 +1181,6 @@ window|
 <!-- Table of Contents -->
 
   
-    <article id="post-2019-11-7-JavaScript-01"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="../../2019/11/09/2019-11-7-JavaScript-01/">JavaScript 變數與資料型別</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="../../2019/11/09/2019-11-7-JavaScript-01/" class="article-date">
-	  <time datetime="2019-11-08T16:00:00.000Z" itemprop="datePublished">十一月 9, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="logo.svg" style="width:15%;">
-
-<br/>
-
-<h2 id="變數"><a href="#變數" class="headerlink" title="變數"></a>變數</h2><p>變數是用來儲存資料和進行運算的基本單位，就像是資料的容器。</p>
-<p>例如下面這個例子，x y z 都是所謂的變數：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> z = x + y;</span><br></pre></td></tr></table></figure>
-
-<p>JavaScript 變數的命名有一定規則和限制：</p>
-<ol>
-<li>變數的開頭只能是字母、底線<code>_</code>或錢字號<code>$</code>，後面可以是英文字母、底線<code>_</code>  或是錢字號 <code>$</code> 以及數字。 </li>
-<li>大小寫有區別，例如變數 <code>test</code> 不等於變數 <code>Test</code></li>
-<li>變數名稱不可以是<a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Lexical_grammar" target="_blank" rel="noopener" title="Title">保留字</a>，否則會出現 <code style="color:#DC143C;background-color:#DCDCDC">SyntaxError</code>。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">break</span> = <span class="string">'test'</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected token 'break'</code></p>
-<p>JavaScript 允許的字母還包含 Unicode，所以中文也可以用作變數名稱，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> 測試 = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(測試);</span><br></pre></td></tr></table></figure>
-
-<h2 id="弱型別"><a href="#弱型別" class="headerlink" title="弱型別"></a>弱型別</h2><p>相較於<code>Java</code>、<code>C++</code>「強型別」語言，宣告出來的變數無法再被指派為其他型別的值，而JavaScript為「弱型別」語言，其變數擁有以下特性：</p>
-<ul>
-<li>變數並沒有綁定任何的型態</li>
-<li>變數本身無需宣告型別</li>
-<li>宣告後的變數可以被自由指派為其他型別的值</li>
-</ul>
-<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line">test = <span class="number">100</span>;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//100</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="變數無法被刪除"><a href="#變數無法被刪除" class="headerlink" title="變數無法被刪除"></a>變數無法被刪除</h2><p>在 JavaScript 中，變數無法被刪除：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line"><span class="keyword">delete</span> test;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是刪除物件的屬性，則刪除後該屬性為 undefined：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Employee = &#123;</span><br><span class="line">  firstname: <span class="string">"John"</span>,</span><br><span class="line">  lastname: <span class="string">"Doe"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: "John"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> Employee.firstname;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: undefined</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="變數的資料型別"><a href="#變數的資料型別" class="headerlink" title="變數的資料型別"></a>變數的資料型別</h2><p><strong>變數沒有型別，值才有。</strong></p>
-<p>JavaScript 內建的型別主要可以分成基本型別 (Primitives) 與物件型別 (Object) 兩大類：</p>
-<p>基本型別：</p>
-<ul>
-<li>string</li>
-<li>number</li>
-<li>boolean</li>
-<li>null</li>
-<li>undefined</li>
-</ul>
-<p>除了上述幾種之外，都可以歸類至物件型別 (Object)。</p>
-<p>判斷型別的方式，可以透過 typeof 運算子。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">'test'</span>);<span class="comment">//  string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">100</span>);<span class="comment">//  number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);<span class="comment">//  boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">window</span>.alert);  <span class="comment">// 'function'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);          <span class="comment">// 'object'</span></span><br></pre></td></tr></table></figure>
-
-<p>雖然透過 typeof 去檢查一個「函式 (function) 」的時候，會得到 “Function” 的結果，但實際上仍屬於 Object 的一種。</p>
-<p>而 typeof null 的結果為 Object 。</p>
-<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>JavaScript 沒有 char (字元) 的概念，只有字串。字串使用 ‘ ‘ (單引號) 或是 “ “ (雙引號) 將文字放入其中，兩者不可混用，意即用單引號開頭的，就要用單引號收合，反過來說也是。 單引號與雙引號的使用在 JavaScript 沒有什麼差異。</p>
-<h3 id="特殊符號的處理"><a href="#特殊符號的處理" class="headerlink" title="特殊符號的處理"></a>特殊符號的處理</h3><p>要在單引號內包覆單引號，或是雙引號內包覆雙引號就會出現問題：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is "</span>Ray<span class="string">""</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected identifier</code></p>
-<p>可以在符號前加上 \ (跳脫字元)來解決。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is \"Ray\""</span>;</span><br><span class="line"><span class="built_in">console</span>.log(name);<span class="comment">//My name is "Ray"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="字串內容斷行"><a href="#字串內容斷行" class="headerlink" title="字串內容斷行"></a>字串內容斷行</h3><p>多行字串時，可以透過 \ (反斜線) 來繼續：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'這次\</span></span><br><span class="line"><span class="string">連假\</span></span><br><span class="line"><span class="string">要出去玩'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//這次連假要出去玩</span></span><br></pre></td></tr></table></figure>
-
-<p>請注意 \ 反斜線後面不能有任何字元</p>
-<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>整數或帶有小數點的數字都是數值型別<br>另外還有幾種特殊的數字：</p>
-<ul>
-<li>Infinity (無限大) </li>
-<li>Infinity (負無限大)</li>
-<li>NaN (不是數值，Not a Number)。</li>
-</ul>
-<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>值只有兩種：true 以及 false，布林值通常用在判斷式，作為控制程式流程的用途。</p>
-<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><p>null 在 JavaScript 中表示一個空值，變數要經過宣告並賦予 null ，才會形成 null 型態。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>變數在初始的時候未給予任何值，宣告 test 時因為沒有賦予任何值所以是 undefined，如果先定義 test 為 100 ; 接著再把 test 設為 undefined，我們會發現 test 又再次變成了undefined了。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test; </span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//undefined</span></span><br><span class="line">test=<span class="number">100</span>;</span><br><span class="line">test=<span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">if</span>(test===<span class="literal">undefined</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"test is undefined."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
-<li><a href="https://ithelp.ithome.com.tw/articles/10190873" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10190873</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
@@ -1240,6 +1281,18 @@ window|
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/">斜槓青年</a></h6>
+              <span>二月 22, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
               <span>二月 8, 2020</span>
             </div>
@@ -1294,31 +1347,26 @@ window|
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/01/18/2020-01-11-JavaScript-25/">JavaScript - Promise</a></h6>
-              <span>一月 18, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" rel="tag">多元人生</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1328,7 +1376,7 @@ window|
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
+      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">多元人生</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 10px;">斜槓青年</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
     </div>
   </div>
 
@@ -1338,7 +1386,7 @@ window|
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 

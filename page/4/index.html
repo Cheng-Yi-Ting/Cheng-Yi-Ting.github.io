@@ -151,6 +151,128 @@
         
           <section id="main">
   
+    <article id="post-2019-11-7-JavaScript-01"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/09/2019-11-7-JavaScript-01/">JavaScript 變數與資料型別</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/09/2019-11-7-JavaScript-01/" class="article-date">
+	  <time datetime="2019-11-08T16:00:00.000Z" itemprop="datePublished">十一月 9, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<h2 id="變數"><a href="#變數" class="headerlink" title="變數"></a>變數</h2><p>變數是用來儲存資料和進行運算的基本單位，就像是資料的容器。</p>
+<p>例如下面這個例子，x y z 都是所謂的變數：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> z = x + y;</span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 變數的命名有一定規則和限制：</p>
+<ol>
+<li>變數的開頭只能是字母、底線<code>_</code>或錢字號<code>$</code>，後面可以是英文字母、底線<code>_</code>  或是錢字號 <code>$</code> 以及數字。 </li>
+<li>大小寫有區別，例如變數 <code>test</code> 不等於變數 <code>Test</code></li>
+<li>變數名稱不可以是<a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Lexical_grammar" target="_blank" rel="noopener" title="Title">保留字</a>，否則會出現 <code style="color:#DC143C;background-color:#DCDCDC">SyntaxError</code>。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">break</span> = <span class="string">'test'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected token 'break'</code></p>
+<p>JavaScript 允許的字母還包含 Unicode，所以中文也可以用作變數名稱，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> 測試 = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(測試);</span><br></pre></td></tr></table></figure>
+
+<h2 id="弱型別"><a href="#弱型別" class="headerlink" title="弱型別"></a>弱型別</h2><p>相較於<code>Java</code>、<code>C++</code>「強型別」語言，宣告出來的變數無法再被指派為其他型別的值，而JavaScript為「弱型別」語言，其變數擁有以下特性：</p>
+<ul>
+<li>變數並沒有綁定任何的型態</li>
+<li>變數本身無需宣告型別</li>
+<li>宣告後的變數可以被自由指派為其他型別的值</li>
+</ul>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line">test = <span class="number">100</span>;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="變數無法被刪除"><a href="#變數無法被刪除" class="headerlink" title="變數無法被刪除"></a>變數無法被刪除</h2><p>在 JavaScript 中，變數無法被刪除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'test'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br><span class="line"><span class="keyword">delete</span> test;                   </span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">//"test"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是刪除物件的屬性，則刪除後該屬性為 undefined：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Employee = &#123;</span><br><span class="line">  firstname: <span class="string">"John"</span>,</span><br><span class="line">  lastname: <span class="string">"Doe"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: "John"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> Employee.firstname;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Employee.firstname);</span><br><span class="line"><span class="comment">// expected output: undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="變數的資料型別"><a href="#變數的資料型別" class="headerlink" title="變數的資料型別"></a>變數的資料型別</h2><p><strong>變數沒有型別，值才有。</strong></p>
+<p>JavaScript 內建的型別主要可以分成基本型別 (Primitives) 與物件型別 (Object) 兩大類：</p>
+<p>基本型別：</p>
+<ul>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>null</li>
+<li>undefined</li>
+</ul>
+<p>除了上述幾種之外，都可以歸類至物件型別 (Object)。</p>
+<p>判斷型別的方式，可以透過 typeof 運算子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">'test'</span>);<span class="comment">//  string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">100</span>);<span class="comment">//  number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>);<span class="comment">//  boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">window</span>.alert);  <span class="comment">// 'function'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);          <span class="comment">// 'object'</span></span><br></pre></td></tr></table></figure>
+
+<p>雖然透過 typeof 去檢查一個「函式 (function) 」的時候，會得到 “Function” 的結果，但實際上仍屬於 Object 的一種。</p>
+<p>而 typeof null 的結果為 Object 。</p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>JavaScript 沒有 char (字元) 的概念，只有字串。字串使用 ‘ ‘ (單引號) 或是 “ “ (雙引號) 將文字放入其中，兩者不可混用，意即用單引號開頭的，就要用單引號收合，反過來說也是。 單引號與雙引號的使用在 JavaScript 沒有什麼差異。</p>
+<h3 id="特殊符號的處理"><a href="#特殊符號的處理" class="headerlink" title="特殊符號的處理"></a>特殊符號的處理</h3><p>要在單引號內包覆單引號，或是雙引號內包覆雙引號就會出現問題：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is "</span>Ray<span class="string">""</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code style="color:#DC143C;background-color:#DCDCDC" >Uncaught SyntaxError: Unexpected identifier</code></p>
+<p>可以在符號前加上 \ (跳脫字元)來解決。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"My name is \"Ray\""</span>;</span><br><span class="line"><span class="built_in">console</span>.log(name);<span class="comment">//My name is "Ray"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字串內容斷行"><a href="#字串內容斷行" class="headerlink" title="字串內容斷行"></a>字串內容斷行</h3><p>多行字串時，可以透過 \ (反斜線) 來繼續：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">'這次\</span></span><br><span class="line"><span class="string">連假\</span></span><br><span class="line"><span class="string">要出去玩'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//這次連假要出去玩</span></span><br></pre></td></tr></table></figure>
+
+<p>請注意 \ 反斜線後面不能有任何字元</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>整數或帶有小數點的數字都是數值型別<br>另外還有幾種特殊的數字：</p>
+<ul>
+<li>Infinity (無限大) </li>
+<li>Infinity (負無限大)</li>
+<li>NaN (不是數值，Not a Number)。</li>
+</ul>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>值只有兩種：true 以及 false，布林值通常用在判斷式，作為控制程式流程的用途。</p>
+<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><p>null 在 JavaScript 中表示一個空值，變數要經過宣告並賦予 null ，才會形成 null 型態。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>變數在初始的時候未給予任何值，宣告 test 時因為沒有賦予任何值所以是 undefined，如果先定義 test 為 100 ; 接著再把 test 設為 undefined，我們會發現 test 又再次變成了undefined了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test; </span><br><span class="line"><span class="built_in">console</span>.log(test);<span class="comment">//undefined</span></span><br><span class="line">test=<span class="number">100</span>;</span><br><span class="line">test=<span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">if</span>(test===<span class="literal">undefined</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"test is undefined."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><a href="https://ithelp.ithome.com.tw/articles/10190873" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10190873</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-5-Visual-Studio-Code-Markdown"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -833,6 +955,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/">斜槓青年</a></h6>
+              <span>二月 22, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
               <span>二月 8, 2020</span>
             </div>
@@ -887,31 +1021,26 @@
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/01/18/2020-01-11-JavaScript-25/">JavaScript - Promise</a></h6>
-              <span>一月 18, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" rel="tag">多元人生</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -921,7 +1050,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
+      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">多元人生</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 10px;">斜槓青年</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
     </div>
   </div>
 
@@ -931,7 +1060,7 @@
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 
