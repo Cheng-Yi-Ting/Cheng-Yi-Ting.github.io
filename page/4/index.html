@@ -151,6 +151,85 @@
         
           <section id="main">
   
+    <article id="post-2019-11-9-JavaScript-02"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/10/2019-11-9-JavaScript-02/">JavaScript 物件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/10/2019-11-9-JavaScript-02/" class="article-date">
+	  <time datetime="2019-11-09T16:00:00.000Z" itemprop="datePublished">十一月 10, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<h2 id="物件及屬性"><a href="#物件及屬性" class="headerlink" title="物件及屬性"></a>物件及屬性</h2><p><strong>所有基本型別 (Primitives) 以外的值都是物件。</strong></p>
+<p>一個物件可以是個零至多種屬性的集合，而屬性是鍵 (key) 與值 (value) 之間的關聯。 一個屬性的「值」可以是某個基本型別，也可以是另一個物件，甚至可以是一個函數。</p>
+<p>可以透過 <code>new</code> 關鍵字來建立一個物件實體，再替這個物件新增屬性與方法：</p>
+<p>例如，我們可以定義一個物件為 <code>myCar</code> ，並賦予三個屬性， <code>make</code> 、  <code>model</code> 和 <code>year</code> 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myCar = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">myCar.make = <span class="string">'Ford'</span>;</span><br><span class="line">myCar.model = <span class="string">'Mustang'</span>;</span><br><span class="line">myCar.year = <span class="number">1969</span>;</span><br></pre></td></tr></table></figure>
+
+<p>或是使用大括號<code> { } </code>來建立一個物件，並且在建立物件的同時直接指定屬性至該物件內。</p>
+<p>這種建立物件的方式稱為「物件實字 (Object literal)」。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myCar = &#123;</span><br><span class="line">  make : <span class="string">'Ford'</span>,</span><br><span class="line">  model : <span class="string">'Mustang'</span>,</span><br><span class="line">  year : <span class="number">1969</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="屬性存取"><a href="#屬性存取" class="headerlink" title="屬性存取"></a>屬性存取</h2><p>物件的屬性可以透過<code> . </code>來進行存取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myCar.make;</span><br><span class="line">myCar.model;</span><br><span class="line">myCar.year;</span><br></pre></td></tr></table></figure>
+
+<p>或是可以透過<code> [ ] </code>來進行存取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myCar[<span class="string">'make'</span>];</span><br><span class="line">myCar[<span class="string">'model'</span>];</span><br><span class="line">myCar[<span class="string">'year'</span>];</span><br></pre></td></tr></table></figure>
+
+<p>存取物件沒有的屬性會顯示 <code>undefined</code> 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myCar.color; <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增-更新-屬性"><a href="#新增-更新-屬性" class="headerlink" title="新增 / 更新 屬性"></a>新增 / 更新 屬性</h2><p>新增與更新屬性的語法是一樣的，只需對屬性進行指派值的動作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myCar[<span class="string">"year"</span>]=<span class="number">1995</span>;</span><br><span class="line">myCar[<span class="string">"color"</span>]=<span class="string">"yellow"</span>;</span><br><span class="line">myCar.tire=<span class="string">"EDITION"</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="屬性刪除"><a href="#屬性刪除" class="headerlink" title="屬性刪除"></a>屬性刪除</h2><p>透過 <code>delete</code> 關鍵字來刪除，刪除後的屬性會變成 undefined：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myCar.color=<span class="string">"red"</span>;</span><br><span class="line">myCar.color;  <span class="comment">//red</span></span><br><span class="line"><span class="keyword">delete</span> myCar.color;</span><br><span class="line">myCar.color;  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10190962" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10190962</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10193605" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10193605</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" rel="noopener">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Working_with_Objects</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-7-JavaScript-01"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -967,6 +1046,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E7%9A%8450%E9%81%93%E9%9B%A3%E9%A1%8C/">斜槓的50道難題</a></h6>
+              <span>二月 22, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
               <span>二月 8, 2020</span>
             </div>
@@ -1009,18 +1100,6 @@
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/01/23/2020-01-19-JavaScript-26/">JavaScript - Async/Await</a></h6>
-              <span>一月 23, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1030,7 +1109,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -1040,7 +1119,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" rel="tag">多元人生</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" rel="tag">多元人生</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1050,7 +1129,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">多元人生</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 10px;">斜槓青年</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
+      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/Slash/" style="font-size: 12.5px;">Slash</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" style="font-size: 12.5px;">多元人生</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 12.5px;">斜槓青年</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
     </div>
   </div>
 
@@ -1060,7 +1139,7 @@
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 
