@@ -151,6 +151,102 @@
         
           <section id="main">
   
+    <article id="post-2020-01-04-JavaScript-23"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2020/01/04/2020-01-04-JavaScript-23/">JavaScript 非同步執行 （Ascynchronous）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2020/01/04/2020-01-04-JavaScript-23/" class="article-date">
+	  <time datetime="2020-01-03T16:00:00.000Z" itemprop="datePublished">一月 4, 2020</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="logo.svg" style="width:15%;">
+
+<br/>
+
+<p><br/><br/></p>
+<h2 id="同步執行-Scynchronous"><a href="#同步執行-Scynchronous" class="headerlink" title="同步執行 ( Scynchronous )"></a>同步執行 ( Scynchronous )</h2><p>如果我有很多個任務，同步就是讓每個任務按照順序依序進行，後面的任務必須等待前面的任務執行完成後才會執行。</p>
+<p>以生活例子比喻的話，假如我在買電影，我要等到前面所有排隊的人買完之後才能輪到我，而排在我後面的人也要等到我完成買電影票這個動作之後，才能輪到他們。</p>
+<p>以程式碼來說明的話，同步執行就表示程式會依照所寫的程式碼一行一行去執行，而順序都是前一個動作執行完才會去接著執行下一個動作。同步程式的設計模式看起來會比較比較直覺，常見的程式語言像是C、C++、Java皆是採用同步模式。</p>
+<p>假設有一個同步程式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'func1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'func2'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'func3'</span>);</span><br><span class="line">&#125;</span><br><span class="line">func1(<span class="number">1</span>);    <span class="comment">// "func1"</span></span><br><span class="line">func2(<span class="number">2</span>);    <span class="comment">// "func2"</span></span><br><span class="line">func3(<span class="number">3</span>);    <span class="comment">// "func3"</span></span><br></pre></td></tr></table></figure>
+
+<p>我們可以發現程式是照順序一行一行進行輸出。</p>
+<h2 id="非同步執行-Ascynchronous"><a href="#非同步執行-Ascynchronous" class="headerlink" title="非同步執行 ( Ascynchronous )"></a>非同步執行 ( Ascynchronous )</h2><p>像是在買電影的時候，如果前面排隊的人處理很久，就會造成後面所有人買電影票的時間拉長。</p>
+<p>由於同步執行的設計模式，使得程式必須等待前一個步驟完成後才能繼續執行，如果前一個動作沒有完成就會無法進行下一個動作而造成阻塞。</p>
+<p>而非同步模式則相反，後面的任務不用等待前面的任務完成，各自執行各自的任務。</p>
+<p>當你去百貨公司吃飯的時候，你不需要等待其他人點完餐和吃完飯後才輪到你點餐，每個人都可以在拿到餐點的時候就可以吃了，並不需要等待其他人先吃完。如果你點的是一份較花時間的牛排，那我只點一杯飲料就可以優先拿到，而不需要等到你的餐點完成後才輪到我。</p>
+<p>如果是以同步的方式去讀取資料，就會在資料回傳之前會持續進行等待的動作，直到確定資料已經讀取完成後才繼續進行下一個動作。</p>
+<p>以非同步的方式讀取資料的話，在資料回傳之前我可以先做其他的事情，等待資料回傳後再進行通知。</p>
+<p>讓我們用  <code>setTimeout</code>  來示範非同步執行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Say "Hello."</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Hello."</span>);</span><br><span class="line"><span class="comment">// Say "Goodbye" two seconds from now.</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Goodbye!"</span>);</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br><span class="line"><span class="comment">// Say "Hello again!"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Hello again!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>由於  <code>setTimeout</code>  並不會暫停程式的執行，所以會立即執行後面的動作，等待時間到了才會呼叫並執行函式裡面的內容。</p>
+<p>所以輸出的結果依序為：</p>
+<ul>
+<li><p>Say “Hello”.</p>
+</li>
+<li><p>Say “Hello again!”</p>
+</li>
+<li><p>程式等待兩秒鐘</p>
+</li>
+<li><p>Say “Goodbye!”</p>
+</li>
+</ul>
+<h2 id="AJAX-Requests"><a href="#AJAX-Requests" class="headerlink" title="AJAX Requests"></a>AJAX Requests</h2><p>這個範例使用 jQuery 的 Ajax 來進行操作，我們在  <code>button</code>  上加入一個  <code>click</code>  事件，當使用者點擊後會送出 request  ，請求成功後會呼叫 callback 並把結果存入  <code>data</code>  。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> data;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;<span class="attr">url</span>: <span class="string">"demo_test.txt"</span>, <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">      $(<span class="string">"#div1"</span>).html(result);</span><br><span class="line">      data = result;</span><br><span class="line">    &#125;&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(data); </span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>由於程式並不會等待取回資料後才繼續執行，而是會先執行   <code>console.log(data)</code>  ，所以不管怎樣程式都會印出  <code>undefined</code>  。</p>
+<p>我們可以透過 callback functions 來讓程式依照我們想要的順序執行，不知道什麼是 callback 的請參考之前的文章。</p>
+<p> <a href="https://cheng-yi-ting.github.io/2019/11/16/2019-11-16-JavaScript-14/">JavaScript Callback Function</a></p>
+<h2 id="非同步和同步"><a href="#非同步和同步" class="headerlink" title="非同步和同步"></a>非同步和同步</h2><p>傳統的網頁在使用者提交資料後（亦即對伺服器發出請求），必須等到伺服器回應並重新整理頁面後，才能繼續進行下一個動作，這段期間內使用者無法對該頁面進行任何的存取。而非同步請求允許使用者在發出請求到伺服器回應的期間內繼續使用頁面（例如：繼續操作網頁、輸入資料），等到完成回應，網頁僅對部份資訊進行更新，藉以達到更有效的即時互動，非同步的核心精神在於減少等待，讓執行緒同時處理更多作業藉以提升產能。</p>
+<p>如果網站是採取同步執行的設計模式，當我請求某一個網頁資料時，在資料回傳後才能進行下一個步驟，中途如果網頁無法回應或是阻塞住了，整個網站就會卡住。</p>
+<p>若網站是採取非同步執行，等待資料回傳的同時還是能進行其他應用，假使資料無法成功存取也不會影響到其他正常功能的操作。</p>
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><p><a href="https://www.pluralsight.com/guides/introduction-to-asynchronous-javascript" target="_blank" rel="noopener">https://www.pluralsight.com/guides/introduction-to-asynchronous-javascript</a></p>
+</li>
+<li><p><a href="https://www.ithome.com.tw/node/74544" target="_blank" rel="noopener">https://www.ithome.com.tw/node/74544</a></p>
+</li>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10197312" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10197312</a></p>
+</li>
+<li><p><a href="https://blog.xuite.net/autosun/study/33280250-%5BJS%5D+Ajax+%E5%BB%BA%E7%AB%8B%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%AB%8B%E6%B1%82%EF%BC%88%E4%B8%80%EF%BC%89" target="_blank" rel="noopener">https://blog.xuite.net/autosun/study/33280250-%5BJS%5D+Ajax+%E5%BB%BA%E7%AB%8B%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%AB%8B%E6%B1%82%EF%BC%88%E4%B8%80%EF%BC%89</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-12-27-JavaScript-22"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -1242,86 +1338,11 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-2019-11-16-JavaScript-14"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="../../2019/11/16/2019-11-16-JavaScript-14/">JavaScript Callback Function</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="../../2019/11/16/2019-11-16-JavaScript-14/" class="article-date">
-	  <time datetime="2019-11-15T16:00:00.000Z" itemprop="datePublished">十一月 16, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="logo.svg" style="width:15%;">
-
-<br/>
-
-<h2 id="Callback-Function"><a href="#Callback-Function" class="headerlink" title="Callback Function"></a>Callback Function</h2><p><strong>把函式當作另一個函式的參數，透過另一個函式來呼叫它</strong>，他可以「<strong>控制多個函式間執行的順序</strong>」。</p>
-<p>來看個例子，首先定義兩個 <code>function</code> ，因為 <code>function</code> 會立即執行，所以先印出 <code>1</code> ，在印出 <code>2</code> ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">first</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">second</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line">first();<span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">second();<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-
-<p>透過 <code>setTimeout</code> 讓 <code>first()</code>  設定延遲 500毫秒 在執行， JavaScript 不會等待 <code>first()</code> 執行完才執行 <code>second()</code> ；所以就算我們先呼叫了 <code>first()</code> ，也會是 <code>second()</code> 先被執行，結果就會是先印出 <code>2</code> ，在印出 <code>1</code> ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">first</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// Simulate a code delay</span></span><br><span class="line">  setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">500</span> );</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">second</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line">first();</span><br><span class="line"></span><br><span class="line">second();</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line"><span class="comment">//1</span></span><br></pre></td></tr></table></figure>
-
-<p>像這種時候，為了確保執行的順序，就會透過 Callback function 的形式來處理：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 為了確保先執行 first 再執行 second</span></span><br><span class="line"><span class="comment">// 我們在 first 加上 callback 參數</span></span><br><span class="line"><span class="keyword">var</span> first=<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    callback();</span><br><span class="line">  &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> second=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 將 second 作為參數帶入 first()</span></span><br><span class="line">first(second);</span><br><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-
-<p>像這樣，無論 <code>first</code> 在執行的時候要等多久， <code>second</code> 都會等到 <code>console.log(1);</code> 之後才執行。</p>
-<p>另一個例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doHomework</span>(<span class="params">subject, callback</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`Starting my <span class="subst">$&#123;subject&#125;</span> homework.`</span>);</span><br><span class="line">  callback();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alertFinished</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  alert(<span class="string">'Finished my homework'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doHomework(<span class="string">'math'</span>, alertFinished);</span><br><span class="line"><span class="comment">//Starting my math homework.</span></span><br><span class="line"><span class="comment">//Finished my homework</span></span><br></pre></td></tr></table></figure>
-
-<p>不過需要注意的是，當函式之間的相依過深，callback 多層之後產生的「Callback Hell」維護起來就會很複雜。</p>
-<br/>
-
-<img src="2019-11-16-JavaScript-14-1.jpg" style="width:80%;">
-
-<br/>
-
-<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
-<li><p><a href="https://ithelp.ithome.com.tw/articles/10192739" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10192739</a></p>
-</li>
-<li><p><a href="https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced" target="_blank" rel="noopener">https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="../../">上一頁</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><a class="extend next" rel="next" href="../3/">下一頁</a>
+    <a class="extend prev" rel="prev" href="../../">上一頁</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><a class="extend next" rel="next" href="../3/">下一頁</a>
   </nav>
 
 </section>
@@ -1417,6 +1438,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/02/23/2020-02-23-%E5%93%88%E4%BD%9B%E7%9A%845%E5%A0%82%E5%A4%A7%E8%85%A6%E8%A1%8C%E7%82%BA%E5%AD%B8%E6%80%9D%E8%80%83%E7%9A%84%E8%97%9D%E8%A1%93/">哈佛的5堂大腦行為學思考的藝術</a></h6>
+              <span>二月 23, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/">斜槓青年</a></h6>
               <span>二月 22, 2020</span>
             </div>
@@ -1471,18 +1504,6 @@
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/02/01/2020-01-28-JavaScript-27/">Web Storage</a></h6>
-              <span>二月 1, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1492,7 +1513,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/">讀書心得</a><span class="category-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -1502,7 +1523,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" rel="tag">多元人生</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" rel="tag">思考邏輯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" rel="tag">生涯規劃</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" rel="tag">非技術</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1512,7 +1533,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/Slash/" style="font-size: 12.5px;">Slash</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E5%A4%9A%E5%85%83%E4%BA%BA%E7%94%9F/" style="font-size: 12.5px;">多元人生</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 12.5px;">斜槓青年</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
+      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12.5px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12.5px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 15px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12.5px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12.5px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/Slash/" style="font-size: 12.5px;">Slash</a> <a href="../../tags/VSCode/" style="font-size: 12.5px;">VSCode</a> <a href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" style="font-size: 10px;">思考邏輯</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 12.5px;">斜槓青年</a> <a href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" style="font-size: 15px;">生涯規劃</a> <a href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" style="font-size: 12.5px;">職場工作</a> <a href="../../tags/%E9%9D%9E%E6%8A%80%E8%A1%93/" style="font-size: 10px;">非技術</a>
     </div>
   </div>
 
@@ -1522,7 +1543,7 @@
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 
