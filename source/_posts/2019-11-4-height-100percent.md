@@ -42,6 +42,8 @@ tags:
 
 現在你給了這個div的高度為100%，它有兩個父元素 <code>&lt;body&gt; </code>和 <code>&lt;html&gt;</code> ；為了讓div的百分比高度起作用，需要設定這兩個屬性的高度。
 
+
+
 ```html
 <!DOCTYPE html style="height:100%">
 <body style="height:100%">

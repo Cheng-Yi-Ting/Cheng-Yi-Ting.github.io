@@ -27,6 +27,8 @@ post_asset_folder: true
 
 安裝 hexo-asset-image 圖片路徑轉換套件，使用<code>npm</code>進行安裝：
 
+
+
 ```
 npm install https://github.com/CodeFalling/hexo-asset-image --save
 ```

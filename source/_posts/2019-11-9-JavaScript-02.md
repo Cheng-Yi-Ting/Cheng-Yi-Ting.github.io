@@ -75,6 +75,8 @@ myCar.tire="EDITION";
 
 透過 <code>delete</code> 關鍵字來刪除，刪除後的屬性會變成 undefined：
 
+
+
 ```javascript
 myCar.color="red";
 myCar.color;  //red

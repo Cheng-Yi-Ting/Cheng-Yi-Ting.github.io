@@ -8,6 +8,8 @@ tags:
 
 本篇介紹如何修改Visual Studio Code為繁體中文，其他不同語系修改方式皆相同，只要安裝不同語系插件即可。
 
+
+
 * 點擊Extension圖示(或是按下<code>ctrl+shift+X</code>)
 * 在搜尋欄位輸入 Chinese(Traditional)搜尋中文化套件
 * 點擊 install 按鈕安裝

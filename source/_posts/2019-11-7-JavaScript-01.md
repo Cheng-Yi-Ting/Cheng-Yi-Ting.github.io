@@ -175,6 +175,8 @@ var test = null;
 
 變數在初始的時候未給予任何值，宣告 test 時因為沒有賦予任何值所以是 undefined，如果先定義 test 為 100 ; 接著再把 test 設為 undefined，我們會發現 test 又再次變成了undefined了。
 
+
+
 ```javascript
 var test; 
 console.log(test);//undefined

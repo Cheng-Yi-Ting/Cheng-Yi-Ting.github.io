@@ -18,6 +18,8 @@ tags:
 
 很多人用Markdown是為了最後上傳到Github Pages，所以安裝這個套件，就能在本地預覽Markdown文件最終在Github Pages中的渲染樣式。
 
+
+
 <img src="2019-11-5-Visual-Studio-Code-Markdown-2.PNG" >
 
 * 點擊zh-TW後重啟Visual Studio Code

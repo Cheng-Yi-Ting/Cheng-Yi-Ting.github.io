@@ -68,6 +68,8 @@ Cheng-Yi-Ting
 
 若有傳遞 --global 參數，意思是要做全域（Global）的設定，不論 Git 做任何事都會採用此資訊，如果遇到要幫特定的專案設定不同的作者及電子郵件，可以在該專案目錄下進行 Git 設定的時候，加上 --local 參數：
 
+
+
 ```bash
  $ git config --local user.name ray
  $ git config --local user.email ray@gmail.com
