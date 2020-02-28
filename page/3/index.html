@@ -176,9 +176,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/16/2019-11-16-JavaScript-14/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="Callback-Function"><a href="#Callback-Function" class="headerlink" title="Callback Function"></a>Callback Function</h2><p><strong>把函式當作另一個函式的參數，透過另一個函式來呼叫它</strong>，他可以「<strong>控制多個函式間執行的順序</strong>」。</p>
 <p>來看個例子，首先定義兩個 <code>function</code> ，因為 <code>function</code> 會立即執行，所以先印出 <code>1</code> ，在印出 <code>2</code> ：</p>
@@ -195,11 +195,11 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doHomework</span>(<span class="params">subject, callback</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`Starting my <span class="subst">$&#123;subject&#125;</span> homework.`</span>);</span><br><span class="line">  callback();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alertFinished</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  alert(<span class="string">'Finished my homework'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doHomework(<span class="string">'math'</span>, alertFinished);</span><br><span class="line"><span class="comment">//Starting my math homework.</span></span><br><span class="line"><span class="comment">//Finished my homework</span></span><br></pre></td></tr></table></figure>
 
 <p>不過需要注意的是，當函式之間的相依過深，callback 多層之後產生的「Callback Hell」維護起來就會很複雜。</p>
-<br/>
+<br>
 
-<img src="2019-11-16-JavaScript-14-1.jpg" style="width:80%;">
+<img src="/2019/11/16/2019-11-16-JavaScript-14/2019-11-16-JavaScript-14-1.jpg" style="width:80%;">
 
-<br/>
+<br>
 
 <h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
 <li><p><a href="https://ithelp.ithome.com.tw/articles/10192739" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10192739</a></p>
@@ -251,15 +251,15 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/15/2019-11-14-JavaScript-12/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<br/>
+<br>
 
-<br/>
+<br>
 
-<h5 id="這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。"><a href="#這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。" class="headerlink" title="這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。"></a>這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。</h5><br/>
+<h5 id="這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。"><a href="#這篇教學介紹瀏覽器事件的運作原理，包含-EventTarget-、-Event-Bubbling-、-Event-Capturing-、-Event-Delegation-。" class="headerlink" title="這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。"></a>這篇教學介紹瀏覽器事件的運作原理，包含 EventTarget 、 Event Bubbling 、 Event Capturing 、 Event Delegation 。</h5><br>
 
 <h2 id="Event-Flow"><a href="#Event-Flow" class="headerlink" title="Event Flow"></a>Event Flow</h2><p>事件流程 (Event Flow) 指的就是「<strong>網頁元素接收事件的順序</strong>」。</p>
 <p>事件流程可以分成兩種機制：</p>
@@ -267,27 +267,27 @@
 <li>事件冒泡 (Event Bubbling)</li>
 <li>事件捕獲 (Event Capturing)</li>
 </ul>
-<br/>
+<br>
 
 <h2 id="事件冒泡-Event-Bubbling"><a href="#事件冒泡-Event-Bubbling" class="headerlink" title="事件冒泡 (Event Bubbling)"></a>事件冒泡 (Event Bubbling)</h2><p>Event Bubbling 指的是當某個事件發生在某個 DOM element 上（如：點擊），這個事件會觸發 DOM element 的 event handler ，接下來會再觸發他的 parent 的 event handler ，以及 parent 的 parent 的 event handler …直到最上層。</p>
-<img src="2019-11-14-JavaScript-12-1.png" style="width:50%;">
+<img src="/2019/11/15/2019-11-14-JavaScript-12/2019-11-14-JavaScript-12-1.png" style="width:50%;">
 
-<br/>
+<br>
 
 <p>圖片來源： <a href="http://www.java2s.com/Book/JavaScript/DOM/Event_Flow_capture_target_and_bubbling.htm" target="_blank" rel="noopener">Event Flow: capture, target, and bubbling</a></p>
-<br/>
+<br>
 
 <p>事件冒泡指的是「從啟動事件的元素節點開始，逐層往上傳遞」，直到整個網頁的根節點，也就是 <code>document</code>。</p>
 <h2 id="事件捕獲-Event-Capturing"><a href="#事件捕獲-Event-Capturing" class="headerlink" title="事件捕獲 (Event Capturing)"></a>事件捕獲 (Event Capturing)</h2><p>和 Event Bubbling 相反， event 發生在某個 DOM element 上的時候，會從他的最上層 parent 開始觸發 event handler ，再來是倒數第二上層的 event handler ，以此類推，直到觸發事件的 DOM element 本身的 event handler 。</p>
-<img src="2019-11-14-JavaScript-12-2.png" style="width:50%;">
+<img src="/2019/11/15/2019-11-14-JavaScript-12/2019-11-14-JavaScript-12-2.png" style="width:50%;">
 
-<br/>
+<br>
 
 <p>圖片來源： <a href="http://www.java2s.com/Book/JavaScript/DOM/Event_Flow_capture_target_and_bubbling.htm" target="_blank" rel="noopener">Event Flow: capture, target, and bubbling</a></p>
-<br/>
+<br>
 
 <p>事件捕獲則和事件冒泡機制相反。</p>
-<br/>
+<br>
 
 <p>例如我們看這一個 HTML DOM 結構：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;event flow example&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;&lt;&#x2F;li&gt;</span><br><span class="line">        &lt;&#x2F;ul&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
@@ -295,14 +295,14 @@
 <p>當使用者點擊 li 元素時，事件觸發的順序是：</p>
 <ol>
 <li><p>Capturing 捕獲階段：<code>Document -&gt; &lt;html&gt; -&gt; &lt;body&gt; -&gt; &lt;div&gt; -&gt; &lt;ul&gt; -&gt; &lt;li&gt;</code></p>
-<br/>
+<br>
 </li>
 <li><p>Bubbling 氣泡階段：<code>&lt;li&gt; -&gt; &lt;ul&gt; -&gt; &lt;div&gt; -&gt; &lt;body&gt; -&gt; &lt;html&gt; -&gt; Document</code></p>
 </li>
 </ol>
-<br/>
+<br>
 
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>要檢驗事件流程，我們可以透過 <code>addEventListener()</code> 方法來綁定 <code>click</code> 事件，透過 addEventListener 指定事件的綁定，第三個參數 true / false 分別代表捕獲/ 冒泡 機制，不加參數的話，預設值是 false：</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><p>要檢驗事件流程，我們可以透過 <code>addEventListener()</code> 方法來綁定 <code>click</code> 事件，透過 addEventListener 指定事件的綁定，第三個參數 true / false 分別代表捕獲/ 冒泡 機制，不加參數的話，預設值是 false：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul id=<span class="string">"list"</span>&gt;</span><br><span class="line">    &lt;li id=<span class="string">"list_item"</span>&gt;</span><br><span class="line">      &lt;a id=<span class="string">"list_item_link"</span> target=<span class="string">"_blank"</span> href=<span class="string">"https://cheng-yi-ting.github.io/"</span>&gt;</span><br><span class="line">        Click link!</span><br><span class="line">      &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>li&gt;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"> &lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var list = document.getElementById('list');</span></span><br><span class="line"><span class="regexp">var list_item = document.getElementById('list_item');</span></span><br><span class="line"><span class="regexp">var list_item_link = document.getElementById('list_item_link');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list 的捕獲</span></span><br><span class="line"><span class="regexp">list.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list 的冒泡</span></span><br><span class="line"><span class="regexp">list.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item 的捕獲</span></span><br><span class="line"><span class="regexp">list_item.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item 的冒泡</span></span><br><span class="line"><span class="regexp">list_item.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item_link 的捕獲</span></span><br><span class="line"><span class="regexp">list_item_link.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item_link capturing', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ list_item_link 的冒泡</span></span><br><span class="line"><span class="regexp">list_item_link.addEventListener('click', (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log('list_item_link bubbling', e.eventPhase);</span></span><br><span class="line"><span class="regexp">&#125;, false)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"> &lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
 
 <p>點一下超連結，<code>console</code> 輸出以下結果：</p>
@@ -320,13 +320,13 @@
 <p><code>list_item_link</code>先執行了添加在冒泡階段的 listener，才執行捕獲階段的 listener。</p>
 <p>前面有提到，當事件傳遞到點擊的真正對象，也就是 e.target 的時候，無論<code>addEventListener</code>的第三個參數是<code>true</code>還是<code>false</code>，這邊的<code>e.eventPhase</code>都會變成<code>AT_TARGET</code>。</p>
 <p>既然已經是<code>AT_TARGET</code>，就不會區分捕獲跟冒泡，執行順序會根據<code>addEventListener</code>的順序來決定，先添加的先執行，後添加的後執行。</p>
-<br/>
+<br>
 
 <h3 id="關於這些事件的傳遞順序，只需記住兩個原則："><a href="#關於這些事件的傳遞順序，只需記住兩個原則：" class="headerlink" title="關於這些事件的傳遞順序，只需記住兩個原則："></a>關於這些事件的傳遞順序，只需記住兩個原則：</h3><ul>
 <li><strong>先捕獲，再冒泡</strong></li>
 <li><strong>當事件傳到 target 本身，沒有分捕獲跟冒泡</strong></li>
 </ul>
-<br/>
+<br>
 
 <h2 id="阻擋事件冒泡傳遞-event-stopPropagation"><a href="#阻擋事件冒泡傳遞-event-stopPropagation" class="headerlink" title="阻擋事件冒泡傳遞 event.stopPropagation()"></a>阻擋事件冒泡傳遞 event.stopPropagation()</h2><p>如果我們想要阻擋事件向上冒泡傳遞，那麼就可以利用 event object 提供的另一個方法：  <code>event.stopPropagation()</code>  ，讓事件的傳遞中斷，不會繼續往下傳遞。</p>
 <p>根據上面的例子，我添加 <code>event.stopPropagation()</code>  至 <code>#list</code> 的捕獲階段：</p>
@@ -364,21 +364,21 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"> list.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//點擊元素後，該元素隱藏</span></span><br><span class="line"> e.target.style.visibility = <span class="string">'hidden'</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// e.target refers to the clicked &lt;li&gt; element</span></span><br><span class="line"> <span class="comment">// This is different than e.currentTarget which would refer to the     parent &lt;ul&gt; in this context</span></span><br><span class="line"> <span class="built_in">console</span>.log(e.target.tagName);<span class="comment">//LI</span></span><br><span class="line"> <span class="built_in">console</span>.log(e.currentTarget.tagName);<span class="comment">//UL</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//this 代表的會是「觸發事件的目標」元素，也就是 event.currentTarget 而不是 e.target。</span></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>.tagName);<span class="comment">//UL</span></span><br><span class="line"></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 取得 #list ul</span></span><br><span class="line"><span class="keyword">var</span> List = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line"> <span class="comment">// 建立 li 標籤</span></span><br><span class="line"> <span class="keyword">var</span> node = <span class="built_in">document</span>.createElement(<span class="string">"LI"</span>);</span><br><span class="line"> <span class="comment">// 建立 文字節點</span></span><br><span class="line"> <span class="keyword">var</span> textnode = <span class="built_in">document</span>.createTextNode(i);</span><br><span class="line"> <span class="comment">// 透過 appendChild 將 文字節點 加入至 List</span></span><br><span class="line"> node.appendChild(textnode);</span><br><span class="line"> <span class="built_in">document</span>.getElementById(<span class="string">"list"</span>).appendChild(node);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <p>輸出結果：</p>
-<li >one</li>
- <li >two</li>
- <li >three</li>
- <li >0</li>
- <li >1</li>
- <li >2</li>
- <li >3</li>
- <li >4</li>
- <li >5</li>
- <li >6</li>
- <li >7</li>
- <li >8</li>
- <li >9</li>
+<li>one</li>
+ <li>two</li>
+ <li>three</li>
+ <li>0</li>
+ <li>1</li>
+ <li>2</li>
+ <li>3</li>
+ <li>4</li>
+ <li>5</li>
+ <li>6</li>
+ <li>7</li>
+ <li>8</li>
+ <li>9</li>
 
-<br/>
+<br>
 
 <p>當新增或刪除一個 <code>li</code> 的時候，無需去處理和那個元素相關的 listener ，因為 listener 是放在  <code>ul</code>  ，透過父節點來處理子節點的事件，就稱為事件代理。</p>
 <h3 id="E-CURRENTTARGET-VS-E-TARGET"><a href="#E-CURRENTTARGET-VS-E-TARGET" class="headerlink" title="E.CURRENTTARGET VS. E.TARGET"></a>E.CURRENTTARGET VS. E.TARGET</h3><p><code>event.currentTarget</code> 屬性會指向目前於冒泡或捕捉階段正在處理該事件之事件處理器所註冊的 DOM 物件，而 <code>event.target</code> 屬性則是會指向觸發事件的 DOM 物件。</p>
@@ -388,7 +388,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>);</span><br><span class="line"></span><br><span class="line"> list.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(e.target.tagName);</span><br><span class="line"> <span class="built_in">console</span>.log(e.currentTarget.tagName);</span><br><span class="line"> &#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="EventTarget-addEventListener"><a href="#EventTarget-addEventListener" class="headerlink" title="EventTarget.addEventListener()"></a>EventTarget.addEventListener()</h3><p>addEventListener 方法可以用來綁定元素的事件處理函數，有三個參數，分別是「事件名稱」、「事件的處理器」(事件觸發時執行的 function)，以及一個「Boolean」值，由這個 Boolean 決定事件是以「捕獲」或「冒泡」機制執行，若不指定則預設為「冒泡」。</p>
-<br/>
+<br>
 事件監聽範例：
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;table id&#x3D;&quot;outside&quot;&gt;</span><br><span class="line">    &lt;tr&gt;&lt;td id&#x3D;&quot;t1&quot;&gt;one&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;tr&gt;&lt;td id&#x3D;&quot;t2&quot;&gt;two&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
@@ -405,6 +405,7 @@
 
 <p>即使執行了 <code>removeEventListener</code> 來移除事件，但 <code>click</code> 時仍會出現 ‘HI’。因為 <code>addEventListener</code> 與 <code>removeEventListener</code> 所移除的 handler 實際上是兩個不同實體的 function 物件。</p>
 <p>需修改為以下：</p>
+<p>.\2020-02-22-斜槓的50道難題\2020-02-22-斜槓的50道難題-1.jpg</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">"outside"</span>);</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 把 event handler 先存到變數</span></span><br><span class="line"> <span class="keyword">var</span> clickHandler =<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     alert(<span class="string">'Hi'</span>);</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> el.addEventListener(<span class="string">'click'</span>, clickHandler, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">//成功移除 clickHandler</span></span><br><span class="line"> el.removeEventListener(<span class="string">'click'</span>,clickHandler, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
@@ -467,21 +468,21 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/14/2019-11-14-JavaScript-10/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <p>DOM (Document Object Model) 定義了一組標準 API (Application Programming Interface) 讓我們可以用 JavaScript 對 HTML 文件做操作。</p>
 <p>DOM 將一份 HTML 文件看作是一個樹狀結構的物件，讓我們可以方便直觀的存取樹中的節點 (node) 來改變其結構、樣式 (CSS) 或內容等。</p>
 <p>document 物件是 DOM tree 的根節點，表示整份 HTML 文件，通常你要存取 HTML 都是從 document 物件開始：</p>
-<br/>
+<br>
 
-<img src="2019-11-14-JavaScript-10-1.png" style="width:50%;">
+<img src="/2019/11/14/2019-11-14-JavaScript-10/2019-11-14-JavaScript-10-1.png" style="width:50%;">
 
-<br/>
+<br>
 
 <p>圖片來源： <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank" rel="noopener">Wikipedia DOM</a></p>
-<br/>
+<br>
 
 <p>HTML DOM 規範中定義了這些類型的 API：</p>
 <ul>
@@ -518,11 +519,11 @@
 <li><p><strong>兄弟關係</strong>：有同一個「父節點」的節點，那麼他們彼此之間就是「兄弟節點」(Siblings node)。</p>
 </li>
 </ul>
-<br/>
+<br>
 
-<img src="2019-11-14-JavaScript-10-2.png" style="width:70%;">
+<img src="/2019/11/14/2019-11-14-JavaScript-10/2019-11-14-JavaScript-10-2.png" style="width:70%;">
 
-<br/>
+<br>
 
 <p>圖片來源：<a href="https://ithelp.ithome.com.tw/articles/10191765" target="_blank" rel="noopener">重新認識 JavaScript: Day 12 透過 DOM API 查找節點 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</a></p>
 <h3 id="Node-childNodes"><a href="#Node-childNodes" class="headerlink" title="Node.childNodes"></a>Node.childNodes</h3><p>所有的 DOM 節點物件都有 childNodes 屬性 (read-only property)，可以用來取得該元素下的所有子元素集合 (NodeList)。</p>
@@ -630,9 +631,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/14/2019-11-14-JavaScript-11/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <p>除了在<a href="https://cheng-yi-ting.github.io/2019/11/14/2019-11-14-JavaScript-10/">之前</a>提過的 DOM Node 的類型、以及節點之間的查找與關係。我們在這一篇文章會介紹其他新增、修改和刪除 DOM 節點的方法。</p>
 <h3 id="document-createElement-tagName"><a href="#document-createElement-tagName" class="headerlink" title="document.createElement(tagName)"></a>document.createElement(tagName)</h3><p>用來建立一個新的元素。</p>
@@ -717,9 +718,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/13/2019-11-13-JavaScript-09/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="script標籤"><a href="#script標籤" class="headerlink" title="script標籤"></a><strong>script標籤</strong></h2><p>針對 <code>&lt;script&gt;</code> 標籤放哪裡，一般會有兩種版本：</p>
 <ul>
@@ -732,30 +733,30 @@
 <p>接著，我們試著把 <code>&lt;script&gt;</code> 標籤移到 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間，這時候會發現網頁一片空白：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-1.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-1.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p>瀏覽器解析 HTML 是一行一行依序向下讀取，在傳統的寫法中，當瀏覽器讀到 <code>&lt;script&gt;</code> 時，便會 <strong>暫停解析</strong> DOM，立刻開始下載 <code>&lt;script&gt;</code> 的資源，並在下載完成後立刻執行。由於這樣的特性，便可能造成在 DOM 樹建構不完全時就執行 JavaScript，其中需要操作 DOM 的程式可能就因此無法正確運作，許多衍伸的問題也就因此產生；若是透過 <code>src</code> 外聯 <code>.js</code> 檔案，瀏覽器會「同步地」下載 <code>.js</code> 檔案，在下載完成並執行完程式碼之前，後續的其他資源下載、頁面剖析等，都會被阻斷。執行過程中，使用者便會卡在白畫面，並產生覺得網站太慢、使用者體驗不好等感受。</p>
 <p>不過，文件資源的完整載入，是指 <code>HTML</code> 、 <code>CSS</code> 、圖片等都載入完成，而不單指 DOM樹 建立完成；若想在文件剖析完成、 DOM樹 生成時就執行程式碼，建議是將 <code>script</code> 放在文件尾端，通常是 <code>body</code> 標籤之前，因為此時 DOM樹 已經建立，操作 DOM 節點就不是問題了。但在更複雜的網站中，<code>HTML</code>、<code>JavaScript</code>  的檔案都來越大，下載、執行時間也越來越長，需要等到整個 DOM 樹都載入完成才開始下載 <code>&lt;script&gt;</code> 內的資源，從網站讀取完成到可操作之間便會有明顯的延遲感。</p>
-<br/>
+<br>
 
 <h4 id="這樣的問題該怎麼解決呢？"><a href="#這樣的問題該怎麼解決呢？" class="headerlink" title="這樣的問題該怎麼解決呢？"></a><strong>這樣的問題該怎麼解決呢？</strong></h4><h2 id="async-amp-defer"><a href="#async-amp-defer" class="headerlink" title="async &amp; defer"></a>async &amp; defer</h2><p>從 HTML4 開始，<code>&lt;script&gt;</code> 便多了 <code>defer</code> 屬性，HTML5 則多了 <code>async</code>，兩者皆是用來幫助開發者控制 <code>&lt;script&gt;</code> 內資源的載入及執行順序，以及避免 DOM 的解析被資源下載卡住。這兩個屬性只適用在外部引入的檔案，對內嵌程式碼的<code>script</code>標籤沒有影響。</p>
 <h3 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h3><p><code>defer</code> 意旨為 延遲（Deferred），也就是說，加上 <code>defer</code> 屬性後，瀏覽器會繼續解析、渲染畫面，而不會因為需要載入 <code>&lt;script&gt;</code> 內的資源而卡在那邊等；如果有多個設置 <code>defer</code>  的 <code>js</code>  標籤存在，則會由上到下依照擺放順序觸發。實際上的執行時間，會在 <code>DOM</code>渲染完畢後，<code>DOMContentLoaded</code> 事件執行之前。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"script.js"</span>&gt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-2.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-2.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p>defer 屬性告訴瀏覽器在 HTML 還在解析時加載 js，但是等到 HTML 整個解析完才執行 js。</p>
 <h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p><code>async</code> 即為 非同步（Asynchronous），在 <code>&lt;script&gt;</code> 加上 <code>async</code> 屬性後，與 <code>defer</code> 相同的是會在背景執行下載，但不同的是當下載完成會馬上暫停 DOM 解析（若尚未解析完的話），並開始執行 JavaScript。也因為下載完成後會立即執行，如果有多個 <code>async</code>  屬性的 <code>js</code>  ，先下載完的就會先執行，因為下載完成的順序是無法預測的，因此「執行順序也就無法預測」。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src&#x3D;&quot;script.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-3.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-3.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p><code>async</code>  屬性告訴瀏覽器可以異步執行(executed asynchronously)，在  <code>HTML</code>  還在解析時加載  <code>js</code>  ，當 <code>js</code>  完全下載後才暫停解析  <code>HTML</code>  ，執行  <code>js</code>  。</p>
 <h3 id="type-”module”"><a href="#type-”module”" class="headerlink" title="type=”module”"></a>type=”module”</h3><p>在主流的現代瀏覽器中，<code>&lt;script&gt;</code> 的屬性可以加上 <code>type=&quot;module&quot;</code>。這時，瀏覽器會將此檔案認為是一個 JavaScript 模組，其中的解析規則、執行環境會略有不同；這時候的 <code>&lt;script&gt;</code> 預設行為會像是 <code>defer</code> 一樣，背景下載，且等待 DOM 解析、渲染完成後才執行，也因此 <code>defer</code> 屬性無法在 <code>type=&quot;module&quot;</code> 產生作用。但同樣可以透過 <code>async</code> 屬性讓它在下載完成後即刻執行。</p>
 <h3 id="使用場景"><a href="#使用場景" class="headerlink" title="使用場景"></a>使用場景</h3><p><strong>前面已經針對這兩個屬性進行說明了，那麼該如何正確地使用呢？</strong></p>
@@ -819,9 +820,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/13/2019-11-12-JavaScript-08/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="BOM-是什麼"><a href="#BOM-是什麼" class="headerlink" title="BOM 是什麼?"></a>BOM 是什麼?</h2><p><strong>BOM (Browser Object Model，瀏覽器物件模型)</strong>，是瀏覽器所有功能的核心，與網頁的內容無關。</p>
 <p>BOM 也有人非正式地稱它為 「Level 0 DOM」。 因為它在 DOM level 1 標準前就已存在，而不是真的有文件去規範這些，所以「Level 0 DOM」與「BOM」兩者實際上指的是同一個東西。</p>
@@ -938,9 +939,9 @@ window|
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/12/2019-11-12-JavaScript-05/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="邏輯運算子-Logical-Operators"><a href="#邏輯運算子-Logical-Operators" class="headerlink" title="邏輯運算子 (Logical Operators)"></a>邏輯運算子 (Logical Operators)</h2><p>邏輯運算子用來做布林值 (boolean) 的運算，運算結果傳回 true 或 false。</p>
 <table>
@@ -1000,7 +1001,7 @@ window|
 <td>假如 a 可以被轉換成 true 的話，則回傳第一個數值，否則回傳第二個數值。</td>
 </tr>
 </tbody></table>
-<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><br/>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><br>
 
 <h4 id="Logical-AND-amp-amp"><a href="#Logical-AND-amp-amp" class="headerlink" title="Logical AND (&amp;&amp;)"></a><strong>Logical AND (<code>&amp;&amp;</code>)</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a1 = <span class="literal">true</span>  &amp;&amp; <span class="literal">true</span>       <span class="comment">// t &amp;&amp; t returns true</span></span><br><span class="line">a2 = <span class="literal">true</span>  &amp;&amp; <span class="literal">false</span>      <span class="comment">// t &amp;&amp; f returns false</span></span><br><span class="line">a3 = <span class="literal">false</span> &amp;&amp; <span class="literal">true</span>       <span class="comment">// f &amp;&amp; t returns false</span></span><br><span class="line">a4 = <span class="literal">false</span> &amp;&amp; (<span class="number">3</span> == <span class="number">4</span>)   <span class="comment">// f &amp;&amp; f returns false</span></span><br><span class="line">a5 = <span class="string">'Cat'</span> &amp;&amp; <span class="string">'Dog'</span>      <span class="comment">// t &amp;&amp; t returns "Dog"</span></span><br><span class="line">a6 = <span class="literal">false</span> &amp;&amp; <span class="string">'Cat'</span>      <span class="comment">// f &amp;&amp; t returns false</span></span><br><span class="line">a7 = <span class="string">'Cat'</span> &amp;&amp; <span class="literal">false</span>      <span class="comment">// t &amp;&amp; f returns false</span></span><br><span class="line">a8 = <span class="string">''</span>    &amp;&amp; <span class="literal">false</span>      <span class="comment">// f &amp;&amp; f returns ""</span></span><br><span class="line">a9 = <span class="literal">false</span> &amp;&amp; <span class="string">''</span>         <span class="comment">// f &amp;&amp; f returns false</span></span><br></pre></td></tr></table></figure>
 
@@ -1062,9 +1063,9 @@ window|
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/12/2019-11-12-JavaScript-07/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <p>在瞭解提升（Hoisting）之前，先讓我們看看 JavaScript 中變數的有效範圍(Scope)。</p>
 <h2 id="變數的有效範圍-Scope"><a href="#變數的有效範圍-Scope" class="headerlink" title="變數的有效範圍 (Scope)"></a>變數的有效範圍 (Scope)</h2><p>在 ES6 之前，JavaScript 變數有效範圍的最小單位是以 <code>function</code> 做分界的。</p>
@@ -1147,9 +1148,9 @@ window|
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/12/2019-11-12-JavaScript-06/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <p><strong>JavaScript 中函式是一種物件</strong>。</p>
 <p>「函式」指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。</p>
@@ -1235,9 +1236,9 @@ window|
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/11/2019-11-10-JavaScript-04/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="基本型別"><a href="#基本型別" class="headerlink" title="基本型別"></a>基本型別</h2><p>假設我們有兩個變數<code>a</code>和<code>b</code>分別設定為 <code>10</code>，接著把<code>b</code>的值等於<code>a</code>；最後再把<code>a</code>的值改為<code>20</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//在基本型別的時候，會認為這兩個變數的「值」是相等的，因為兩個變數的數值都是 10</span></span><br><span class="line"><span class="built_in">console</span>.log( a === b );      <span class="comment">// true</span></span><br><span class="line">a=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> c=a;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"a is "</span>+a); <span class="comment">// a is 20</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"b is "</span>+b); <span class="comment">// b is 10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"c is "</span>+c); <span class="comment">// c is 10</span></span><br></pre></td></tr></table></figure>

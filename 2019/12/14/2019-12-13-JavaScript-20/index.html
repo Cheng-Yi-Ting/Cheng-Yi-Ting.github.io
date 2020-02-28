@@ -39,7 +39,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/14/2019-12-13-JavaScript-20/logo.svg">
 <meta property="article:published_time" content="2019-12-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-12-21T13:14:24.494Z">
+<meta property="article:modified_time" content="2020-02-28T09:57:11.384Z">
 <meta property="article:author" content="Cheng-Yi-Ting">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -178,11 +178,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/14/2019-12-13-JavaScript-20/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>JavaScript是一個以原型為基礎(prototype-based)的物件導向程式語言，而 ES6 Class 只是個語法糖(syntactical sugar)，目的是提供更簡潔的語法來作物件建立與繼承。</p>
 <p>我們過去使用 function constructor 來產生類別物件：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, age,salary</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 定義基本屬性</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.salary = salary;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原型方法</span></span><br><span class="line">Employee.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee.prototype.employeeDetails = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">'Name: '</span>+<span class="keyword">this</span>.name+<span class="string">', Age:'</span>+<span class="keyword">this</span>.age+<span class="string">', salary:'</span>+<span class="keyword">this</span>.salary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> felix = <span class="keyword">new</span> Employee(<span class="string">'Felix'</span>, <span class="number">18</span>, <span class="number">22000</span>);</span><br><span class="line"><span class="comment">//Name: Felix, Age:18, salary:22000</span></span><br><span class="line"><span class="built_in">console</span>.log(felix.employeeDetails());</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br><span class="line"><span class="comment">//Name: Hector, Age:25, salary:36000</span></span><br><span class="line"><span class="built_in">console</span>.log(hector.employeeDetails());</span><br></pre></td></tr></table></figure>

@@ -176,11 +176,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2020/01/04/2020-01-04-JavaScript-23/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <h2 id="同步執行-Scynchronous"><a href="#同步執行-Scynchronous" class="headerlink" title="同步執行 ( Scynchronous )"></a>同步執行 ( Scynchronous )</h2><p>如果我有很多個任務，同步就是讓每個任務按照順序依序進行，後面的任務必須等待前面的任務執行完成後才會執行。</p>
 <p>以生活例子比喻的話，假如我在買電影，我要等到前面所有排隊的人買完之後才能輪到我，而排在我後面的人也要等到我完成買電影票這個動作之後，才能輪到他們。</p>
 <p>以程式碼來說明的話，同步執行就表示程式會依照所寫的程式碼一行一行去執行，而順序都是前一個動作執行完才會去接著執行下一個動作。同步程式的設計模式看起來會比較比較直覺，常見的程式語言像是C、C++、Java皆是採用同步模式。</p>
@@ -272,11 +272,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/29/2019-12-27-JavaScript-22/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>箭頭函式運算式 (Arrow Function expression) 是在 ES6 新增的建立函式語法，這種寫法有著兩個重要的特性：</p>
 <ul>
 <li><p>更簡短的函式寫法</p>
@@ -408,11 +408,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/25/2019-12-21-JavaScript-21/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>在 ES6（ES2015） 之後宣告「變數」與「常數」，除了原本的 var 以外，還可以透過 let 與 const 做宣告，在本文中，我們會說明使用 var , let 和 const 的差異，並討論他們的作用域、變數初始化以及 hoisting 。</p>
 <h3 id="var-作用域"><a href="#var-作用域" class="headerlink" title="var 作用域"></a>var 作用域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Christmas = <span class="string">'Merry Christmas and happy New Year!'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greeting</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hello = <span class="string">"greeting"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(hello); <span class="comment">// greeting</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greeting();</span><br><span class="line"><span class="built_in">console</span>.log(hello); <span class="comment">// error: hello is not defined</span></span><br></pre></td></tr></table></figure>
 
@@ -534,11 +534,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/14/2019-12-13-JavaScript-20/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>JavaScript是一個以原型為基礎(prototype-based)的物件導向程式語言，而 ES6 Class 只是個語法糖(syntactical sugar)，目的是提供更簡潔的語法來作物件建立與繼承。</p>
 <p>我們過去使用 function constructor 來產生類別物件：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, age,salary</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 定義基本屬性</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.salary = salary;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原型方法</span></span><br><span class="line">Employee.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee.prototype.employeeDetails = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">'Name: '</span>+<span class="keyword">this</span>.name+<span class="string">', Age:'</span>+<span class="keyword">this</span>.age+<span class="string">', salary:'</span>+<span class="keyword">this</span>.salary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> felix = <span class="keyword">new</span> Employee(<span class="string">'Felix'</span>, <span class="number">18</span>, <span class="number">22000</span>);</span><br><span class="line"><span class="comment">//Name: Felix, Age:18, salary:22000</span></span><br><span class="line"><span class="built_in">console</span>.log(felix.employeeDetails());</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hector= <span class="keyword">new</span> Employee(<span class="string">'Hector'</span>, <span class="number">25</span>, <span class="number">36000</span>);</span><br><span class="line"><span class="comment">//Name: Hector, Age:25, salary:36000</span></span><br><span class="line"><span class="built_in">console</span>.log(hector.employeeDetails());</span><br></pre></td></tr></table></figure>
@@ -633,11 +633,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/13/2019-12-12-JavaScript-19/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <h2 id="Prototype-based-Inheritance-基於原型的繼承"><a href="#Prototype-based-Inheritance-基於原型的繼承" class="headerlink" title="Prototype-based Inheritance (基於原型的繼承)"></a>Prototype-based Inheritance (基於原型的繼承)</h2><p>JavaScript 的繼承是 prototype-based，意思就是在 JavaScript 中沒有 class，<strong>所有的 object 都繼承自其它的 object</strong>。</p>
 <p>以下為繼承的實作範例，先建立父層類別 Person 和子層類別 Student：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name || <span class="string">'default'</span>;</span><br><span class="line">    <span class="keyword">this</span>.age = age || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.skill= [<span class="string">'HTML'</span>,<span class="string">'CSS'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 的 prototype</span></span><br><span class="line">Person.prototype.hi= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>.`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 的 constructor function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student 繼承 Person</span></span><br><span class="line">Student.prototype = <span class="keyword">new</span> Person()</span><br><span class="line"></span><br><span class="line"><span class="comment">// Student的 prototype 方法</span></span><br><span class="line">Student.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Say, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立物件實例</span></span><br><span class="line"><span class="keyword">var</span> roman = <span class="keyword">new</span> Student(<span class="string">'roman'</span>);</span><br><span class="line"><span class="keyword">var</span> hera = <span class="keyword">new</span> Student(<span class="string">'hera'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hi, roman ,My age is 0.</span></span><br><span class="line">roman.hi();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Say, roman ,My score is 100.</span></span><br><span class="line">roman.say();</span><br><span class="line"></span><br><span class="line">roman.skill.push(<span class="string">'JavaScript'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(roman.skill)   <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"><span class="built_in">console</span>.log(hera.skill)    <span class="comment">// ["HTML","CSS","JavaScript"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//物件的繼承關係 (prototype chain) </span></span><br><span class="line"><span class="built_in">console</span>.log(roman.__proto__ === Student.prototype)<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Student.prototype.__proto__ === Person.prototype)<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
@@ -666,12 +666,12 @@
 <p>因為沒有執行 Person 函式建構式的內容，當呼叫 roman.hi(); 中的  this.age 為 undefined；沒有 skill 屬性所以也無法使用 push 方法。</p>
 <p>以下為使用兩種方式建立 roman 物件：</p>
 <p><strong><code>Student.prototype = new Person()</code></strong></p>
-<img src="2019-12-12-JavaScript-19-1.PNG" style="width:50%;">
-<br/>
-<br/>
+<img src="/2019/12/13/2019-12-12-JavaScript-19/2019-12-12-JavaScript-19-1.PNG" style="width:50%;">
+<br>
+<br>
 
 <p><strong><code>Student.prototype = Object.create(Person.prototype)</code></strong></p>
-<img src="2019-12-12-JavaScript-19-2.PNG" style="width:50%;">
+<img src="/2019/12/13/2019-12-12-JavaScript-19/2019-12-12-JavaScript-19-2.PNG" style="width:50%;">
 
 <h3 id="Polymorphism-多型"><a href="#Polymorphism-多型" class="headerlink" title="Polymorphism (多型)"></a>Polymorphism (多型)</h3><p>透過在子類別中重寫覆蓋 (override) 掉父類別中的方法或屬性來完成多型。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype.hi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">`Hi, <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> ,My score is <span class="subst">$&#123;<span class="keyword">this</span>.score&#125;</span>.`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -737,11 +737,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/12/2019-11-19-JavaScript-18/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>物件導向程式設計（OOP）的基本概念是使用物件的方式來表示，透過類別（class）的函式建構式（function constructor）可以產生物件實例（object instance）。</p>
 <p>JavaScript 並非真正的物件導向 (OO) 語言，它是一個以原型為基礎 (Prototype-based) 的語言。因為沒有 Class，而是透過 「原型」(prototype) 來實現繼承實作。</p>
 <h2 id="建構式"><a href="#建構式" class="headerlink" title="建構式"></a>建構式</h2><p>在 JavaScript 中，一個 Function 是不是建構式並不是取決於它的宣告方式，而是取決於它是不是用 new 來執行的。如果是用 new 執行一個 Function 時，我們就稱做這種呼叫為 <strong>建構式呼叫</strong>。當我們用<strong>建構式呼叫</strong>去執行一個 Function，這個 Function 就會被當作建構式。</p>
@@ -841,9 +841,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.prop1 = <span class="string">'prop1'</span>;</span><br><span class="line"> <span class="keyword">this</span>.prop2 = <span class="string">'prop2'</span>;</span><br><span class="line"> <span class="keyword">this</span>.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">this</span>.prop1 + <span class="keyword">this</span>.prop2;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test.prototype.protoProp1 = <span class="string">'protoProp1'</span>;</span><br><span class="line">Test.prototype.protoProp2 = <span class="string">'protoProp2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Test();</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.create(Test.prototype);</span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">Object</span>.create(Test);</span><br></pre></td></tr></table></figure>
 
 <p>讓我們來看一下 a ,b ,c 三個物件內容在 console 輸出的結果：</p>
-<img src="2019-11-19-JavaScript-18-1.PNG" style="width:50%;">
+<img src="/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-1.PNG" style="width:50%;">
 
-<img src="2019-11-19-JavaScript-18-2.PNG" style="width:50%;">
+<img src="/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-2.PNG" style="width:50%;">
 
 <h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>所謂的 Prototype 就是原型，所有函式上面都有預設有一個公開的 Prototype 屬性，而被此建構式新建出來的物件都可以透過 <code>[[Prototype]]</code> 參考連結到這個原型物件上來存取其上的屬性，也就能建立出 <em>類似物件導向概念</em> 的程式。</p>
 <p>整理一下本篇中出現的名詞：</p>
@@ -921,14 +921,14 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/19/2019-11-17-JavaScript-16/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>如果我想要複製物件的值，卻不希望在複製後，只要更動其值，原變數也會受到影響，該怎麼做呢？</p>
 <p>本篇將介紹關於 JavaScript 中的「淺拷貝」以及「深拷貝」。</p>
-<br/>
+<br>
 
 <p>原始型別在賦值時一般是直接傳值的方式(pass by value)：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a= <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
@@ -945,7 +945,7 @@
 <p>也可以使用 Object.assign 的方式來複製：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="string">'William'</span>, <span class="attr">age</span>: <span class="number">70</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.assign(&#123;&#125;, a);</span><br><span class="line">b.name = <span class="string">"Teddy"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.name); <span class="comment">// William</span></span><br><span class="line"><span class="built_in">console</span>.log(b.name); <span class="comment">// Teddy</span></span><br></pre></td></tr></table></figure>
 
-<h5 id=""><a href="#" class="headerlink" title=""></a><br/></h5><h5 id="但是以上使用淺拷貝只能複製一層。"><a href="#但是以上使用淺拷貝只能複製一層。" class="headerlink" title="但是以上使用淺拷貝只能複製一層。"></a>但是以上使用淺拷貝只能複製一層。</h5><br/>
+<h5 id><a href="#" class="headerlink" title></a><br></h5><h5 id="但是以上使用淺拷貝只能複製一層。"><a href="#但是以上使用淺拷貝只能複製一層。" class="headerlink" title="但是以上使用淺拷貝只能複製一層。"></a>但是以上使用淺拷貝只能複製一層。</h5><br>
 
 <p>當拷貝到第二層的時候就會發生問題：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line"></span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">    b: &#123;</span><br><span class="line"></span><br><span class="line">        b1: <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">        b2: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj2.a= <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">obj2.b.b1= <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.a); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.b.b1); <span class="comment">// 20</span></span><br></pre></td></tr></table></figure>
@@ -1019,11 +1019,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/18/2019-11-18-JavaScript-17/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p>this 是 JavaScript 的一個關鍵字， this 會在不同的情境下指稱到不同的物件。</p>
 <p>this 在物件導向裡面，它所代表的就是那個 instance 本身：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">  setName(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myCar = <span class="keyword">new</span> Car()</span><br><span class="line">myCar.setName(<span class="string">'Ford'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myCar.getName()) <span class="comment">// Ford</span></span><br></pre></td></tr></table></figure>
@@ -1037,7 +1037,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> call = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">this</span>.name );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'Felix'</span>;  </span><br><span class="line">    <span class="keyword">this</span>.call();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">say();</span><br></pre></td></tr></table></figure>
 
 <p>在這個範例中， <code>say</code> 可以透過 <code>this.call</code> 取得 <code>call</code> ，是因為 <code>this.call</code> 實際上是指向 <code>window.call</code>。<br>而 <code>call</code> 的 <code>this.name</code> 並非是 <code>say</code> 中的 <code>Felix</code> ，而是指向 <code>window.name</code> ，所以會得到 <code>undefined</code> 的結果。</p>
-<br/>
+<br>
 
 <p>下個例子是將 function 內在包覆著 function，但只要是直接呼叫，this 都是屬於全域。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.say = <span class="string">'Hi'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CallSay</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'call:'</span>, <span class="keyword">this</span>.say); <span class="comment">//call: Hi</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// function 內的 function</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">CallSayNow</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'call me now:'</span>, <span class="keyword">this</span>.say);<span class="comment">//call me now: Hi</span></span><br><span class="line">  &#125;</span><br><span class="line">  CallSayNow();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CallSay();</span><br></pre></td></tr></table></figure>
@@ -1069,9 +1069,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">el.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 透過 that 參考</span></span><br><span class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="keyword">this</span>.textContent );</span><br><span class="line"></span><br><span class="line">  $ajax(<span class="string">'[URL]'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// this.textContent =&gt; undefined</span></span><br><span class="line">    <span class="built_in">console</span>.log(that.textContent, res);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 
 <p>像這樣，我們將事件內的  <code>this</code>  先用一個叫  <code>that</code>  的變數儲存它的參考，那麼在 ajax 的 callback function 就可以透過  <code>that</code>  來存取到原本事件中的  <code>this</code>   了。</p>
-<br/>
+<br>
 
-<h5 id="如果我們把-call-跟-bind-同時用會怎樣"><a href="#如果我們把-call-跟-bind-同時用會怎樣" class="headerlink" title="如果我們把 call 跟 bind 同時用會怎樣!?"></a><strong>如果我們把 call 跟 bind 同時用會怎樣!?</strong></h5><br/>
+<h5 id="如果我們把-call-跟-bind-同時用會怎樣"><a href="#如果我們把-call-跟-bind-同時用會怎樣" class="headerlink" title="如果我們把 call 跟 bind 同時用會怎樣!?"></a><strong>如果我們把 call 跟 bind 同時用會怎樣!?</strong></h5><br>
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">funA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">const</span> myFunA = funA.bind(<span class="string">'Hi'</span>)</span><br><span class="line"> myFunA.call(<span class="string">'Hello'</span>) <span class="comment">// Hi</span></span><br></pre></td></tr></table></figure>
 
@@ -1089,9 +1089,9 @@
 
 <p>無論怎麼呼叫 <code>say</code>  這個 function，印出來的 <code>value</code> 永遠都會是全域變數的   <code>value</code>  ，因為 <code>say</code>  在自己的作用域底下找不到  <code>value</code>  於是往上一層找，就會找到  global scope ，這跟你在哪裡呼叫 <code>say</code>  一點關係都沒有。 <code>say</code>  這個 function 在「定義」的時候就把 scope 給決定好了。</p>
 <p>但 this 卻是完全相反，this 的值會根據你怎麼呼叫它而變得不一樣，像是先前我們剛講過的 call、apply 跟 bind ，你可以用不同的方式去呼叫 function，讓 this 的值變得不同。</p>
-<br/>
+<br>
 
-<h5 id="this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"><a href="#this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。" class="headerlink" title="this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"></a><strong>this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。</strong></h5><br/>
+<h5 id="this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"><a href="#this-的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。" class="headerlink" title="this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。"></a><strong>this 的值跟作用域跟程式碼的位置在哪裡完全無關，只跟「如何呼叫」有關。</strong></h5><br>
 
 <p>讓我們看複雜一點的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">  &#125;,</span><br><span class="line">  func2: &#123;</span><br><span class="line"></span><br><span class="line">    value: <span class="number">2</span>,</span><br><span class="line">    say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = obj.func2</span><br><span class="line"><span class="keyword">const</span> say= obj.func2.say</span><br><span class="line"></span><br><span class="line">obj.func2.say()</span><br><span class="line"></span><br><span class="line">obj2.say()</span><br><span class="line"></span><br><span class="line">say()</span><br></pre></td></tr></table></figure>
@@ -1163,9 +1163,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/17/2019-11-16-JavaScript-15/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="Scope-Chain"><a href="#Scope-Chain" class="headerlink" title="Scope Chain"></a>Scope Chain</h2><p>在開始談閉包之前，我們現來談談「範圍鏈」(Scope Chain) 的觀念。</p>
 <p>Scope Chain(範圍鏈)的特性，是指使用變數的時候，會遵循著 Scope Chain 一層一層往外找，也就是看看函式自身的 context 物件上是否有該特性，如果沒有就往外頭的 context 物件看看有沒有該特性。</p>
@@ -1185,7 +1185,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="comment">//另外一個執行環境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myVar); <span class="comment">// outer</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//一個執行環境</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fund</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVar = <span class="string">"inner"</span>;</span><br><span class="line">  func();</span><br><span class="line">&#125;</span><br><span class="line">fund();</span><br></pre></td></tr></table></figure>
 
 <p>當 <code>fund</code> 呼叫 <code>func</code> 時，由於 <code>fund</code> 和 <code>func</code> 都處於全域的環境，而 <code>myVar</code> 變數是被定義在 <code>fund</code> 的函式裡面；當你試圖在 <code>func</code> 中 使用 <code>myVar</code> 變數時，它會查看 <code>func</code> 的 context 物件上是否有該特性，如果有就使用，沒有就往外面一層找。由於 <code>func</code> 的上一層是 global context ，所以就存取到全域變數的 <code>myVar</code>，最終印出的結果就會是 <code>outer</code> 。</p>
-<br/>
+<br>
 
 <p>如果函式 <code>func</code>  的位置是被 <code>fund</code>  所包裹，當 <code>func</code> 找不到  <code>myVar</code> ，就會往它的向外一層找；所以就存取到 <code>fund</code>  裡面的 <code>myVar</code>  ，輸出  <code>inner</code>  。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="string">"outer"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fund</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVar = <span class="string">"inner"</span>;</span><br><span class="line">  func();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="built_in">console</span>.log(myVar); <span class="comment">// inner</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">fund();</span><br></pre></td></tr></table></figure>
@@ -1195,7 +1195,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OuterFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 一個局部變數</span></span><br><span class="line">    <span class="keyword">var</span> outerVariable = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">InnerFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 內部函數可以存取外部函式的變數</span></span><br><span class="line"></span><br><span class="line">        alert(outerVariable);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回一個內部函式，並創建一個 closure  </span></span><br><span class="line">    <span class="keyword">return</span> InnerFunction;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> innerFunc = OuterFunction();</span><br><span class="line"></span><br><span class="line">innerFunc(); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
 
 <p>上面例子中，<code>OuterFunction()</code> 執行時返回一個 function，同時自動創建了一個 closure 環境。closure 像是一個特殊的物件 (指定給了 <code>innerFunc</code>  )，closure 中包含一個函數  <code>InnerFunction</code>  ，以及函數 <code>OuterFunction</code>  執行當時的環境，讓你在函數返回後還是可以持續存取 closure 保存的環境 ，像是能存取  <code>outerVariable</code>  變數， <code>outerVariable</code>  變數不會因為函數返回後而被刪除。</p>
-<br/>
+<br>
 
 <p>在這個例子中，我們把 <code>counter</code> 封裝在 <code>Counter()</code> 當中，不但可以讓裡面的 <code>counter</code> 不會暴露在 global 環境造成變數衝突，也可以確保內部 <code>counter</code> 被修改：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">IncreaseCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> counter += <span class="number">1</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> IncreaseCounter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = Counter();</span><br><span class="line">alert(counter()); <span class="comment">// 1</span></span><br><span class="line">alert(counter()); <span class="comment">// 2</span></span><br><span class="line">alert(counter()); <span class="comment">// 3</span></span><br><span class="line">alert(counter()); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
@@ -1260,13 +1260,13 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/16/2019-11-16-JavaScript-13/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<br/>
+<br>
 
-<br/>
+<br>
 
 <h2 id="IIFEs"><a href="#IIFEs" class="headerlink" title="IIFEs"></a>IIFEs</h2><p><strong>立即被呼叫的函式 (Immediately Invoked Function Expression, IIFE)</strong>，</p>
 <p>Immediately 是立即的意思，invoked 則是執行某個函式時，「執行」的意思，function expression 是一種用來建立 function 的方法，<strong>總括來說，就是用 function expression 的方式建立函式後並立即執行它</strong>。</p>
@@ -1277,9 +1277,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function expression</span></span><br><span class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn1);</span><br></pre></td></tr></table></figure>
 
 <p>呼叫 <code>fn1()</code> 後，它會回傳整個函式的內容，這是尚未 <strong>執行（Invoked）</strong>的結果。</p>
-<img src="2019-11-16-JavaScript-13-1.PNG" >
+<img src="/2019/11/16/2019-11-16-JavaScript-13/2019-11-16-JavaScript-13-1.PNG">
 
-<br/>
+<br>
 
 <p>如果是 IIFEs 就在這段程式碼的最後，加上一個執行的指令，也就是括號 ( )：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(num);</span><br><span class="line">&#125;(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
@@ -1289,7 +1289,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function expression</span></span><br><span class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span>(num);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(fn1);</span><br></pre></td></tr></table></figure>
 
 <p>可以發現結果還是一個函式：</p>
-<p><img src="2019-11-16-JavaScript-13-2.PNG" ><br/></p>
+<p><img src="/2019/11/16/2019-11-16-JavaScript-13/2019-11-16-JavaScript-13-2.PNG"><br></p>
 <p>如果把它改成 <strong>IIFEs</strong> 的話，就會得到 <code>10</code> ：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Immediately Invoked Functions Expressions (IIFEs)</span></span><br><span class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span>(num);</span><br><span class="line">&#125;(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn1);</span><br></pre></td></tr></table></figure>
 
@@ -1297,7 +1297,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Immediately Invoked Functions Expressions (IIFEs)</span></span><br><span class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span>(num);</span><br><span class="line">&#125;(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(fn1());</span><br></pre></td></tr></table></figure>
 
 <p>產生錯誤：</p>
-<p><img src="2019-11-16-JavaScript-13-3.PNG" ><br/></p>
+<p><img src="/2019/11/16/2019-11-16-JavaScript-13/2019-11-16-JavaScript-13-3.PNG"><br></p>
 <p>下面的範例，我們建立了一個匿名函式，並且透過 IIFEs 馬上執行：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value= <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> value= <span class="number">3</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">  <span class="built_in">console</span>.log(num);</span><br><span class="line">&#125;)(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value);</span><br></pre></td></tr></table></figure>
 

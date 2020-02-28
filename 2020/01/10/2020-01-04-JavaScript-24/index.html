@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-3.PNG">
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-2.gif">
 <meta property="article:published_time" content="2020-01-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-01-23T00:08:27.385Z">
+<meta property="article:modified_time" content="2020-02-28T09:56:38.921Z">
 <meta property="article:author" content="Cheng-Yi-Ting">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -181,11 +181,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2020/01/10/2020-01-04-JavaScript-24/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p><strong>JavaScript是同步執行的程式語言</strong>。</p>
 <p><strong>JavaScript 是一個設計為同步執行的程式語言，並且是單執行緒(single-threaded)</strong>。單執行緒可以想像成有一個餐廳的員工同時負責櫃檯和廚房的工作，他的能力強大到可以同時在兩份工作之間快速的切換，仿佛有多個員工在做事的錯覺。</p>
 <p>竟然 JavaScript 不是非同步執行程式碼，那為什麼可以監聽瀏覽器的一些事件，像是移動滑鼠、點擊按鈕、捲動頁面、資料請求和檔案寫入這類型的非同步呼叫。</p>
@@ -214,10 +214,10 @@
 <li><p>bar() 結束執行</p>
 </li>
 </ol>
-<img src="2020-01-04-JavaScript-24-1.gif" style="width:50%;">
+<img src="/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-1.gif" style="width:50%;">
 
 <h1 id="Stack-Overflow"><a href="#Stack-Overflow" class="headerlink" title="Stack Overflow"></a>Stack Overflow</h1><p>如果遞迴函式不斷呼叫自己而沒有一個中斷點，則會造成瀏覽器產生 stack error ：</p>
-<img src="2020-01-04-JavaScript-24-3.PNG" style="width:100%;">
+<img src="/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-3.PNG" style="width:100%;">
 
 <h1 id="Event-Queue"><a href="#Event-Queue" class="headerlink" title="Event Queue"></a>Event Queue</h1><p>前面有說過瀏覽器除了有 JS Engine 外還有許多 Web API 可做應用，這些第三方 API 可以與 JS 一起執行，當遇到需要執行 call back 時，則會使用非同步模式，先將這些函式放到 Web APIs 中，在繼續執行主程式，等到時間到或是事件被觸發的時候，再把 call back 推送到  Event Queue(事件佇列) 中，等到整個 JS 執行環境結束後(Call Stack 清空)，才依序呼叫 Event Queue 裡面的函式，採取先進先出 first in, first out (FIFO)。</p>
 <p> 請參考以下範例：</p>
@@ -254,7 +254,7 @@
 <li><p>bar() 執行完成，call stack 清空</p>
 </li>
 </ol>
-<img src="2020-01-04-JavaScript-24-2.gif" style="width:150%;">
+<img src="/2020/01/10/2020-01-04-JavaScript-24/2020-01-04-JavaScript-24-2.gif" style="width:150%;">
 
 <h1 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h1><p>JS 當事件發生時，並不是馬上執行指定的函式，而是將事件排入 Event queue ，接著會重複檢查 call stack 是不是空的？如果是空的，再去看 Event queue 中有沒有待執行的函式，有的話就將函式 pop out ，放入 call stack 中執行。</p>
 <h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>

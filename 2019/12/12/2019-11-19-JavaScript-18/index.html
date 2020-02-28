@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-1.PNG">
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-2.PNG">
 <meta property="article:published_time" content="2019-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-01-28T04:20:22.344Z">
+<meta property="article:modified_time" content="2020-02-28T09:54:53.186Z">
 <meta property="article:author" content="Cheng-Yi-Ting">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -180,11 +180,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/12/12/2019-11-19-JavaScript-18/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>物件導向程式設計（OOP）的基本概念是使用物件的方式來表示，透過類別（class）的函式建構式（function constructor）可以產生物件實例（object instance）。</p>
 <p>JavaScript 並非真正的物件導向 (OO) 語言，它是一個以原型為基礎 (Prototype-based) 的語言。因為沒有 Class，而是透過 「原型」(prototype) 來實現繼承實作。</p>
 <h2 id="建構式"><a href="#建構式" class="headerlink" title="建構式"></a>建構式</h2><p>在 JavaScript 中，一個 Function 是不是建構式並不是取決於它的宣告方式，而是取決於它是不是用 new 來執行的。如果是用 new 執行一個 Function 時，我們就稱做這種呼叫為 <strong>建構式呼叫</strong>。當我們用<strong>建構式呼叫</strong>去執行一個 Function，這個 Function 就會被當作建構式。</p>
@@ -284,9 +284,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.prop1 = <span class="string">'prop1'</span>;</span><br><span class="line"> <span class="keyword">this</span>.prop2 = <span class="string">'prop2'</span>;</span><br><span class="line"> <span class="keyword">this</span>.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">this</span>.prop1 + <span class="keyword">this</span>.prop2;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test.prototype.protoProp1 = <span class="string">'protoProp1'</span>;</span><br><span class="line">Test.prototype.protoProp2 = <span class="string">'protoProp2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Test();</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.create(Test.prototype);</span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">Object</span>.create(Test);</span><br></pre></td></tr></table></figure>
 
 <p>讓我們來看一下 a ,b ,c 三個物件內容在 console 輸出的結果：</p>
-<img src="2019-11-19-JavaScript-18-1.PNG" style="width:50%;">
+<img src="/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-1.PNG" style="width:50%;">
 
-<img src="2019-11-19-JavaScript-18-2.PNG" style="width:50%;">
+<img src="/2019/12/12/2019-11-19-JavaScript-18/2019-11-19-JavaScript-18-2.PNG" style="width:50%;">
 
 <h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>所謂的 Prototype 就是原型，所有函式上面都有預設有一個公開的 Prototype 屬性，而被此建構式新建出來的物件都可以透過 <code>[[Prototype]]</code> 參考連結到這個原型物件上來存取其上的屬性，也就能建立出 <em>類似物件導向概念</em> 的程式。</p>
 <p>整理一下本篇中出現的名詞：</p>

@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-2.png">
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-3.png">
 <meta property="article:published_time" content="2019-11-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-01-10T15:40:54.947Z">
+<meta property="article:modified_time" content="2020-02-28T09:57:57.224Z">
 <meta property="article:author" content="Cheng-Yi-Ting">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -181,9 +181,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2019/11/13/2019-11-13-JavaScript-09/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
 <h2 id="script標籤"><a href="#script標籤" class="headerlink" title="script標籤"></a><strong>script標籤</strong></h2><p>針對 <code>&lt;script&gt;</code> 標籤放哪裡，一般會有兩種版本：</p>
 <ul>
@@ -196,30 +196,30 @@
 <p>接著，我們試著把 <code>&lt;script&gt;</code> 標籤移到 <code>&lt;head&gt; ... &lt;/head&gt;</code> 之間，這時候會發現網頁一片空白：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&#39;#title&#39;).textContent &#x3D; &quot;這是標題&quot;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 id&#x3D;&quot;title&quot;&gt;&lt;&#x2F;h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-1.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-1.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p>瀏覽器解析 HTML 是一行一行依序向下讀取，在傳統的寫法中，當瀏覽器讀到 <code>&lt;script&gt;</code> 時，便會 <strong>暫停解析</strong> DOM，立刻開始下載 <code>&lt;script&gt;</code> 的資源，並在下載完成後立刻執行。由於這樣的特性，便可能造成在 DOM 樹建構不完全時就執行 JavaScript，其中需要操作 DOM 的程式可能就因此無法正確運作，許多衍伸的問題也就因此產生；若是透過 <code>src</code> 外聯 <code>.js</code> 檔案，瀏覽器會「同步地」下載 <code>.js</code> 檔案，在下載完成並執行完程式碼之前，後續的其他資源下載、頁面剖析等，都會被阻斷。執行過程中，使用者便會卡在白畫面，並產生覺得網站太慢、使用者體驗不好等感受。</p>
 <p>不過，文件資源的完整載入，是指 <code>HTML</code> 、 <code>CSS</code> 、圖片等都載入完成，而不單指 DOM樹 建立完成；若想在文件剖析完成、 DOM樹 生成時就執行程式碼，建議是將 <code>script</code> 放在文件尾端，通常是 <code>body</code> 標籤之前，因為此時 DOM樹 已經建立，操作 DOM 節點就不是問題了。但在更複雜的網站中，<code>HTML</code>、<code>JavaScript</code>  的檔案都來越大，下載、執行時間也越來越長，需要等到整個 DOM 樹都載入完成才開始下載 <code>&lt;script&gt;</code> 內的資源，從網站讀取完成到可操作之間便會有明顯的延遲感。</p>
-<br/>
+<br>
 
 <h4 id="這樣的問題該怎麼解決呢？"><a href="#這樣的問題該怎麼解決呢？" class="headerlink" title="這樣的問題該怎麼解決呢？"></a><strong>這樣的問題該怎麼解決呢？</strong></h4><h2 id="async-amp-defer"><a href="#async-amp-defer" class="headerlink" title="async &amp; defer"></a>async &amp; defer</h2><p>從 HTML4 開始，<code>&lt;script&gt;</code> 便多了 <code>defer</code> 屬性，HTML5 則多了 <code>async</code>，兩者皆是用來幫助開發者控制 <code>&lt;script&gt;</code> 內資源的載入及執行順序，以及避免 DOM 的解析被資源下載卡住。這兩個屬性只適用在外部引入的檔案，對內嵌程式碼的<code>script</code>標籤沒有影響。</p>
 <h3 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h3><p><code>defer</code> 意旨為 延遲（Deferred），也就是說，加上 <code>defer</code> 屬性後，瀏覽器會繼續解析、渲染畫面，而不會因為需要載入 <code>&lt;script&gt;</code> 內的資源而卡在那邊等；如果有多個設置 <code>defer</code>  的 <code>js</code>  標籤存在，則會由上到下依照擺放順序觸發。實際上的執行時間，會在 <code>DOM</code>渲染完畢後，<code>DOMContentLoaded</code> 事件執行之前。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script defer src=<span class="string">"script.js"</span>&gt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-2.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-2.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p>defer 屬性告訴瀏覽器在 HTML 還在解析時加載 js，但是等到 HTML 整個解析完才執行 js。</p>
 <h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p><code>async</code> 即為 非同步（Asynchronous），在 <code>&lt;script&gt;</code> 加上 <code>async</code> 屬性後，與 <code>defer</code> 相同的是會在背景執行下載，但不同的是當下載完成會馬上暫停 DOM 解析（若尚未解析完的話），並開始執行 JavaScript。也因為下載完成後會立即執行，如果有多個 <code>async</code>  屬性的 <code>js</code>  ，先下載完的就會先執行，因為下載完成的順序是無法預測的，因此「執行順序也就無法預測」。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src&#x3D;&quot;script.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="2019-11-13-JavaScript-09-3.png" style="width:100%;">
+<img src="/2019/11/13/2019-11-13-JavaScript-09/2019-11-13-JavaScript-09-3.png" style="width:100%;">
 
 <p>圖片來源：<a href="https://bitsofco.de/async-vs-defer/" target="_blank" rel="noopener">Asynchronous vs Deferred JavaScript</a></p>
-<p><br/><br/></p>
+<p><br><br></p>
 <p><code>async</code>  屬性告訴瀏覽器可以異步執行(executed asynchronously)，在  <code>HTML</code>  還在解析時加載  <code>js</code>  ，當 <code>js</code>  完全下載後才暫停解析  <code>HTML</code>  ，執行  <code>js</code>  。</p>
 <h3 id="type-”module”"><a href="#type-”module”" class="headerlink" title="type=”module”"></a>type=”module”</h3><p>在主流的現代瀏覽器中，<code>&lt;script&gt;</code> 的屬性可以加上 <code>type=&quot;module&quot;</code>。這時，瀏覽器會將此檔案認為是一個 JavaScript 模組，其中的解析規則、執行環境會略有不同；這時候的 <code>&lt;script&gt;</code> 預設行為會像是 <code>defer</code> 一樣，背景下載，且等待 DOM 解析、渲染完成後才執行，也因此 <code>defer</code> 屬性無法在 <code>type=&quot;module&quot;</code> 產生作用。但同樣可以透過 <code>async</code> 屬性讓它在下載完成後即刻執行。</p>
 <h3 id="使用場景"><a href="#使用場景" class="headerlink" title="使用場景"></a>使用場景</h3><p><strong>前面已經針對這兩個屬性進行說明了，那麼該如何正確地使用呢？</strong></p>

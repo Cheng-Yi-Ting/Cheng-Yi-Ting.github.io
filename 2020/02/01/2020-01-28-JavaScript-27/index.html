@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/logo.svg">
 <meta property="og:image" content="https://cheng-yi-ting.github.io/2020/02/01/2020-01-28-JavaScript-27/2020-01-28-JavaScript-27-1.gif">
 <meta property="article:published_time" content="2020-01-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-02-08T08:42:26.942Z">
+<meta property="article:modified_time" content="2020-02-28T09:55:12.311Z">
 <meta property="article:author" content="Cheng-Yi-Ting">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="HTML5">
@@ -180,11 +180,11 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="logo.svg" style="width:15%;">
+        <img src="/2020/02/01/2020-01-28-JavaScript-27/logo.svg" style="width:15%;">
 
-<br/>
+<br>
 
-<p><br/><br/></p>
+<p><br><br></p>
 <p><strong>在介紹什麼是 Web Storage 之前，讓我們來瞭解一下 HTTP COOKIES 的作用。</strong></p>
 <h1 id="HTTP-COOKIES"><a href="#HTTP-COOKIES" class="headerlink" title="HTTP COOKIES"></a>HTTP COOKIES</h1><p>Client 和 Server 透過 HTTP 協定來進行通訊，但是 HTTP 是無狀態協定(Stateless Protocol)，也就是說每次 Client 對 Server 發出的請求都是獨立的，每一次的請求都無法得知上一次請求的內容與資訊。</p>
 <p>我們可以透過 cookie 把 server 所傳送過來的一些資料保存在 Client ，Cookie 常用於會員登入、購物車資訊、使用者設定偏好。</p>
@@ -315,7 +315,7 @@
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(Storage) == <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        alert(<span class="string">"您的瀏覽器不支援Web Storage"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        btn_save.addEventListener(<span class="string">"click"</span>, saveToLocalStorage);</span><br><span class="line">        btn_load.addEventListener(<span class="string">"click"</span>, loadFromLocalStorage);</span><br><span class="line">        btn_clear.addEventListener(<span class="string">"click"</span>, clearLocalStorage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveToLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    localStorage.username = inputname.value;</span><br><span class="line">    show_LocalStorage.innerHTML = <span class="string">"儲存成功!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadFromLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (localStorage.username) &#123;</span><br><span class="line">        show_LocalStorage.innerHTML = <span class="string">"歡迎 "</span> + localStorage.username + <span class="string">" !"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        show_LocalStorage.innerHTML = <span class="string">"暫無資料"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clearLocalStorage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    localStorage.clear();</span><br><span class="line">    loadFromLocalStorage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="2020-01-28-JavaScript-27-1.gif" style="width:100%;">
+<img src="/2020/02/01/2020-01-28-JavaScript-27/2020-01-28-JavaScript-27-1.gif" style="width:100%;">
 
 <p>當使用者將瀏覽器關閉仍可以成功讀取資料，因為儲存在 local storage 的資料不會因為關閉瀏覽器而消失。</p>
 <h1 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h1><p>sessionStorage 只能保存在單一的瀏覽器視窗或分頁上，瀏覽器一關閉儲存的資料就會消失，主要是用於保存一些臨時的資料，避免使用者重整頁面的時候資料就不見了。使用 sessionStorage 語法與 localStorage 相同。</p>
