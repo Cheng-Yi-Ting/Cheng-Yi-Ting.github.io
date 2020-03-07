@@ -249,7 +249,7 @@
 <h1 id="自我實現"><a href="#自我實現" class="headerlink" title="自我實現"></a>自我實現</h1><ul>
 <li><p>想做的事情就放手去嘗試：盡情去挑戰所有喜歡的事情，提升自己的人生價值。</p>
 </li>
-<li><p>不能光靠<strong>「喜歡」</strong>來選擇工作：如果缺乏才華、無法比別人更努力、做事沒別人手講究，就很難與對手競爭。換句話說，重要的是<strong>瞭解自己的強項，找到自己的天賦</strong>，工作才能做得長久。</p>
+<li><p>不能光靠<strong>「喜歡」</strong>來選擇工作：如果缺乏才華、無法比別人更努力、做事沒別人講究，就很難與對手競爭。換句話說，重要的是<strong>瞭解自己的強項，找到自己的天賦</strong>，工作才能做得長久。</p>
 </li>
 <li><p><strong>「為了什麼而做」的目的性，比「做什麼」來的重要</strong>：努力於目前的工作，它就有可能變成你的天職。有些人因為偶然入行，經過長時間努力，做出比別人出色的成績，獲得好評後才慢慢成為天職。</p>
 </li>
@@ -261,6 +261,56 @@
 <p>相較於其他人的期待，你更應該過屬於自己的人生。不需要為了滿足他人的價值觀和期待而活，重視自己的人生，從事你最想做的工作。</p>
 </blockquote>
 
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-2020-03-07-高績效心智"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="2020/03/07/2020-03-07-%E9%AB%98%E7%B8%BE%E6%95%88%E5%BF%83%E6%99%BA/">高績效心智</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="2020/03/07/2020-03-07-%E9%AB%98%E7%B8%BE%E6%95%88%E5%BF%83%E6%99%BA/" class="article-date">
+	  <time datetime="2020-03-06T16:00:00.000Z" itemprop="datePublished">三月 7, 2020</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a>
+ 
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
       
     </div>
     <footer class="entry-meta entry-footer">
@@ -1179,93 +1229,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-2020-01-19-JavaScript-26"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="2020/01/23/2020-01-19-JavaScript-26/">JavaScript - Async/Await</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="2020/01/23/2020-01-19-JavaScript-26/" class="article-date">
-	  <time datetime="2020-01-22T16:00:00.000Z" itemprop="datePublished">一月 23, 2020</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="/2020/01/23/2020-01-19-JavaScript-26/logo.svg" style="width:15%;">
-
-<br>
-
-<p><br><br></p>
-<h1 id="Async-functions"><a href="#Async-functions" class="headerlink" title="Async functions"></a>Async functions</h1><p>在上一篇中我們提到了 <a href="https://cheng-yi-ting.github.io/2020/01/18/2020-01-11-JavaScript-25/">Promise</a> ，避免使用多層 callback 所造成程式碼難以維護的問題。而 ES7 提供了 async/await 語法，可以看成是 Promise 的語法糖，更方便的寫出非同步程式碼。</p>
-<p>async 所宣告的函式，會回傳一個 Promise ，使用方法就是在宣告的函式前增加 async 關鍵字，說明這是一個非同步的函式。</p>
-<p>下面的範例相當於回傳一個 resolved promise：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以寫成這樣：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Await"><a href="#Await" class="headerlink" title="Await"></a>Await</h1><p>await 只能在 async 函式中使用，否則會拋出 syntax error 。 await 表示等待 Promise 的狀態為 resolve 或 reject 才會繼續執行函式，讓我們看一下例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> resolve(<span class="string">"done!"</span>), <span class="number">1000</span>)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> result = <span class="keyword">await</span> p; <span class="comment">// 等待 promise resolves </span></span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">// "done!"</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main();</span><br></pre></td></tr></table></figure>
-
-<p>範例中的程式會等待 p 一秒鐘後才會進行輸出。</p>
-<p>下面為一個簡易的 async/await 例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value++</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">let</span> x1 = <span class="keyword">await</span> p(<span class="number">1</span>);</span><br><span class="line"> <span class="keyword">let</span> x2 = <span class="keyword">await</span> p(<span class="number">2</span>);</span><br><span class="line"> <span class="keyword">let</span> x3 = <span class="keyword">await</span> <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">console</span>.log(x1 + x2 + x3); <span class="comment">// 8</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main();</span><br></pre></td></tr></table></figure>
-
-<p>因為 async 函式相當於回傳一個 Promise ，所以我們一樣可以用操作 Promise Chain 的方式，把 Promise 一層一層的往下傳：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"Start main function"</span> );</span><br><span class="line"> <span class="keyword">let</span> x1 = <span class="keyword">await</span> p1(<span class="number">1</span>); <span class="comment">// 2</span></span><br><span class="line"> <span class="keyword">let</span> x2 = <span class="keyword">await</span> p2(<span class="number">2</span>); <span class="comment">// 4</span></span><br><span class="line"> <span class="keyword">let</span> x3 = <span class="keyword">await</span> <span class="number">3</span>; <span class="comment">// 3</span></span><br><span class="line"> <span class="keyword">await</span> p2(<span class="number">4</span>); <span class="comment">// 6</span></span><br><span class="line"> <span class="keyword">return</span> x1 + x2; <span class="comment">// 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main().then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> value + <span class="number">2</span> ; <span class="comment">// 8</span></span><br><span class="line">&#125;).then(p1)</span><br><span class="line">.then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);  <span class="comment">// 9</span></span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p1</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"P1 value is :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value++</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p2</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">"P2 value is :"</span> + value);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      value+=<span class="number">2</span></span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">Start main function</span></span><br><span class="line"><span class="comment">P1 value is :1</span></span><br><span class="line"><span class="comment">P2 value is :2</span></span><br><span class="line"><span class="comment">P2 value is :4</span></span><br><span class="line"><span class="comment">P1 value is :8</span></span><br><span class="line"><span class="comment">9</span></span><br><span class="line"><span class="comment">/*</span></span><br></pre></td></tr></table></figure>
-
-<p>await 可以搭配 Promise.all 和 Promise.race 來使用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"Start main function"</span> );</span><br><span class="line"> <span class="keyword">const</span> [x1, x2] = <span class="keyword">await</span> <span class="built_in">Promise</span>.all([p(<span class="number">1000</span>), p(<span class="number">2000</span>)]);</span><br><span class="line"> <span class="keyword">const</span> x3 = <span class="keyword">await</span> <span class="built_in">Promise</span>.race([p(<span class="number">1000</span>), p(<span class="number">2000</span>), p(<span class="number">3000</span>)]);</span><br><span class="line"> <span class="keyword">return</span> x1 + x2 + x3; <span class="comment">// 4000</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main().then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`value is <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (value &lt; <span class="number">1000</span> )&#123;</span><br><span class="line">         reject(<span class="string">'Unexpected condition'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      resolve(value)</span><br><span class="line">    &#125;, value)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="錯誤處理"><a href="#錯誤處理" class="headerlink" title="錯誤處理"></a>錯誤處理</h1><p>錯誤處理的方式使用 try / catch ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isEven = <span class="function">(<span class="params">num</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (num % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            resolve(<span class="string">'even'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(<span class="string">'odd'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> verify = <span class="keyword">async</span> (num) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> sign = <span class="keyword">await</span> isEven(num);</span><br><span class="line">        <span class="built_in">console</span>.log(sign);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">verify(<span class="number">8</span>); <span class="comment">// even</span></span><br><span class="line">verify(<span class="number">15</span>); <span class="comment">// odd</span></span><br><span class="line">verify(<span class="string">'Ian'</span>); <span class="comment">// odd</span></span><br></pre></td></tr></table></figure>
-
-<p>只用 catch 也行：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> verify = <span class="keyword">async</span> (num) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> sign = <span class="keyword">await</span> isEven(num);</span><br><span class="line">    <span class="built_in">console</span>.log(sign);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">verify(<span class="string">'Ian'</span>).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err)); <span class="comment">// odd</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是採用以下的寫法，因為 await isEven(15) 的結果會是 reject ，所以在 x2 就會進入到 catch ，表示後面的 x3 就不會執行：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isEven = <span class="function">(<span class="params">num</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (num % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            resolve(<span class="string">'even'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(<span class="string">'odd'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> verify = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> x1 = <span class="keyword">await</span> isEven(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">const</span> x2 = <span class="keyword">await</span> isEven(<span class="number">15</span>);</span><br><span class="line">    <span class="keyword">const</span> x3 = <span class="keyword">await</span> isEven(<span class="string">'Ian'</span>);</span><br><span class="line">    <span class="keyword">return</span> x1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">verify()</span><br><span class="line">  .then(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error:'</span>, error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="async-await-and-promise-then-catch"><a href="#async-await-and-promise-then-catch" class="headerlink" title="async/await and promise.then/catch"></a>async/await and promise.then/catch</h1><p>透過在 await 我們就可以很容易的控制非同步執行， 再搭配 try / catch 來處理例外狀況，因為在全域環境中無法使用 await ，所以這時候就可以透過 .then / catch 來控制整個流程。</p>
-<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><ol>
-<li><a href="https://pjchender.github.io/2017/09/26/js-async-and-await-in-javascript/" target="_blank" rel="noopener">[JS] Async and Await in JavaScript | PJCHENder 私房菜</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10223362" target="_blank" rel="noopener">JS 原力覺醒 Day16 - Async / Await：Promise 語法糖 </a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10205116" target="_blank" rel="noopener">Day25 優雅的 Await、Async</a></li>
-<li><a href="https://javascript.info/async-await" target="_blank" rel="noopener">Async/await</a></li>
-<li><a href="https://attacomsian.com/blog/async-await-javascript" target="_blank" rel="noopener">How to use async/await in JavaScript</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/ES7/" rel="tag">ES7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
@@ -1378,6 +1341,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="2020/03/07/2020-03-07-%E9%AB%98%E7%B8%BE%E6%95%88%E5%BF%83%E6%99%BA/">高績效心智</a></h6>
+              <span>三月 7, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="2020/02/29/2020-02-28-%E5%88%A5%E5%86%8D%E7%9B%B8%E4%BF%A1%E6%88%90%E5%8A%9F%E8%80%85%E7%9A%84%E8%A9%B1/">別再相信成功者的話</a></h6>
               <span>二月 29, 2020</span>
             </div>
@@ -1420,18 +1395,6 @@
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
-              <span>二月 8, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1441,7 +1404,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -1451,7 +1414,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" rel="tag">思考邏輯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" rel="tag">生涯規劃</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" rel="tag">思考邏輯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" rel="tag">生涯規劃</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -1461,7 +1424,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="tags/Audio/" style="font-size: 10px;">Audio</a> <a href="tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="tags/ES7/" style="font-size: 10px;">ES7</a> <a href="tags/Editor/" style="font-size: 10px;">Editor</a> <a href="tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="tags/Git/" style="font-size: 13.33px;">Git</a> <a href="tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="tags/HTML/" style="font-size: 18.33px;">HTML</a> <a href="tags/HTML5/" style="font-size: 11.67px;">HTML5</a> <a href="tags/Hexo/" style="font-size: 11.67px;">Hexo</a> <a href="tags/IDE/" style="font-size: 11.67px;">IDE</a> <a href="tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="tags/Slash/" style="font-size: 11.67px;">Slash</a> <a href="tags/VSCode/" style="font-size: 11.67px;">VSCode</a> <a href="tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" style="font-size: 10px;">思考邏輯</a> <a href="tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 11.67px;">斜槓青年</a> <a href="tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" style="font-size: 15px;">生涯規劃</a> <a href="tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" style="font-size: 16.67px;">職場工作</a>
+      <a href="tags/Audio/" style="font-size: 10px;">Audio</a> <a href="tags/CSS/" style="font-size: 12px;">CSS</a> <a href="tags/ES6/" style="font-size: 12px;">ES6</a> <a href="tags/ES7/" style="font-size: 10px;">ES7</a> <a href="tags/Editor/" style="font-size: 10px;">Editor</a> <a href="tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="tags/Git/" style="font-size: 14px;">Git</a> <a href="tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="tags/HTML/" style="font-size: 18px;">HTML</a> <a href="tags/HTML5/" style="font-size: 12px;">HTML5</a> <a href="tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="tags/IDE/" style="font-size: 12px;">IDE</a> <a href="tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="tags/Slash/" style="font-size: 12px;">Slash</a> <a href="tags/VSCode/" style="font-size: 12px;">VSCode</a> <a href="tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" style="font-size: 10px;">思考邏輯</a> <a href="tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 12px;">斜槓青年</a> <a href="tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" style="font-size: 16px;">生涯規劃</a> <a href="tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" style="font-size: 18px;">職場工作</a>
     </div>
   </div>
 
@@ -1471,7 +1434,7 @@
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/02/">二月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">三月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/02/">二月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 
