@@ -151,6 +151,71 @@
         
           <section id="main">
   
+    <article id="post-2019-11-2-Hexo-insert-images"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="../../2019/11/03/2019-11-2-Hexo-insert-images/">如何在 Hexo 文章中插入本地圖片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="../../2019/11/03/2019-11-2-Hexo-insert-images/" class="article-date">
+	  <time datetime="2019-11-02T16:00:00.000Z" itemprop="datePublished">十一月 3, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hexo文件設定"><a href="#Hexo文件設定" class="headerlink" title="Hexo文件設定"></a>Hexo文件設定</h2><p>將 Hexo 文件裡面的<code> _config.yml </code>的此參數設定為true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+
+<p>這個功能目的是在你使用<code>Hexo new 文章名稱</code>，建立一篇新的文章。文章相對路徑為<code>\source_posts</code>，例如我輸入以下指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hexo new test</span><br></pre></td></tr></table></figure>
+
+<p>目錄下就會生成一個<code>test.md</code>文件和一個與文章同名的資料夾，可以用來放置該文章相關的所有資源，例如圖片、附件等等。</p>
+<img src="/2019/11/03/2019-11-2-Hexo-insert-images/2019-11-2-Hexo-insert-images-1.PNG" align="center">
+
+<h2 id="安裝-hexo-asset-image-套件"><a href="#安裝-hexo-asset-image-套件" class="headerlink" title="安裝 hexo-asset-image 套件"></a>安裝 hexo-asset-image 套件</h2><p>安裝 hexo-asset-image 圖片路徑轉換套件，使用<code>npm</code>進行安裝：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="插入圖片"><a href="#插入圖片" class="headerlink" title="插入圖片"></a>插入圖片</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![當圖片無法顯示時出現的文字](圖片檔名.PNG)</span><br></pre></td></tr></table></figure>
+
+<p>也支援使用 HTML 的<code>img</code>標籤，可以更改圖片高度、寬度等設定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;xx.png&quot; width &#x3D; &quot;100%&quot; height &#x3D; &quot;100%&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h3><ol>
+<li><a href="http://etrd.org/2017/01/23/hexo%E4%B8%AD%E5%AE%8C%E7%BE%8E%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/" target="_blank" rel="noopener">http://etrd.org/2017/01/23/hexo%E4%B8%AD%E5%AE%8C%E7%BE%8E%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</a></li>
+<li><a href="https://blog.csdn.net/Sugar_Rainbow/article/details/57415705" target="_blank" rel="noopener">https://blog.csdn.net/Sugar_Rainbow/article/details/57415705</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-2019-11-2-Git-SSH"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -500,6 +565,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/03/08/2020-03-07-%E9%AB%98%E7%B8%BE%E6%95%88%E5%BF%83%E6%99%BA/">高績效心智</a></h6>
+              <span>三月 8, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/03/07/2020-03-07-%E4%B8%96%E7%95%8C%E4%B8%80%E6%B5%81%E8%8F%81%E8%8B%B1%E7%9A%8477%E5%80%8B%E6%9C%80%E5%BC%B7%E5%B7%A5%E4%BD%9C%E6%B3%95/">世界一流菁英的77個最強工作法</a></h6>
               <span>三月 7, 2020</span>
             </div>
@@ -536,32 +613,20 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="../../2020/02/23/2020-02-22-%E6%96%9C%E6%A7%93%E7%9A%8450%E9%81%93%E9%9B%A3%E9%A1%8C/">斜槓的50道難題</a></h6>
+              <span>二月 23, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/">斜槓青年</a></h6>
               <span>二月 22, 2020</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/02/22/2020-02-22-%E6%96%9C%E6%A7%93%E7%9A%8450%E9%81%93%E9%9B%A3%E9%A1%8C/">斜槓的50道難題</a></h6>
-              <span>二月 22, 2020</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="../../2020/02/08/2020-02-08-HexoBackup/">Hexo 備份</a></h6>
-              <span>二月 8, 2020</span>
             </div>
 
           </li>
@@ -575,7 +640,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/%E9%96%B1%E8%AE%80%E5%88%86%E4%BA%AB/">閱讀分享</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -585,7 +650,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" rel="tag">思考邏輯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" rel="tag">生涯規劃</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audio/" rel="tag">Audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CSS/" rel="tag">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES6/" rel="tag">ES6</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ES7/" rel="tag">ES7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Editor/" rel="tag">Editor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Event-Delegation/" rel="tag">Event Delegation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/GitHub/" rel="tag">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HTML5/" rel="tag">HTML5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/IDE/" rel="tag">IDE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Markdown/" rel="tag">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Slash/" rel="tag">Slash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VSCode/" rel="tag">VSCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" rel="tag">思考邏輯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" rel="tag">斜槓青年</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" rel="tag">生涯規劃</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" rel="tag">職場工作</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -595,7 +660,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 13.33px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 18.33px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 11.67px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 11.67px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 11.67px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/Slash/" style="font-size: 11.67px;">Slash</a> <a href="../../tags/VSCode/" style="font-size: 11.67px;">VSCode</a> <a href="../../tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" style="font-size: 10px;">思考邏輯</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 11.67px;">斜槓青年</a> <a href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" style="font-size: 15px;">生涯規劃</a> <a href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" style="font-size: 16.67px;">職場工作</a>
+      <a href="../../tags/Audio/" style="font-size: 10px;">Audio</a> <a href="../../tags/CSS/" style="font-size: 12px;">CSS</a> <a href="../../tags/ES6/" style="font-size: 12px;">ES6</a> <a href="../../tags/ES7/" style="font-size: 10px;">ES7</a> <a href="../../tags/Editor/" style="font-size: 10px;">Editor</a> <a href="../../tags/Event-Delegation/" style="font-size: 10px;">Event Delegation</a> <a href="../../tags/Git/" style="font-size: 14px;">Git</a> <a href="../../tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="../../tags/HTML/" style="font-size: 18px;">HTML</a> <a href="../../tags/HTML5/" style="font-size: 12px;">HTML5</a> <a href="../../tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="../../tags/IDE/" style="font-size: 12px;">IDE</a> <a href="../../tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="../../tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="../../tags/Slash/" style="font-size: 12px;">Slash</a> <a href="../../tags/VSCode/" style="font-size: 12px;">VSCode</a> <a href="../../tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="../../tags/%E6%80%9D%E8%80%83%E9%82%8F%E8%BC%AF/" style="font-size: 10px;">思考邏輯</a> <a href="../../tags/%E6%96%9C%E6%A7%93%E9%9D%92%E5%B9%B4/" style="font-size: 12px;">斜槓青年</a> <a href="../../tags/%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83/" style="font-size: 16px;">生涯規劃</a> <a href="../../tags/%E8%81%B7%E5%A0%B4%E5%B7%A5%E4%BD%9C/" style="font-size: 18px;">職場工作</a>
     </div>
   </div>
 
@@ -605,7 +670,7 @@
     <h3 class="widget-title">歸檔</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/03/">三月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/02/">二月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/12/">十二月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">25</span></li></ul>
     </div>
   </div>
 
